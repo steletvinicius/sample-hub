@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_09_203248) do
+ActiveRecord::Schema.define(version: 2020_12_09_205639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,24 @@ ActiveRecord::Schema.define(version: 2020_12_09_203248) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_lab_id"
     t.integer "user_hospital_id"
+  end
+
+  create_table "doctors", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "crm"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "exams", force: :cascade do |t|
+    t.bigint "sample_id", null: false
+    t.bigint "procedure_id", null: false
+    t.string "result"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["procedure_id"], name: "index_exams_on_procedure_id"
+    t.index ["sample_id"], name: "index_exams_on_sample_id"
   end
 
   create_table "families", force: :cascade do |t|
@@ -47,6 +65,14 @@ ActiveRecord::Schema.define(version: 2020_12_09_203248) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "procedures", force: :cascade do |t|
+    t.string "cd_exame"
+    t.string "cd_sus"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "samples", force: :cascade do |t|
     t.bigint "batch_id", null: false
     t.date "collected_at"
@@ -55,7 +81,11 @@ ActiveRecord::Schema.define(version: 2020_12_09_203248) do
     t.text "observation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "patient_id", null: false
+    t.bigint "doctor_id", null: false
     t.index ["batch_id"], name: "index_samples_on_batch_id"
+    t.index ["doctor_id"], name: "index_samples_on_doctor_id"
+    t.index ["patient_id"], name: "index_samples_on_patient_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -75,5 +105,9 @@ ActiveRecord::Schema.define(version: 2020_12_09_203248) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "exams", "procedures"
+  add_foreign_key "exams", "samples"
   add_foreign_key "samples", "batches"
+  add_foreign_key "samples", "doctors"
+  add_foreign_key "samples", "patients"
 end
