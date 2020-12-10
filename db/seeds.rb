@@ -9,6 +9,10 @@ puts "Cleaning doctors from DB..."
 Doctor.destroy_all
 puts "No more old doctors here!"
 
+puts "Cleaning samples from DB..."
+Sample.destroy_all
+puts "No more old doctors here!"
+
 doctors = [
   {
     first_name: "Laura",
