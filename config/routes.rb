@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   resources :procedures, only: %i[index create new edit]
 
   resources :patients, only: %i[index show]
+
+  resources :doctors, only: %i[new create edit update]
 end
