@@ -40,5 +40,6 @@ doctors = [
 puts "Creating new doctors DB:"
 
 doctors.each do |doctor|
-  Doctor.create(doctor)
+  doc = Doctor.create(doctor)
+  puts "Created doctor #{doc.first_name} #{doc.last_name} - CRM #{doc.crm} with ID #{doc.id}"
 end
