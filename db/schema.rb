@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2020_12_09_205639) do
   end
 
   create_table "samples", force: :cascade do |t|
-    t.bigint "batch_id", null: false
+    t.bigint "batch_id"
     t.date "collected_at"
     t.string "category"
     t.integer "quantity"
