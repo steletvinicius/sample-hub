@@ -37,18 +37,18 @@ descriptions = [
   "REC NAO APARENT MO REREME FASE 2. HLA DRB1, DQB1 (BIOMOL ALTA RESOL)"
 ]
 x = 0
-begin
+loop do
   Procedure.create!(
     cd_exame: cd_exames[x],
     cd_sus: cd_sus[x],
     description: descriptions[x]
-    )
+  )
   puts "Procedure #{cd_exames[x]} created."
   x += 1
-end while x < cd_exames.length
+  break unless x < cd_exames.length
+end
 
 puts "Created #{Procedure.count} SUS procedures."
-=======
 puts "Cleaning User DB"
 User.destroy_all
 puts "Cleaning Batch DB"
@@ -153,8 +153,6 @@ puts " "
 puts "Created #{Batch.count} batches"
 puts " "
 puts "FINISHED SEEDING!"
->>>>>>> master
-
 
 ##### BEGIN - SEED - Patients #####
 puts "Cleaning patients from DB..."
@@ -302,4 +300,3 @@ puts "Creating new samples DB:"
 end
 
 puts "Samples are done!"
-
