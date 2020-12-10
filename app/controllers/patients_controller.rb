@@ -10,7 +10,7 @@ class PatientsController < ApplicationController
 
   def set_patient
     # @patient = Patient.find(params[:id]) ## Forma sem pundit
-    @patient = policy_scope(Patient).find(id: params[:id])
+    @patient = policy_scope(Patient).find(params[:id])
     authorize @patient
   end
 end
