@@ -6,6 +6,49 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+puts "Populating procedures table with standard sus procedures"
+
+cd_exames = [
+  "03_DMCF1",
+  "04_DMCF2",
+  "05_DMCF3",
+  "01_RMCF1",
+  "02_RMCF2",
+  "06_RMRF1",
+  "07_RMRF2"
+]
+cd_sus = [
+  "0501010025",
+  "0501010033",
+  "0501010041",
+  "0501020012",
+  "0501020020",
+  "0501020012",
+  "0501020020"
+]
+
+descriptions = [
+  "DOA APARENT MO CEMO FASE 1. HLA A, B (SOROL OU BIOMOL BAIXA RESOL)",
+  "DOA APARENT MO CEMO FASE 2. HLA DRB1, DQB1 (BIOMOL BAIXA RESOL)",
+  "DOA APARENT MO CEMO FASE 3. HLA DRB1, DQB1 (BIOMOL ALTA RESOL)",
+  "REC APARENT MO CEMO FASE 1. HLA A, B(SOROL OU BIOMOL BAIXA RESOL) HLA DRB1, DQB1(BIOMOL BAIXA RESOL)",
+  "REC APARENT MO CEMO FASE 2. HLA DRB1, DQB1 (BIOMOL ALTA RESOL)",
+  "REC NAO APARENT MO REREME FASE 1. HLA A, B (SOROL OU BIOMOL BAIXA RESOL) HLA DRB1, DQB1 (BIOMOL BAIXA RESOL)",
+  "REC NAO APARENT MO REREME FASE 2. HLA DRB1, DQB1 (BIOMOL ALTA RESOL)"
+]
+x = 0
+begin
+  Procedure.create!(
+    cd_exame: cd_exames[x],
+    cd_sus: cd_sus[x],
+    description: descriptions[x]
+    )
+  puts "Procedure #{cd_exames[x]} created."
+  x += 1
+end while x < cd_exames.length
+
+puts "Created #{Procedure.count} SUS procedures."
+=======
 puts "Cleaning User DB"
 User.destroy_all
 puts "Cleaning Batch DB"
@@ -79,7 +122,7 @@ sender = User.create!(
   email: 'envio@teste.com',
   password: '123456',
   role: 'Envio de amostras',
-  institution: 'Hospital Samaritano', 
+  institution: 'Hospital Samaritano',
   cpf: '56891'
 )
 puts "Created user [#{sender.id}] #{sender.first_name} #{sender.last_name} | #{sender.email} | admin? #{sender.admin}"
@@ -110,6 +153,7 @@ puts " "
 puts "Created #{Batch.count} batches"
 puts " "
 puts "FINISHED SEEDING!"
+>>>>>>> master
 
 
 ##### BEGIN - SEED - Patients #####
