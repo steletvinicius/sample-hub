@@ -1,2 +1,17 @@
-<h1>Patients#index</h1>
-<p>Find me in app/views/patients/index.html.erb</p>
+<div class="container">
+  <h1 class="text-center">Pacientes</h1>
+  <hr>
+  <div class="d-flex flex-wrap justify-content-between">
+
+  <% @patients.each do |patient| %>
+    <div class="card m-2" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title"><%= patient.first_name %> <%= patient.last_name %></h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Cras justo odio</li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>
