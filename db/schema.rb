@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_09_205639) do
+ActiveRecord::Schema.define(version: 2020_12_10_173644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,11 +18,10 @@ ActiveRecord::Schema.define(version: 2020_12_09_205639) do
   create_table "batches", force: :cascade do |t|
     t.date "sent_at"
     t.date "received_at"
-    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_lab_id"
-    t.integer "user_hospital_id"
+    t.integer "sender_id"
+    t.integer "receiver_id"
   end
 
   create_table "doctors", force: :cascade do |t|
@@ -100,7 +99,9 @@ ActiveRecord::Schema.define(version: 2020_12_09_205639) do
     t.string "last_name"
     t.string "role"
     t.string "institution"
-    t.string "registration_id"
+    t.string "status", default: "Ativo", null: false
+    t.boolean "admin", default: false, null: false
+    t.string "cpf"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
