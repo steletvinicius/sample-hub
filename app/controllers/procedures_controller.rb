@@ -12,6 +12,11 @@ class ProceduresController < ApplicationController
 
   def create
     @procedure = Procedure.create(params_procedure)
+    if @procedure.save
+      redirect_to procedures_path
+    else
+      render :new
+    end
   end
 
   private
