@@ -7,6 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 ##### BEGIN - SEED - Patients #####
+puts "Cleaning patients from DB..."
+Patient.destroy_all
 puts "Make patients... 'May the Force be with you.'"
 
 Patient.create(
@@ -72,6 +74,9 @@ puts "Patients ready... 'Your eyes can deceive you, don't trust them.'"
 ##### END - SEED - Patients #####
 
 ##### BEGIN - SEED - Families #####
+puts "Cleaning families from DB..."
+Family.destroy_all
+
 puts "Make families... 'I am your father.'"
 Family.create(
   receptor_id: 2,
@@ -87,3 +92,42 @@ Family.create(
 
 puts "Families ready... 'Try not. Do… or do not. There is no try.'"
 ##### END - SEED - Families #####
+
+puts "Cleaning doctors from DB..."
+Doctor.destroy_all
+puts "No more old doctors here!"
+
+doctors = [
+  {
+    first_name: "Laura",
+    last_name: "Meyer",
+    crm: "52.96891-9"
+  },
+  {
+    first_name: "Rafael",
+    last_name: "Ono Furukawa",
+    crm: "52.96988-0"
+  },
+  {
+    first_name: "Juliana",
+    last_name: "O. Matias",
+    crm: "52.89952-6"
+  },
+  {
+    first_name: "Simone",
+    last_name: "Maradei",
+    crm: "52.65510-4"
+  },
+  {
+    first_name: "Mayara",
+    last_name: "Rêgo",
+    crm: "52.98995-9"
+  }
+]
+
+puts "Creating new doctors DB:"
+
+doctors.each do |doctor|
+  doc = Doctor.create(doctor)
+  puts "Created doctor #{doc.first_name} #{doc.last_name} - CRM #{doc.crm} with ID #{doc.id}"
+end
