@@ -5,7 +5,29 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts "Cleaning patients from DB..."
+Patient.destroy_all
 
+puts "Cleaning families from DB..."
+Family.destroy_all
+
+puts "Cleaning doctors from DB..."
+Doctor.destroy_all
+
+puts "Cleaning samples from DB..."
+Sample.destroy_all
+
+puts "Cleaning users from DB..."
+User.destroy_all
+
+puts "Cleaning batches from DB..."
+Batch.destroy_all
+
+puts "Cleaning procedures from DB..."
+Procedure.destroy_all
+
+puts " "
+puts "SEEDING STARTED!"
 puts "Populating procedures table with standard sus procedures"
 
 cd_exames = [
@@ -49,14 +71,6 @@ loop do
 end
 
 puts "Created #{Procedure.count} SUS procedures."
-puts "Cleaning User DB"
-User.destroy_all
-puts "Cleaning Batch DB"
-Batch.destroy_all
-puts "User and Batch databases clean!"
-
-puts " "
-puts "SEEDING STARTED!"
 
 user = User.create!(
   first_name: 'Cláudia',
@@ -151,21 +165,8 @@ end
 
 puts " "
 puts "Created #{Batch.count} batches"
-puts " "
-puts "FINISHED SEEDING!"
 
 ##### BEGIN - SEED - Patients #####
-puts "Cleaning patients from DB..."
-Patient.destroy_all
-
-puts "Cleaning families from DB..."
-Family.destroy_all
-
-puts "Cleaning doctors from DB..."
-Doctor.destroy_all
-
-puts "Cleaning samples from DB..."
-Sample.destroy_all
 
 puts "Make patients... 'May the Force be with you.'"
 
@@ -289,6 +290,7 @@ puts "Creating new samples DB:"
 
 10.times do
   sample = Sample.create(
+    batch: Batch.all.sample,
     patient: Patient.all.sample,
     doctor: Doctor.all.sample,
     collected_at: Date.today - rand(30),
@@ -300,3 +302,6 @@ puts "Creating new samples DB:"
 end
 
 puts "Samples are done!"
+
+puts " "
+puts "FINISHED SEEDING!"
