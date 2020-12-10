@@ -11,7 +11,7 @@ puts "No more old doctors here!"
 
 puts "Cleaning samples from DB..."
 Sample.destroy_all
-puts "No more old doctors here!"
+puts "No more old samples here!"
 
 doctors = [
   {
@@ -46,4 +46,8 @@ puts "Creating new doctors DB:"
 doctors.each do |doctor|
   doc = Doctor.create(doctor)
   puts "Created doctor #{doc.first_name} #{doc.last_name} - CRM #{doc.crm} with ID #{doc.id}"
+end
+
+10.times do
+  sample
 end
