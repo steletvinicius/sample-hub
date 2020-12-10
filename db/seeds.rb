@@ -26,6 +26,9 @@ Batch.destroy_all
 puts "Cleaning procedures from DB..."
 Procedure.destroy_all
 
+puts "Cleaning exams from DB..."
+Exam.destroy_all
+
 puts " "
 puts "SEEDING STARTED!"
 puts "Populating procedures table with standard sus procedures"
@@ -302,6 +305,16 @@ puts "Creating new samples DB:"
 end
 
 puts "Samples are done!"
+
+10.times do
+  exam = Exam.create(
+    sample: Sample.all.sample,
+    procedure: Procedure.all.sample
+  )
+  puts "Created exam id #{exam.id} to sample #{exam.sample.id} with procedure #{exam.procedure.id}"
+end
+
+puts "Exams are done"
 
 puts " "
 puts "FINISHED SEEDING!"
