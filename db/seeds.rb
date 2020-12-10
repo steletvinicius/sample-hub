@@ -90,7 +90,7 @@ puts "Created user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.em
 user = User.create!(
   first_name: 'Vinicius',
   last_name: 'Stelet',
-  email: 'vinicius.bootcam@gmail.com',
+  email: 'vinicius.bootcamp@gmail.com',
   password: '123456',
   role: 'Recepção de amostras',
   institution: 'Inca',

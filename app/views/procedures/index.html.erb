@@ -1,15 +1,19 @@
-<div class="row">
-  <div class="col-sm-6">
-    <div class="card">
-      <% @procedures.each do |procedure|%>
+
+<div class="container">
+  <h1 class="text-center">Procedimentos</h1>
+  <hr>
+  <div class="d-flex flex-wrap justify-content-between">
+  <% @procedures.each do |procedure|%>
+    <div class="card m-2" style="width: 18rem;">
       <div class="card-body">
-        <h5 class="card-title"><%= procedure.cd_exame %> </h5>
+        <h5 class="card-title"><%= procedure.cd_exame %></h5>
         <h5 class="card-title"><%= procedure.cd_sus %> </h5>
         <p class="card-text"><%= procedure.description  %> </p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="#" class="btn btn-primary">Atualizar</a>
+        <a href="#" class="btn btn-danger">Inativar</a>
       </div>
-      <% end %>
     </div>
+  <% end %>
   </div>
 </div>
 

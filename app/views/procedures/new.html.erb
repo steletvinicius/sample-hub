@@ -1,8 +1,8 @@
 <div class="container">
   <%=simple_form_for @procedure do |f| %>
-    <%= f.input :cd_exame %>
-    <%= f.input :cd_sus, required: false%>
-    <%= f.input :description %>
+    <%= f.input :cd_exame, label: 'Informe um código de exame' %>
+    <%= f.input :cd_sus, label: 'Informe o código SUS, se houver', required: false%>
+    <%= f.input :description, label: 'Informe a descrição detalhada do novo exame' %>
     <%= f.button :submit %>
   <% end %>
 </div>
