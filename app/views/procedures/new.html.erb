@@ -1,0 +1,8 @@
+<div class="container">
+  <%=simple_form_for @procedure do |f| %>
+    <%= f.input :cd_exame %>
+    <%= f.input :cd_sus, required: false%>
+    <%= f.input :description %>
+    <%= f.button :submit %>
+  <% end %>
+</div>
