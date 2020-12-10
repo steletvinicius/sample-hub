@@ -9,6 +9,16 @@
 ##### BEGIN - SEED - Patients #####
 puts "Cleaning patients from DB..."
 Patient.destroy_all
+
+puts "Cleaning families from DB..."
+Family.destroy_all
+
+puts "Cleaning doctors from DB..."
+Doctor.destroy_all
+
+puts "Cleaning samples from DB..."
+Sample.destroy_all
+
 puts "Make patients... 'May the Force be with you.'"
 
 Patient.create(
@@ -74,8 +84,6 @@ puts "Patients ready... 'Your eyes can deceive you, don't trust them.'"
 ##### END - SEED - Patients #####
 
 ##### BEGIN - SEED - Families #####
-puts "Cleaning families from DB..."
-Family.destroy_all
 
 puts "Make families... 'I am your father.'"
 Family.create(
@@ -92,10 +100,6 @@ Family.create(
 
 puts "Families ready... 'Try not. Do… or do not. There is no try.'"
 ##### END - SEED - Families #####
-
-puts "Cleaning doctors from DB..."
-Doctor.destroy_all
-puts "No more old doctors here!"
 
 doctors = [
   {
@@ -131,3 +135,20 @@ doctors.each do |doctor|
   doc = Doctor.create(doctor)
   puts "Created doctor #{doc.first_name} #{doc.last_name} - CRM #{doc.crm} with ID #{doc.id}"
 end
+puts "Doctors are done!"
+
+puts "Creating new samples DB:"
+
+10.times do
+  sample = Sample.create(
+    patient: Patient.all.sample,
+    doctor: Doctor.all.sample,
+    collected_at: Date.today - rand(30),
+    category: ["sangue", "soro", "segmento de cordão"].sample,
+    quantity: rand(1..10)
+  )
+  sample.observation = "Esta é a observação para a sample com id #{sample.id}"
+  puts "Created sample with id #{sample.id} and category #{sample.category}"
+end
+
+puts "Samples are done!"
