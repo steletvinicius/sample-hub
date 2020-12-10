@@ -1,27 +1,64 @@
-<div class="container my-5", style="display: grid; width: 480px; >
-  <h2>Criar uma conta</h2>
+<div class="container my-4", style="display: grid; width: 480px;">
+  <h3>Criar uma conta</h3>
 
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= f.error_notification %>
 
     <div class="form-inputs">
-      <%= f.input :email,
-                  required: true,
-                  autofocus: true,
-                  input_html: { autocomplete: "email" }%>
-      <%= f.input :password,
-                  label: 'Senha',
-                  required: true,
-                  hint: ("mínimo #{@minimum_password_length} caracteres" if @minimum_password_length),
-                  input_html: { autocomplete: "new-password" } %>
-      <%= f.input :password_confirmation,
-                  label: 'Confirmação de senha',
-                  required: true,
-                  input_html: { autocomplete: "new-password" } %>
+      <div class="d-flex justify-content-between">
+        <%= f.input :first_name,
+                    label: 'Nome',
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "first_name" } %>
+        <%= f.input :last_name,
+                    label: 'Sobrenome',
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "last_name" } %>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <%= f.input :institution,
+                    label: 'Instituição',
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "institution" } %>
+
+        <%= f.input :role,
+                    label: 'Tipo de acesso',
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "role" } %>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <%= f.input :email,
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "email" }%>
+
+        <%= f.input :cpf,
+                    label: 'CPF',
+                    required: false,
+                    autofocus: true,
+                    input_html: { autocomplete: "cpf" } %>
+      </div>
+
+        <%= f.input :password,
+                    label: 'Senha',
+                    required: true,
+                    hint: ("mínimo #{@minimum_password_length} caracteres" if @minimum_password_length),
+                    input_html: { autocomplete: "new-password" } %>
+        <%= f.input :password_confirmation,
+                    label: 'Confirmação de senha',
+                    required: true,
+                    input_html: { autocomplete: "new-password" } %>
+
     </div>
 
-    <div class="form-actions btn btn-primary">
-      <%= f.button :submit, "Criar conta" %>
+    <div class="form-actions">
+      <%= f.button :submit, "Criar conta", class:"btn-primary" %>
     </div>
   <% end %>
 
