@@ -81,7 +81,7 @@ user = User.create!(
   last_name: 'Tanaka',
   email: 'cakemit@gmail.com',
   password: '123456',
-  role: 'Envio de amostras',
+  role: 'Envio',
   institution: 'Hospital Einstein',
   cpf: '12345678901',
   admin: true
@@ -93,7 +93,7 @@ user = User.create!(
   last_name: 'Stelet',
   email: 'vinicius.bootcamp@gmail.com',
   password: '123456',
-  role: 'Recepção de amostras',
+  role: 'Recepção',
   institution: 'Inca',
   cpf: '23456789012',
   admin: true
@@ -105,7 +105,7 @@ user = User.create!(
   last_name: 'Dario',
   email: 'edson.dario@gmail.com',
   password: '123456',
-  role: 'Envio de amostras',
+  role: 'Envio',
   institution: 'Hospital Vitória',
   cpf: '34567890123',
   admin: true
@@ -117,7 +117,7 @@ user = User.create!(
   last_name: 'Simões',
   email: 'luishenriquesimoes@yahoo.com.br',
   password: '123456',
-  role: 'Recepção de amostras',
+  role: 'Cadastro',
   institution: 'Inca',
   cpf: '45678901234',
   admin: true
@@ -129,7 +129,7 @@ receiver = User.create!(
   last_name: 'de Amostras',
   email: 'recebe@teste.com',
   password: '123456',
-  role: 'Recepção de amostras',
+  role: 'Recepção',
   institution: 'Inca'
 )
 puts "Created user [#{receiver.id}] #{receiver.first_name} #{receiver.last_name} | #{receiver.email} | admin? #{receiver.admin}"
@@ -139,7 +139,7 @@ sender = User.create!(
   last_name: 'de Amostras',
   email: 'envio@teste.com',
   password: '123456',
-  role: 'Envio de amostras',
+  role: 'Envio',
   institution: 'Hospital Samaritano',
   cpf: '56891'
 )
@@ -164,7 +164,7 @@ end
     sent_at: Faker::Date.between(from: Date.today, to: '2021-02-01'),
     sender: sender
   )
-  puts "Created batch [#{batch.id}], sent #{batch.sent_at} by #{batch.sender.first_name} | not received"
+  puts "Created batch [#{batch.id}], sent #{batch.sent_at} by #{batch.sender.first_name} | not yet received"
 end
 
 puts " "
