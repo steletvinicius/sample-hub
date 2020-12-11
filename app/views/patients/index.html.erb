@@ -3,7 +3,7 @@
   <hr>
   <div class="d-flex flex-wrap justify-content-between">
 
-  <% @patients.each do |patient| %>
+  <%= @patients.each do |patient| %>
     <div class="card m-2" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title"><%= patient.first_name %> <%= patient.last_name %></h5>

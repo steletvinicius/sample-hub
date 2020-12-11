@@ -2,7 +2,32 @@ class PatientsController < ApplicationController
   before_action :set_patient, only: %i[show]
 
   def index
-    @patients = policy_scope(Patient).order(created_at: :desc)
+    @query = policy_scope(Patient).order(created_at: :desc)
+
+    @patients = {}
+
+    @query.each do |_q|
+      families = Family.joins(:receptor).where(receptor_id: _q)
+      if families.present?
+        components = []
+        families.each do |_f|
+          components.push({
+                            id: _f.donor_id,
+                            relationship: _f.relationship,
+                            name: "#{Patient.find(_f.donor_id).first_name} #{Patient.find(_f.donor_id).last_name}"
+                          })
+        end
+        @patients[_q.id] = {
+          name: "#{_q.first_name} #{_q.last_name}",
+          family: components
+        }
+      else
+        @patients[_q.id] = {
+          id: _q.id,
+          name: "#{_q.first_name} #{_q.last_name}"
+        }
+      end
+    end
   end
 
   def show
