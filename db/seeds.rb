@@ -233,6 +233,8 @@ Patient.create(
   cpf: "55450937024",
   sus_code: "290317708190008"
 )
+
+puts "Created #{Patient.count} patients"
 puts "Patients ready... 'Your eyes can deceive you, don't trust them.'"
 ##### END - SEED - Patients #####
 
@@ -250,7 +252,7 @@ Family.create(
   donor_id: 4,
   relationship: "FILHA(O)"
 )
-
+puts "Created #{Family.count} families"
 puts "Families ready... 'Try not. Do… or do not. There is no try.'"
 ##### END - SEED - Families #####
 
@@ -298,7 +300,7 @@ puts "Creating new samples DB:"
     patient: Patient.all.sample,
     doctor: Doctor.all.sample,
     collected_at: Date.today - rand(30),
-    category: ["sangue", "soro", "segmento de cordão"].sample,
+    category: ["Sangue", "Soro", "Segmento de cordão"].sample,
     quantity: rand(1..10)
   )
   sample.observation = "Esta é a observação para a sample com id #{sample.id}"
