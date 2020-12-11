@@ -24,7 +24,7 @@
                     autofocus: true,
                     input_html: { autocomplete: "institution" } %>
 
-        <%= f.input :role,
+        <%= f.input :role, collection: ["Cadastro", "Envio", "Recepção"], 
                     label: 'Tipo de acesso',
                     required: true,
                     autofocus: true,
