@@ -14,17 +14,21 @@ class PatientsController < ApplicationController
           components.push({
                             id: _f.donor_id,
                             relationship: _f.relationship,
-                            name: "#{Patient.find(_f.donor_id).first_name} #{Patient.find(_f.donor_id).last_name}"
+                            name: "#{Patient.find(_f.donor_id).first_name} #{Patient.find(_f.donor_id).last_name}",
+                            age: ((Date.today - Patient.find(_f.donor_id).born_at).to_i / 365.25).to_i
                           })
         end
         @patients[_q.id] = {
           name: "#{_q.first_name} #{_q.last_name}",
+          age: ((Date.today - Patient.find(_q.id).born_at).to_i / 365.25).to_i,
           family: components
+
         }
       else
         @patients[_q.id] = {
           id: _q.id,
-          name: "#{_q.first_name} #{_q.last_name}"
+          name: "#{_q.first_name} #{_q.last_name}",
+          age: ((Date.today - Patient.find(_q.id).born_at).to_i / 365.25).to_i
         }
       end
     end
