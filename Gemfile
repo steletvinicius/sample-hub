@@ -38,6 +38,7 @@ gem 'faker'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
+gem 'select2_simple_form', github: 'lndl/select2_simple_form', tag: '0.7.3'
 
 
 group :development, :test do  gem 'pry-byebug'

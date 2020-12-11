@@ -1,6 +1,10 @@
 class SamplesController < ApplicationController
   before_action :set_sample, only: %i[edit update]
 
+  def index
+    @samples = policy_scope(Sample).order(collected_at: :asc)
+  end
+
   def new
     @sample = Sample.new
     authorize @sample
@@ -22,7 +26,7 @@ class SamplesController < ApplicationController
 
   def update
     if @sample.update(sample_params)
-      redirect_to root_path
+      redirect_to samples_path
     else
       render :edit
     end
@@ -38,9 +42,4 @@ class SamplesController < ApplicationController
     @sample = Sample.find(params[:id])
     authorize @sample
   end
-
-  def index
-    @samples = policy_scope(Sample)
-  end
-
 end

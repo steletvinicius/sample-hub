@@ -8,13 +8,10 @@
       <h2><%= sample.patient.first_name%> <%= sample.patient.last_name%></h2>
       <p>Data de nascimento: <%= sample.patient.born_at %></p>
       <p> <strong><%= sample.category %></strong></p>
-      <form>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Data da coleta</label>
-          <input type="date" class="form-control" id="exampleInputPassword1" placeholder="Informe a data da coleta">
-        </div>
-        <button type="submit" class="btn btn-primary">Gravar</button>
-      </form>
+      <%= simple_form_for sample, remote: true do |f|%>
+        <%= f.input :collected_at, as: :date %>
+        <%= f.button :submit %>
+      <% end %>
     </div>
   </div>
   <% end %>
