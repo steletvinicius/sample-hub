@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/lndl/select2_simple_form.git
+  revision: c3bb030a675a1c5a5fc5ce375564a0ba20381a7f
+  tag: 0.7.3
+  specs:
+    select2_simple_form (0.7.3)
+      rails (> 4.0.0)
+      select2-rails (~> 3.5.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -90,7 +99,7 @@ GEM
       railties (>= 3.2)
     erubi (1.10.0)
     execjs (2.7.0)
-    faker (2.14.0)
+    faker (2.15.1)
       i18n (>= 1.6, < 2)
     ffi (1.13.1)
     font-awesome-sass (5.15.1)
@@ -186,6 +195,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    select2-rails (3.5.10)
+      thor (~> 0.14)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -203,7 +214,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    thor (1.0.1)
+    thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.10)
     turbolinks (5.2.1)
@@ -255,6 +266,7 @@ DEPENDENCIES
   rails (~> 6.0.3, >= 6.0.3.4)
   redis (~> 4.0)
   sass-rails (>= 6)
+  select2_simple_form!
   selenium-webdriver
   simple_form
   spring
