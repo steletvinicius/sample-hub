@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SampleHub</title>
+    <title>Sample Hub</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,9 +12,17 @@
   </head>
 
   <body>
+    <%# navbar here %>
     <%= render 'shared/navbar' %>
-    <%= render 'shared/flashes' %>
 
-    <%= yield %>
+    <%# content here %>
+    <%# within section role=main to make footer stick to the bottom even on a short page %>
+    <section role="main">
+      <%= render 'shared/flashes' %>
+      <%= yield %>
+    </section>
+
+    <%# footer here %>
+      <%= render 'shared/footer' %>
   </body>
 </html>
