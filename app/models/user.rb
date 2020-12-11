@@ -6,9 +6,10 @@ class User < ApplicationRecord
   has_many :batch_sender, foreign_key: 'sender_id', class_name: 'Batch'
 
   validates :first_name, :last_name, presence: true, format: { with: /\D+/ } # any non-digit char
-  validates :role, inclusion: { in: [
-                                    'Envio de amostras',
-                                    'Recepção de amostras'
+  validates :role, inclusion: { in: [ 
+                                      'Cadastro',
+                                      'Envio',
+                                      'Recepção'
                                     ], allow_nil: false }
   validates :cpf, uniqueness: true 
   validates :institution, presence: true
