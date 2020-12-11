@@ -12,3 +12,11 @@
 @import "components/index";
 @import "pages/index";
 
+html {
+  position: relative;
+  min-height: 100%;
+  body {
+    margin: 0 0 100px;
+    background-color: #f2eded;
+  }
+}
