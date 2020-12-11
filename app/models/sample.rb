@@ -6,11 +6,9 @@ class Sample < ApplicationRecord
 
   validates :patient, presence: true
   validates :doctor, presence: true
-  validates :collected_at, presence: true
-  validates :category, presence: true,
-                       inclusion: {
-                         in: ["sangue", "soro", "segmento de cordão"],
-                         message: "Esta não é uma categoria válida de amostra"
-                       }
-  validates :quantity, presence: true, numericality: { only_integer: true }
+  validates :category, inclusion: {
+    in: ["Sangue", "Soro", "Segmento de cordão"],
+    message: "Esta não é uma categoria válida de amostra"
+  }
+  validates :quantity, numericality: { only_integer: true }
 end
