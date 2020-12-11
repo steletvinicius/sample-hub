@@ -5,29 +5,30 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-puts "Cleaning patients from DB..."
-Patient.destroy_all
 
-puts "Cleaning families from DB..."
-Family.destroy_all
-
-puts "Cleaning doctors from DB..."
-Doctor.destroy_all
+puts "Cleaning exams from DB..."
+Exam.destroy_all
 
 puts "Cleaning samples from DB..."
 Sample.destroy_all
 
-puts "Cleaning users from DB..."
-User.destroy_all
-
 puts "Cleaning batches from DB..."
 Batch.destroy_all
 
+puts "Cleaning families from DB..."
+Family.destroy_all
+
+puts "Cleaning patients from DB..."
+Patient.destroy_all
+
+puts "Cleaning doctors from DB..."
+Doctor.destroy_all
+
+puts "Cleaning users from DB..."
+User.destroy_all
+
 puts "Cleaning procedures from DB..."
 Procedure.destroy_all
-
-puts "Cleaning exams from DB..."
-Exam.destroy_all
 
 puts " "
 puts "SEEDING STARTED!"
