@@ -1,4 +1,6 @@
 class DoctorsController < ApplicationController
+  before_action :set_doctor, only: %i[edit update]
+
   def new
     @doctor = Doctor.new
     authorize @doctor
