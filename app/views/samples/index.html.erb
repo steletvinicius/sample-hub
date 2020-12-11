@@ -1,3 +1,4 @@
+<!-- Amostras a serem recebidas da coleta -->
 <div class="container">
   <div class="d-flex flex-start flex-wrap justify-content-between align-items-start">
   <% @samples.each do |sample| %>
@@ -6,10 +7,20 @@
     <div class="card-product-infos">
       <h2><%= sample.patient.first_name%> <%= sample.patient.last_name%></h2>
       <p>Data de nascimento: <%= sample.patient.born_at %></p>
-      <p><%= sample.category %></p>
-      <p></p>
+      <p> <strong><%= sample.category %></strong></p>
+      <form>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Data da coleta</label>
+          <input type="date" class="form-control" id="exampleInputPassword1" placeholder="Informe a data da coleta">
+        </div>
+        <button type="submit" class="btn btn-primary">Gravar</button>
+      </form>
     </div>
-    </div>
+  </div>
   <% end %>
   </div>
 </div>
+
+<!-- Amostras a recebidas da coleta, a serem enviadas para o laboratório -->
+<!-- Precisam ter um checkbox para inclusão em batches -->
+
