@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :patients, only: %i[index show]
 
+  resources :batches, only: [:create]
+
   resources :exams, only: %i[new create]
 
   resources :doctors, only: %i[new create edit update]
