@@ -3,6 +3,7 @@ class SamplePolicy < ApplicationPolicy
     def resolve
       scope.all
     end
+  end
 
   def new?
     true
@@ -18,6 +19,5 @@ class SamplePolicy < ApplicationPolicy
 
   def update?
     true
-
   end
 end
