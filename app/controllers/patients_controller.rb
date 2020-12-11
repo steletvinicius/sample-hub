@@ -22,7 +22,6 @@ class PatientsController < ApplicationController
           name: "#{_q.first_name} #{_q.last_name}",
           age: ((Date.today - Patient.find(_q.id).born_at).to_i / 365.25).to_i,
           family: components
-
         }
       else
         @patients[_q.id] = {
