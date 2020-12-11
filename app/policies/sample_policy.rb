@@ -1,4 +1,9 @@
 class SamplePolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      scope.all
+    end
+
   def new?
     true
   end
@@ -13,5 +18,6 @@ class SamplePolicy < ApplicationPolicy
 
   def update?
     true
+
   end
 end

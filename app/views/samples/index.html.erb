@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="d-flex flex-start flex-wrap justify-content-between align-items-start">
+  <% @samples.each do |sample| %>
+  <div class="card-product">
+    <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
+    <div class="card-product-infos">
+      <h2><%= sample.patient.first_name%> <%= sample.patient.last_name%></h2>
+      <p>Data de nascimento: <%= sample.patient.born_at %></p>
+      <p><%= sample.category %></p>
+      <p></p>
+    </div>
+    </div>
+  <% end %>
+  </div>
+</div>

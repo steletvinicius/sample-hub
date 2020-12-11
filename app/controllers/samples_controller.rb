@@ -38,4 +38,9 @@ class SamplesController < ApplicationController
     @sample = Sample.find(params[:id])
     authorize @sample
   end
+
+  def index
+    @samples = policy_scope(Sample)
+  end
+
 end
