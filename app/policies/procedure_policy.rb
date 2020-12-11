@@ -16,4 +16,5 @@ class ProcedurePolicy < ApplicationPolicy
   def update?
     new?
   end
+
 end

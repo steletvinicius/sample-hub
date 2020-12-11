@@ -8,4 +8,9 @@ class SamplesController < ApplicationController
     @sample = Sample.new(sample_params)
     authorize @sample
   end
+
+  def index
+    @samples = policy_scope(Sample)
+  end
+
 end

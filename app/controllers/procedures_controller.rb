@@ -1,5 +1,4 @@
 class ProceduresController < ApplicationController
-
   before_action :set_procedure, except: :index
 
   def index
