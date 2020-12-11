@@ -2,7 +2,7 @@ module ApplicationHelper
 
   # returns a date as string formatted to dd-mm-yyyy (31-12-2020)
   def date_mask(date)
-    date.strftime("%d/%m/%Y")
+    date.strftime("%d/%m/%Y") unless date.nil?
   end
 
   # creates functions to check the User role for Pundit Policies and for views/controllers
