@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>Remessas</h2>
+  <% if @batches.count.zero? %>
+    <p>Nenhuma remessa encontrada</p>
+    <% link_to 'Amostras', samples_path, class: "btn btn-primary",
+                                        style: "color: white;" %>
+  <% else %>
+    <%# ini list of batches %>
+    <table class="table table-hover align-bottom">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Data enviada</th>
+          <th scope="col">Enviada por</th>
+          <th scope="col">Status</th>
+          <th scope="col">Data recebida</th>
+          <th scope="col">Recebida por</th>
+          <th scope="col">FONTAWESOME?</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <% @batches.reverse.each do |batch| %>
+        <tr>
+          <th scope="row" class="align-middle"><%= batch.id %></th>
+          <td scope="row" class="align-middle"><%= date_mask(batch.sent_at) %></td>
+          <td scope="row" class="align-middle"><%= "#{batch.sender.first_name} #{batch.sender.last_name}" %></td>
+          <td scope="row" class="align-middle"><%= "#{batch.sender.first_name} #{batch.sender.last_name}" %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%# end list of batches %>
+  <% end %>
+</div>
