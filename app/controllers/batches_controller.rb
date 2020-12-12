@@ -19,6 +19,7 @@ class BatchesController < ApplicationController
     @user = current_user
     @batch = Batch.new(batch_params)
     @batch.sender = @user
+    @batch.institution = @user.institution
     authorize @batch
 
     if @batch.save
