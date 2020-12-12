@@ -74,7 +74,12 @@ loop do
   break unless x < cd_exames.length
 end
 
+puts " "
 puts "Created #{Procedure.count} SUS procedures."
+puts "ALL PROCEDURES CREATED!"
+
+puts " "
+puts "Seeding users"
 
 user = User.create!(
   first_name: 'Cláudia',
@@ -125,9 +130,9 @@ user = User.create!(
 puts "Created user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email} | admin? #{user.admin}"
 
 receiver = User.create!(
-  first_name: 'Recepção',
-  last_name: 'de Amostras',
-  email: 'recebe@teste.com',
+  first_name: 'Vinicius',
+  last_name: 'Stelet',
+  email: 'vinicius@recepcao.com',
   password: '123456',
   role: 'Recepção',
   institution: 'Inca'
@@ -135,19 +140,32 @@ receiver = User.create!(
 puts "Created user [#{receiver.id}] #{receiver.first_name} #{receiver.last_name} | #{receiver.email} | admin? #{receiver.admin}"
 
 sender = User.create!(
-  first_name: 'Envio',
-  last_name: 'de Amostras',
+  first_name: 'Ana',
+  last_name: 'Secretária',
   email: 'envio@teste.com',
   password: '123456',
   role: 'Envio',
-  institution: 'Hospital Samaritano',
+  institution: 'HC1',
   cpf: '56891'
+)
+puts "Created user [#{sender.id}] #{sender.first_name} #{sender.last_name} | #{sender.email} | admin? #{sender.admin}"
+
+sender = User.create!(
+  first_name: 'Thiago',
+  last_name: 'Cadastro',
+  email: 'thiago@cadastro.com',
+  password: '123456',
+  role: 'Cadastro',
+  institution: 'HC1',
+  cpf: '568912'
 )
 puts "Created user [#{sender.id}] #{sender.first_name} #{sender.last_name} | #{sender.email} | admin? #{sender.admin}"
 
 puts " "
 puts "Created #{User.count} users"
+puts "ALL USERS CREATED!"
 puts " "
+puts "Seeding BATCHES"
 
 10.times do
   batch = Batch.create!(
@@ -169,12 +187,14 @@ end
 
 puts " "
 puts "Created #{Batch.count} batches"
+puts "ALL BATCHES CREATED!!!"
+
 
 ##### BEGIN - SEED - Patients #####
-
+puts " "
 puts "Make patients... 'May the Force be with you.'"
 
-Patient.create(
+patient = Patient.create(
   first_name: "Shmi",
   last_name: "Skywalker",
   gender: "F",
@@ -183,8 +203,9 @@ Patient.create(
   cpf: "91858387051",
   sus_code: "157833392350004"
 )
+puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
-Patient.create(
+patient = Patient.create(
   first_name: "Anakin",
   last_name: "Skywalker",
   gender: "M",
@@ -193,8 +214,9 @@ Patient.create(
   cpf: "98186492062",
   sus_code: "130551386630008"
 )
+puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
-Patient.create(
+patient = Patient.create(
   first_name: "Padmé",
   last_name: "Amidala",
   gender: "F",
@@ -203,8 +225,9 @@ Patient.create(
   cpf: "21547068000",
   sus_code: "717388181830004"
 )
+puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
-Patient.create(
+patient = Patient.create(
   first_name: "Luke",
   last_name: "Skywalker",
   gender: "M",
@@ -213,8 +236,9 @@ Patient.create(
   cpf: "77596796028",
   sus_code: "158568593440006"
 )
+puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
-Patient.create(
+patient = Patient.create(
   first_name: "Leia",
   last_name: "Organa",
   gender: "F",
@@ -223,8 +247,9 @@ Patient.create(
   cpf: "09141415035",
   sus_code: "958532819530006"
 )
+puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
-Patient.create(
+patient = Patient.create(
   first_name: "Chewie",
   last_name: "Chewbacca",
   gender: "M",
@@ -233,28 +258,41 @@ Patient.create(
   cpf: "55450937024",
   sus_code: "290317708190008"
 )
+puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
+puts " "
 puts "Created #{Patient.count} patients"
 puts "Patients ready... 'Your eyes can deceive you, don't trust them.'"
 ##### END - SEED - Patients #####
 
+
 ##### BEGIN - SEED - Families #####
-
+puts " "
 puts "Make families... 'I am your father.'"
-Family.create(
-  receptor_id: 2,
-  donor_id: 1,
-  relationship: "MÃE"
-)
 
-Family.create(
-  receptor_id: 2,
-  donor_id: 4,
-  relationship: "FILHA(O)"
-)
-puts "Created #{Family.count} families"
+anakim = Patient.find_by_first_name("Anakin")
+
+family = Family.new
+family.receptor = anakim
+family.donor = Patient.find_by_first_name("Shmi")
+family.relationship = "MÃE"
+family.save!
+puts "Criou parente [#{family.id}] #{family.donor.first_name} patient_id [#{family.donor.id}] é #{family.relationship} de #{family.receptor.first_name} patient_id [#{family.receptor.id}]"
+
+family = Family.new
+family.receptor = anakim
+family.donor = Patient.find_by_first_name("Luke")
+family.relationship = "FILHA(O)"
+family.save!
+puts "Criou parente [#{family.id}] #{family.donor.first_name} patient_id [#{family.donor.id}] é #{family.relationship} de #{family.receptor.first_name} patient_id [#{family.receptor.id}]"
+
+puts " "
+puts "Criou #{Family.count} parentes"
 puts "Families ready... 'Try not. Do… or do not. There is no try.'"
 ##### END - SEED - Families #####
+
+puts " "
+puts "Creating new doctors DB:"
 
 doctors = [
   {
@@ -284,14 +322,14 @@ doctors = [
   }
 ]
 
-puts "Creating new doctors DB:"
-
 doctors.each do |doctor|
   doc = Doctor.create(doctor)
   puts "Created doctor #{doc.first_name} #{doc.last_name} - CRM #{doc.crm} with ID #{doc.id}"
 end
+puts " "
 puts "Doctors are done!"
 
+puts " "
 puts "Creating new samples DB:"
 
 10.times do
@@ -307,7 +345,9 @@ puts "Creating new samples DB:"
   puts "Created sample with id #{sample.id} and category #{sample.category}"
 end
 
+puts " "
 puts "Samples are done!"
+puts " "
 
 10.times do
   exam = Exam.create(
@@ -317,7 +357,10 @@ puts "Samples are done!"
   puts "Created exam id #{exam.id} to sample #{exam.sample.id} with procedure #{exam.procedure.id}"
 end
 
+puts " "
 puts "Exams are done"
 
 puts " "
 puts "FINISHED SEEDING!"
+puts " "
+
