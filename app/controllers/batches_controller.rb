@@ -6,6 +6,7 @@ class BatchesController < ApplicationController
 
   def show
     @batch = Batch.find(params[:id])
+    authorize @batch
   end
 
   # ISSO TEM QUE ESTAR NO ACTION NEW DO CONTROLLER DO BATCH
@@ -18,7 +19,7 @@ class BatchesController < ApplicationController
     @user = current_user
     @batch = Batch.new(batch_params)
     @batch.sender = @user
-    authorize @user
+    authorize @batch
 
     if @batch.save
       redirect_to batches_path
