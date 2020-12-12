@@ -6,33 +6,20 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-puts "Cleaning exams from DB..."
+puts "Cleaning ALL databases..."
 Exam.destroy_all
-
-puts "Cleaning samples from DB..."
 Sample.destroy_all
-
-puts "Cleaning batches from DB..."
 Batch.destroy_all
-
-puts "Cleaning families from DB..."
 Family.destroy_all
-
-puts "Cleaning patients from DB..."
 Patient.destroy_all
-
-puts "Cleaning doctors from DB..."
 Doctor.destroy_all
-
-puts "Cleaning users from DB..."
 User.destroy_all
-
-puts "Cleaning procedures from DB..."
 Procedure.destroy_all
 
 puts " "
 puts "SEEDING STARTED!"
-puts "Populating procedures table with standard sus procedures"
+puts " "
+puts "Populating procedures table with standard sus procedures..."
 
 cd_exames = [
   "03_DMCF1",
@@ -69,17 +56,16 @@ loop do
     cd_sus: cd_sus[x],
     description: descriptions[x]
   )
-  puts "Procedure #{cd_exames[x]} created."
+  # puts "Procedure #{cd_exames[x]} created."
   x += 1
   break unless x < cd_exames.length
 end
 
-puts " "
 puts "Created #{Procedure.count} SUS procedures."
-puts "ALL PROCEDURES CREATED!"
+puts "PROCEDURES DONE!"
 
 puts " "
-puts "Seeding users"
+puts "Creating users..."
 
 user = User.create!(
   first_name: 'Cláudia',
@@ -91,7 +77,7 @@ user = User.create!(
   cpf: '12345678901',
   admin: true
 )
-puts "Created user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email} | admin? #{user.admin}"
+puts "Created admin user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email}"
 
 user = User.create!(
   first_name: 'Vinicius',
@@ -103,7 +89,7 @@ user = User.create!(
   cpf: '23456789012',
   admin: true
 )
-puts "Created user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email} | admin? #{user.admin}"
+puts "Created admin user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email}"
 
 user = User.create!(
   first_name: 'Edson',
@@ -115,7 +101,7 @@ user = User.create!(
   cpf: '34567890123',
   admin: true
 )
-puts "Created user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email} | admin? #{user.admin}"
+puts "Created admin user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email}"
 
 user = User.create!(
   first_name: 'Luis Henrique',
@@ -127,7 +113,7 @@ user = User.create!(
   cpf: '45678901234',
   admin: true
 )
-puts "Created user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email} | admin? #{user.admin}"
+puts "Created admin user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email}"
 
 receiver = User.create!(
   first_name: 'Vinicius',
@@ -137,7 +123,7 @@ receiver = User.create!(
   role: 'Recepção',
   institution: 'Inca'
 )
-puts "Created user [#{receiver.id}] #{receiver.first_name} #{receiver.last_name} | #{receiver.email} | admin? #{receiver.admin}"
+puts "Created receiver [#{receiver.id}] #{receiver.first_name} #{receiver.last_name} | #{receiver.email}"
 
 sender = User.create!(
   first_name: 'Ana',
@@ -148,7 +134,7 @@ sender = User.create!(
   institution: 'HC1',
   cpf: '56891'
 )
-puts "Created user [#{sender.id}] #{sender.first_name} #{sender.last_name} | #{sender.email} | admin? #{sender.admin}"
+puts "Created sender [#{sender.id}] #{sender.first_name} #{sender.last_name} | #{sender.email}"
 
 sender = User.create!(
   first_name: 'Thiago',
@@ -159,36 +145,10 @@ sender = User.create!(
   institution: 'HC1',
   cpf: '568912'
 )
-puts "Created user [#{sender.id}] #{sender.first_name} #{sender.last_name} | #{sender.email} | admin? #{sender.admin}"
+puts "Created sender [#{sender.id}] #{sender.first_name} #{sender.last_name} | #{sender.email}"
 
-puts " "
-puts "Created #{User.count} users"
-puts "ALL USERS CREATED!"
-puts " "
-puts "Seeding BATCHES"
-
-10.times do
-  batch = Batch.create!(
-    sent_at: Date.today,
-    sender: sender,
-    received_at: Date.today + (1..7).to_a.sample.days,
-    receiver: receiver
-  )
-  puts "Created batch [#{batch.id}], sent #{batch.sent_at} by #{batch.sender.first_name} | received #{batch.received_at} by #{batch.receiver.first_name}"
-end
-
-10.times do
-  batch = Batch.create!(
-    sent_at: Faker::Date.between(from: Date.today, to: '2021-02-01'),
-    sender: sender
-  )
-  puts "Created batch [#{batch.id}], sent #{batch.sent_at} by #{batch.sender.first_name} | not yet received"
-end
-
-puts " "
-puts "Created #{Batch.count} batches"
-puts "ALL BATCHES CREATED!!!"
-
+puts "...Created #{User.count} users"
+puts "USERS DONE!"
 
 ##### BEGIN - SEED - Patients #####
 puts " "
@@ -203,7 +163,7 @@ patient = Patient.create(
   cpf: "91858387051",
   sus_code: "157833392350004"
 )
-puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+# puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
 patient = Patient.create(
   first_name: "Anakin",
@@ -214,7 +174,7 @@ patient = Patient.create(
   cpf: "98186492062",
   sus_code: "130551386630008"
 )
-puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+# puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
 patient = Patient.create(
   first_name: "Padmé",
@@ -225,7 +185,7 @@ patient = Patient.create(
   cpf: "21547068000",
   sus_code: "717388181830004"
 )
-puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+# puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
 patient = Patient.create(
   first_name: "Luke",
@@ -236,7 +196,7 @@ patient = Patient.create(
   cpf: "77596796028",
   sus_code: "158568593440006"
 )
-puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+# puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
 patient = Patient.create(
   first_name: "Leia",
@@ -247,7 +207,7 @@ patient = Patient.create(
   cpf: "09141415035",
   sus_code: "958532819530006"
 )
-puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+# puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
 patient = Patient.create(
   first_name: "Chewie",
@@ -258,17 +218,16 @@ patient = Patient.create(
   cpf: "55450937024",
   sus_code: "290317708190008"
 )
-puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+# puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
-puts " "
-puts "Created #{Patient.count} patients"
-puts "Patients ready... 'Your eyes can deceive you, don't trust them.'"
+puts "...Created #{Patient.count} patients"
+puts "PATIENTS DONE!"
 ##### END - SEED - Patients #####
 
 
 ##### BEGIN - SEED - Families #####
 puts " "
-puts "Make families... 'I am your father.'"
+puts "Joining families... 'I am your father.'"
 
 anakim = Patient.find_by_first_name("Anakin")
 
@@ -277,22 +236,21 @@ family.receptor = anakim
 family.donor = Patient.find_by_first_name("Shmi")
 family.relationship = "MÃE"
 family.save!
-puts "Criou parente [#{family.id}] #{family.donor.first_name} patient_id [#{family.donor.id}] é #{family.relationship} de #{family.receptor.first_name} patient_id [#{family.receptor.id}]"
+puts "Criou parente [#{family.id}] #{family.donor.first_name} id[#{family.donor.id}] que é #{family.relationship} de #{family.receptor.first_name} #{family.receptor.last_name} [#{family.receptor.id}]"
 
 family = Family.new
 family.receptor = anakim
 family.donor = Patient.find_by_first_name("Luke")
 family.relationship = "FILHA(O)"
 family.save!
-puts "Criou parente [#{family.id}] #{family.donor.first_name} patient_id [#{family.donor.id}] é #{family.relationship} de #{family.receptor.first_name} patient_id [#{family.receptor.id}]"
+puts "Criou parente [#{family.id}] #{family.donor.first_name} id[#{family.donor.id}] é #{family.relationship} de #{family.receptor.first_name} #{family.receptor.last_name} [#{family.receptor.id}]"
 
-puts " "
-puts "Criou #{Family.count} parentes"
-puts "Families ready... 'Try not. Do… or do not. There is no try.'"
+puts "...Criou #{Family.count} parentes"
+puts "FAMILIES DONE!"
 ##### END - SEED - Families #####
 
 puts " "
-puts "Creating new doctors DB:"
+puts "Creating new doctors..."
 
 doctors = [
   {
@@ -324,41 +282,84 @@ doctors = [
 
 doctors.each do |doctor|
   doc = Doctor.create(doctor)
-  puts "Created doctor #{doc.first_name} #{doc.last_name} - CRM #{doc.crm} with ID #{doc.id}"
+  # puts "Created doctor #{doc.first_name} #{doc.last_name} - CRM #{doc.crm} with ID #{doc.id}"
 end
-puts " "
-puts "Doctors are done!"
 
-puts " "
-puts "Creating new samples DB:"
+puts "...Created #{Doctor.count} doctors"
+puts "DOCTORS DONE!"
 
-10.times do
+# INI SAMPLES
+puts " "
+puts "Creating new samples DB..."
+
+150.times do
   sample = Sample.create(
-    batch: Batch.all.sample,
     patient: Patient.all.sample,
     doctor: Doctor.all.sample,
-    collected_at: Date.today - rand(30),
     category: ["Sangue", "Soro", "Segmento de cordão"].sample,
     quantity: rand(1..10)
   )
   sample.observation = "Esta é a observação para a sample com id #{sample.id}"
-  puts "Created sample with id #{sample.id} and category #{sample.category}"
+  sample.save!
+  # puts "Created sample with id #{sample.id} and category #{sample.category}"
 end
 
-puts " "
-puts "Samples are done!"
-puts " "
+puts "...Created #{Sample.count} samples without a batch"
+puts "SAMPLES DONE!"
 
+
+# INI BATCHES ONLY AFTER SAMPLES ALREADY EXIST
+puts " "
+puts "Creating batches and attaching samples..."
+# puts samples into batches but leaves at least 5 samples without a batch
+n_samples = Sample.count
+until n_samples <= 10 do
+  # creates a new empty batch
+  date_sent = Date.today - rand(360)
+  batch = Batch.create!(sender: sender, sent_at: date_sent)
+  # puts "Created empty batch [#{batch.id}], sent #{batch.sent_at} from #{batch.sender.institution} by #{batch.sender.email} | not yet received"
+
+  # Attaches 2 to 5 samples in the batch
+  rand(2..5).times do
+    sample = Sample.find_by_batch_id(nil)
+    sample.batch = batch
+    sample.collected_at = batch.sent_at - rand(3)
+    sample.save!
+    batch.save!
+    # puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
+    n_samples -= 1
+  end
+end
+
+# Set received date on all batches except 10 batches that will be in transit
+n_batches = Batch.where(received_at: nil).count
+until n_batches == 10 do
+  batch = Batch.find_by_received_at(nil)
+  batch.receiver = receiver
+  batch.received_at = batch.sent_at + rand(3)
+  batch.save!
+  # puts "Batch [#{batch.id}] sent at #{batch.sent_at} was received at #{batch.received_at}"
+  n_batches -= 1
+end
+
+puts "...Created #{Batch.count} batches with #{Sample.where("batch_id IS NOT NULL").count} samples"
+puts "...#{Sample.where(batch_id: nil).count} samples are not on a batch yet"
+puts "...#{Batch.where(received_at: nil).count} batches were not received yet"
+puts "BATCHES DONE WITH SAMPLES!"
+# END BATCHES
+
+puts " "
+puts "Creating exams..."
 10.times do
   exam = Exam.create(
     sample: Sample.all.sample,
     procedure: Procedure.all.sample
   )
-  puts "Created exam id #{exam.id} to sample #{exam.sample.id} with procedure #{exam.procedure.id}"
+  # puts "Created exam id #{exam.id} to sample #{exam.sample.id} with procedure #{exam.procedure.id}"
 end
 
-puts " "
-puts "Exams are done"
+puts "...Created #{Exam.count} exams"
+puts "EXAMS DONE!"
 
 puts " "
 puts "FINISHED SEEDING!"
