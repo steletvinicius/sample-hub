@@ -3,18 +3,17 @@ class BatchPolicy < ApplicationPolicy
     def resolve
       scope.all
     end
+  end
 
     def show?
-      sender?(user) || receiver?(user)
+      user.role == "Envio" || user.role == "Cadastro" || user.role == "Recepção" || user.admin?
     end
 
-
     def create?
-      sender?(user)
+      user.role == "Envio" || user.role == "Cadastro" || user.admin?
     end
 
     def update?
-      receiver?(user)
+      user.role == "Envio" || user.role == "Cadastro" || user.admin?
     end
-  end
 end
