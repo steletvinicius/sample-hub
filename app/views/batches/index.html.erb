@@ -1,7 +1,7 @@
 <div class="container my-4">
   <h2>Remessas</h2>
   <div class="my-2">
-    <% if current_user.role == 'Envio' || current_user.role == 'Cadastro' || current_user.admin? %>
+    <% if sender?(current_user) || current_user.admin? %>
       <%= link_to 'Criar nova remessa', samples_path, class: "btn btn-primary", style: "color: white;" %>
     <% end %>
   </div>

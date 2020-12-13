@@ -6,7 +6,7 @@ class BatchesController < ApplicationController
     if current_user.role == 'Recepção' || current_user.admin?
       @batches
     elsif current_user.role == 'Envio' || current_user.role == 'Cadastro'
-      @batches = @batches.where(institution: current_user.institution)
+      @batches = @batches.where(sender: current_user) # alterar critério para sender.institution == current_user.institution
     else
       @batches = []
     end
