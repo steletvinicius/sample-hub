@@ -13,29 +13,30 @@
 
   <% else %>
     <%# INI BATCHES TABLE %>
-    <div class="card">
-      <table class="table table-hover align-bottom">
-        <thead>
+    <div class="caption-top">
+      <caption>Total: <%= pluralize(@batches.count, 'remessa', plural: 'remessas') %></caption>
+      <table class="table table-sm table-hover" style="background-color: white;">
+        <thead style="background-color: gray; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Instituição</th>
             <th scope="col">Enviada por</th>
-            <th scope="col">Data enviada</th>
+            <th scope="col" style="text-align: center;">Data enviada </th>
             <th scope="col">Situação</th>
-            <th scope="col">Data recebida</th>
+            <th scope="col" style="text-align: center;">Data recebida</th>
             <th scope="col">Recebida por</th>
-            <th scope="col">Ações</th>
+            <th scope="col" style="text-align: center;">Ações</th>
           </tr>
         </thead>
 
-        <tbody>
+        <tbody style="background-color: white;">
         <% @batches.reverse.each do |batch| %>
           <tr>
             <th scope="row"><%= batch.id %></th>
             <td><%= "#{batch.sender.institution}" %></td>
             <td><%= "#{batch.sender.first_name} #{batch.sender.last_name}" %></td>
 
-            <td><%= date_mask(batch.sent_at) if batch.sent_at %></td>
+            <td style="text-align: center;"><%= date_mask(batch.sent_at) if batch.sent_at %></td>
 
             <% if batch.received_at %>
               <td>Recebida</td>
@@ -45,11 +46,11 @@
               <td>Não enviada</td>
             <% end %>
 
-            <td><%= date_mask(batch.received_at) if batch.received_at %></td>
+            <td style="text-align: center;"><%= date_mask(batch.received_at) if batch.received_at %></td>
             <td><%= "#{batch.receiver.first_name} #{batch.receiver.last_name}" if batch.received_at %></td>
 
-            <%# INI USER ACTIONS %>
-            <td>
+            <%# INI ACTION LINKS %>
+            <td style="text-align: center;">
               <%# sender can edit and destroy if batch is not sent %>
               <% if sender?(current_user) && batch.sent_at.nil? %>
                 <%= link_to icon('fas','edit'), edit_batch_path(batch), :title => "editar" %>
@@ -74,7 +75,7 @@
                 <%= link_to icon('fas','eye'), edit_batch_path(batch), :title => "ver remessa" %>
               <% end %>
             </td>
-            <%# END USER ACTIONS %>
+            <%# END ACTION LINKS %>
 
           </tr>
         <% end %>
