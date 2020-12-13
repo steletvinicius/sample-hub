@@ -136,7 +136,7 @@ sender = User.create!(
 )
 puts "Created sender [#{sender.id}] #{sender.first_name} #{sender.last_name} | #{sender.email}"
 
-sender = User.create!(
+cadastro = User.create!(
   first_name: 'Thiago',
   last_name: 'Cadastro',
   email: 'thiago@cadastro.com',
