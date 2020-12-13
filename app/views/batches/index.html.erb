@@ -27,32 +27,37 @@
         <tbody>
         <% @batches.reverse.each do |batch| %>
           <tr>
-            <th scope="row" class="align-middle"><%= batch.id %></th>
-            <td class="align-middle"><%= "#{batch.sender.institution}" %></td>
-            <td class="align-middle"><%= "#{batch.sender.first_name} #{batch.sender.last_name}" %></td>
+            <th scope="row"><%= batch.id %></th>
+            <td><%= "#{batch.sender.institution}" %></td>
+            <td><%= "#{batch.sender.first_name} #{batch.sender.last_name}" %></td>
 
             <% if batch.sent_at %>
-              <td class="align-middle"><%= date_mask(batch.sent_at) %></td>
+              <td><%= date_mask(batch.sent_at) %></td>
             <% else %>
-              <td class="align-middle"></td>
+              <td></td>
             <% end %>
 
             <% if batch.received_at %>
-              <td class="align-middle">Recebida</td>
+              <td>Recebida</td>
             <% elsif batch.sent_at %>
-              <td class="align-middle">Enviada</td>
+              <td>Enviada</td>
             <% else %>
-              <td class="align-middle">Pendente</td>
+              <td>Pendente</td>
             <% end %>
 
             <% if batch.received_at %>
-              <td class="align-middle"><%= date_mask(batch.received_at) %></td>
-              <td class="align-middle"><%= "#{batch.receiver.first_name} #{batch.receiver.last_name}" %></td>
+              <td><%= date_mask(batch.received_at) %></td>
+              <td><%= "#{batch.receiver.first_name} #{batch.receiver.last_name}" %></td>
             <% else %>
-              <td class="align-middle"></td>
-              <td class="align-middle"></td>
+              <td></td>
+              <td></td>
             <% end %>
-            <td class="align-middle"> <%= link_to icon('fas','sign-in-alt', 'Visualizar'), batch_path(batch) %> </td>
+            <td>
+              <%= link_to icon('fas','sign-in-alt'), batch_path(batch) %>
+              <%= link_to icon('far','trash-alt'), batch_path(batch),
+                          method: :delete,
+                          data: { confirm: "Retirar amostras e apagar remessa #{batch.id}?" } %>
+            </td>
           </tr>
         <% end %>
         </tbody>

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :samples, only: %i[index new create edit update]
 
-  resources :batches, only: [:index, :show, :create, :update]
+  resources :batches, only: [:index, :show, :create, :update, :destroy]
 
   resources :exams, only: %i[new create]
   resources :procedures, only: %i[index create new edit delete]
