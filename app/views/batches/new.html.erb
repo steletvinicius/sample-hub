@@ -1,0 +1,10 @@
+<div class="container my-4">
+  <%= simple_form_for(batch) do |f| %>
+    <% if current_user.role == 'Envio' || current_user.role == 'Cadastro' || current_user.admin? %>
+      <%= f.input :sent_at %>
+    <% else %>
+      <%= f.input :received_at %>
+    <% end %>
+    <%= f.submit %>
+  <% end %>
+</div>
