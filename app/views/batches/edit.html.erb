@@ -10,24 +10,27 @@
   <%# INI BATCH EDIT SECTION %>
   <div>
     <%= simple_form_for(@batch) do |f| %>
-      <%# sender can edit sent date until batch is received %>
-      <% if sender?(current_user) && @status != "Enviada" %>
+      <%# sender can edit sent date if batch has not been sent yet %>
+      <% if @batch.sent_at.nil? && sender?(current_user) %>
         <%= f.input :sent_at, label: "Data de envio" %>
         <%= f.submit %>
-      <%# receiver can edit delivered date after batch is sent %>
-      <% elsif receiver?(current_user) && @status != "Recebida" %>
-        <p>Enviada em <%= date_mask(@batch.sent_at) %></p>
+      <% end %>
+      <%# receiver can edit received date after batch is sent %>
+      <% if @batch.sent_at && @batch.received_at.nil? && receiver?(current_user) %>
         <%= f.input :received_at, label: "Data de recebimento" %>
         <%= f.submit %>
-      <%# if batch has been sent and delivered, no one can edit %>
-      <% else %>
+      <% end %>
+      <%# if batch is sent, everyone can view the sent date %>
+      <% if @batch.sent_at %>
         <p>Enviada em <%= date_mask(@batch.sent_at) %></p>
+      <% end %>
+      <%# if batch is received, everyone can view the delivery date %>
+      <% if @batch.received_at %>
         <p>Recebida em <%= date_mask(@batch.received_at) %></p>
       <% end %>
     <% end %>
   </div>
   <%# END BATCH EDIT SECTION %>
-
 
   <%# INI SAMPLES TABLE %>
   <div class="card">
@@ -61,7 +64,7 @@
 
             <%# INI ACTION LINKS %>
             <td>
-              <% if sender?(current_user) && @status != "Recebida" %>
+              <% if sender?(current_user) && @batch.sent_at.nil? %>
                 <%= link_to icon('fas','edit'), edit_sample_path(sample), :title => "editar" %>
                 <%= link_to icon('fas','minus-circle'), edit_sample_path(sample), :title => "remover da remessa" %>
               <% else %>

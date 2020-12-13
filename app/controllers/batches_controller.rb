@@ -12,19 +12,6 @@ class BatchesController < ApplicationController
     end
   end
 
-  def edit
-    set_batch
-    authorize @batch
-    @samples = Sample.where(batch: @batch)
-    if !@batch.received_at.nil?
-      @status = "Recebida"
-    elsif !@batch.sent_at.nil?
-      @status = "Enviada"
-    else
-      @status = "Pendente"
-    end
-  end
-
   # ISSO TEM QUE ESTAR NO ACTION NEW DO CONTROLLER DO BATCH
   # def sent_at_must_be_today_or_earlier
   #   if sent_at > Date.today
@@ -45,12 +32,38 @@ class BatchesController < ApplicationController
     end
   end
 
+  def edit
+    set_batch
+    authorize @batch
+    @samples = Sample.where(batch: @batch)
+    if !@batch.received_at.nil?
+      @status = "Recebida"
+    elsif !@batch.sent_at.nil?
+      @status = "Enviada"
+    else
+      @status = "Não enviada"
+    end
+  end
+
   # ISSO TEM QUE ENTRAR NO UPDATE NO CONTROLLER DO BATCH
   # def received_at_must_be_later_than_sent_at
   #   if received_at < sent_at
   #     errors.add(:received_at, "Data de recebimento anterior à data de envio")
   #   end
   # end
+  def update
+    set_batch
+    authorize @batch
+      if @batch.update(batch_params)
+        flash[:success] = "Remessa atualizada com sucesso"
+        redirect_to 'edit'
+      else
+        flash[:error] = "Something went wrong"
+        render 'edit'
+      end
+  end
+  
+
   def destroy
     @batch = Batch.find(params[:id])
     authorize @batch
