@@ -2,10 +2,19 @@ class BatchesController < ApplicationController
 
   def index
     @batches = policy_scope(Batch)
+    # sender can only view batch sent from his own institution
+    if current_user.role == 'Recepção' || current_user.admin?
+      @batches
+    elsif current_user.role == 'Envio' || current_user.role == 'Cadastro'
+      @batches = @batches.where(institution: current_user.institution)
+    else
+      @batches = []
+    end
   end
 
   def show
     @batch = Batch.find(params[:id])
+    @samples = Sample.where(batch: @batch)
     authorize @batch
   end
 

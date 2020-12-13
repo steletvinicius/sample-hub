@@ -1,9 +1,12 @@
 <div class="container my-4">
   <h2>Remessas</h2>
+  <div class="my-2">
+    <% if current_user.role == 'Envio' || current_user.role == 'Cadastro' || current_user.admin? %>
+      <%= link_to 'Criar nova remessa', samples_path, class: "btn btn-primary", style: "color: white;" %>
+    <% end %>
+  </div>
   <% if @batches.count.zero? %>
     <p>Nenhuma remessa encontrada</p>
-    <% link_to 'Amostras', samples_path, class: "btn btn-primary",
-                                        style: "color: white;" %>
   <% else %>
     <%# ini list of batches %>
     <div class="card">
@@ -11,12 +14,13 @@
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Data enviada</th>
+            <th scope="col">Instituição</th>
             <th scope="col">Enviada por</th>
-            <th scope="col">Status</th>
+            <th scope="col">Data enviada</th>
+            <th scope="col">Situação</th>
             <th scope="col">Data recebida</th>
             <th scope="col">Recebida por</th>
-            <th scope="col">Editar</th>
+            <th scope="col">Ações</th>
           </tr>
         </thead>
 
@@ -24,12 +28,13 @@
         <% @batches.reverse.each do |batch| %>
           <tr>
             <th scope="row" class="align-middle"><%= batch.id %></th>
+            <td class="align-middle"><%= "#{batch.sender.institution}" %></td>
+            <td class="align-middle"><%= "#{batch.sender.first_name} #{batch.sender.last_name}" %></td>
+
             <% if batch.sent_at %>
-              <td scope="row" class="align-middle"><%= date_mask(batch.sent_at) %></td>
-              <td scope="row" class="align-middle"><%= "#{batch.sender.first_name} #{batch.sender.last_name}" %></td>
+              <td class="align-middle"><%= date_mask(batch.sent_at) %></td>
             <% else %>
-              <td scope="row" class="align-middle"></td>
-              <td scope="row" class="align-middle"></td>
+              <td class="align-middle"></td>
             <% end %>
 
             <% if batch.received_at %>
@@ -41,11 +46,11 @@
             <% end %>
 
             <% if batch.received_at %>
-              <td scope="row" class="align-middle"><%= date_mask(batch.received_at) %></td>
-              <td scope="row" class="align-middle"><%= "#{batch.receiver.first_name} #{batch.receiver.last_name}" %></td>
+              <td class="align-middle"><%= date_mask(batch.received_at) %></td>
+              <td class="align-middle"><%= "#{batch.receiver.first_name} #{batch.receiver.last_name}" %></td>
             <% else %>
-              <td scope="row" class="align-middle"></td>
-              <td scope="row" class="align-middle"></td>
+              <td class="align-middle"></td>
+              <td class="align-middle"></td>
             <% end %>
             <td class="align-middle"> <%= link_to icon('fas','sign-in-alt', 'Visualizar'), batch_path(batch) %> </td>
           </tr>
