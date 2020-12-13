@@ -54,13 +54,14 @@ class BatchesController < ApplicationController
   def update
     set_batch
     authorize @batch
-      if @batch.update(batch_params)
-        flash[:success] = "Remessa atualizada com sucesso"
-        redirect_to 'edit'
-      else
-        flash[:error] = "Something went wrong"
-        render 'edit'
-      end
+    # update receiver if received_at is updated
+    if @batch.update(batch_params)
+      flash[:success] = "Remessa atualizada com sucesso"
+      redirect_to edit_batch_path(@batch)
+    else
+      flash[:error] = "Something went wrong"
+      redirect_to edit_batch_path(@batch)
+    end
   end
   
 
@@ -88,6 +89,6 @@ class BatchesController < ApplicationController
   end
 
   def batch_params
-    params.require(:batch).permit(:samples, :sent_at)
+    params.require(:batch).permit(:sent_at, :received_at)
   end
 end

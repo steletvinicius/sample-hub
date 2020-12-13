@@ -32,9 +32,11 @@
   </div>
   <%# END BATCH EDIT SECTION %>
 
-  <div class="my-2">
-    <%= link_to 'adicionar mais amostras', samples_path, class: "btn btn-primary" %>
-  </div>
+  <% if sender?(current_user) && @batch.sent_at.nil? %>
+    <div class="my-2">
+      <%= link_to 'adicionar mais amostras', samples_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
 
   <%# INI SAMPLES TABLE %>
   <table class="caption-top"">
@@ -64,7 +66,7 @@
               <td>Não aparentado</td>
             <% end %>
 
-            <%# DATA DA COLETA (SHOULD BE ABLE TO EDIT IN THIS VIEW) %>
+            <%# COLETADA EM (SHOULD BE ABLE TO EDIT IN THIS VIEW) %>
             <td style="text-align: center;"><%= date_mask(sample.collected_at) %></td>
 
             <%# INI ACTION LINKS %>
@@ -73,7 +75,7 @@
                 <%= link_to icon('fas','edit'), edit_sample_path(sample), :title => "editar" %>
                 <%= link_to icon('fas','minus-circle'), edit_sample_path(sample), :title => "remover da remessa" %>
               <% else %>
-                <%= link_to icon('far','eye'), sample_path(sample), :title => "ver amostra" %>
+                <%= link_to icon('far','eye'), edit_sample_path(sample), :title => "ver amostra" %>
               <% end %>
             </td>
             <%# END ACTION LINKS %>

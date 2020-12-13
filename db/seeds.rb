@@ -123,7 +123,7 @@ receiver = User.create!(
   role: 'Recepção',
   institution: 'Inca'
 )
-puts "Created receiver [#{receiver.id}] #{receiver.first_name} #{receiver.last_name} | #{receiver.email}"
+puts "Created receiver   [#{receiver.id}] #{receiver.first_name} #{receiver.last_name} | #{receiver.email}"
 
 sender = User.create!(
   first_name: 'Ana',
@@ -134,7 +134,7 @@ sender = User.create!(
   institution: 'HC1',
   cpf: '56891'
 )
-puts "Created sender [#{sender.id}] #{sender.first_name} #{sender.last_name} | #{sender.email}"
+puts "Created sender     [#{sender.id}] #{sender.first_name} #{sender.last_name} | #{sender.email}"
 
 cadastro = User.create!(
   first_name: 'Thiago',
@@ -145,7 +145,7 @@ cadastro = User.create!(
   institution: 'HC1',
   cpf: '568912'
 )
-puts "Created sender [#{sender.id}] #{sender.first_name} #{sender.last_name} | #{sender.email}"
+puts "Created sender cadastro [#{cadastro.id}] #{cadastro.first_name} #{cadastro.last_name} | #{cadastro.email}"
 
 puts "...Created #{User.count} users"
 puts "USERS DONE!"
