@@ -44,6 +44,22 @@ class BatchesController < ApplicationController
   #     errors.add(:received_at, "Data de recebimento anterior à data de envio")
   #   end
   # end
+  def destroy
+    @batch = Batch.find(params[:id])
+    authorize @batch
+    if @batch.received_at
+      redirect_to batch_path, notice: "Essa remessa já foi recebida e não pode ser alterada"
+    else
+      # if not received, removes batch from samples and destroys batch
+      samples = Sample.where(batch: @batch)
+      samples.each do |sample|
+        sample.batch = nil
+        sample.save
+      end
+      @batch.destroy
+      redirect_to batches_path
+    end
+  end
 
   private
 

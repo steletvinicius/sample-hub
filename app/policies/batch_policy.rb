@@ -32,4 +32,9 @@ class BatchPolicy < ApplicationPolicy
       false
     end
   end
+
+  # only the sender and admin can destroy the batch
+  def destroy?
+    record.sender == user || user.admin?
+  end
 end
