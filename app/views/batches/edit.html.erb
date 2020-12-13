@@ -1,8 +1,7 @@
 <div class="container my-4">
   <h2>Remessa 
     <%= @batch.sender.institution %> 
-    código <%= @batch.id %> 
-    (<%= pluralize(@samples.count, 'amostra', plural: 'amostras') %>)
+    código <%= @batch.id %>
   </h2>
 
   <p>Situação: <%= @status %></p>
@@ -33,18 +32,19 @@
   <%# END BATCH EDIT SECTION %>
 
   <%# INI SAMPLES TABLE %>
-  <div class="card">
+  <table class="caption-top"">
+    <caption><%= pluralize(@samples.count, 'amostra', plural: 'amostras') %></caption>
     <table class="table table-hover align-bottom">
-      <thead>
+      <thead  style="background-color: gray; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Nome</th>
           <th scope="col">Tipo</th>
-          <th scope="col">Coletada em</th>
-          <th scope="col">Ações</th>
+          <th scope="col" style="text-align: center;">Coletada em</th>
+          <th scope="col" style="text-align: center;">Ações</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody style="background-color: white;">
         <% @samples.each do |sample| %>
           <tr>
             <th scope="row"><%= sample.id %></th>
@@ -60,10 +60,10 @@
             <% end %>
 
             <%# DATA DA COLETA (SHOULD BE ABLE TO EDIT IN THIS VIEW) %>
-            <td><%= date_mask(sample.collected_at) %></td>
+            <td style="text-align: center;"><%= date_mask(sample.collected_at) %></td>
 
             <%# INI ACTION LINKS %>
-            <td>
+            <td style="text-align: center;">
               <% if sender?(current_user) && @batch.sent_at.nil? %>
                 <%= link_to icon('fas','edit'), edit_sample_path(sample), :title => "editar" %>
                 <%= link_to icon('fas','minus-circle'), edit_sample_path(sample), :title => "remover da remessa" %>
@@ -77,6 +77,6 @@
         <% end %>
       </tbody>
     </table>
-  </div>
+  </table>
   <%# END SAMPLES TABLE %>
 </div>
