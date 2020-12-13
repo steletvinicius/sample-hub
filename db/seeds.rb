@@ -313,7 +313,7 @@ puts " "
 puts "Creating batches and attaching samples..."
 # puts samples into batches but leaves at least 5 samples without a batch
 n_samples = Sample.count
-until n_samples <= 10 do
+until n_samples <= 30 do
   # creates a new empty batch
   date_sent = Date.today - rand(360)
   batch = Batch.create!(sender: sender, sent_at: date_sent)
@@ -325,10 +325,10 @@ until n_samples <= 10 do
     sample.batch = batch
     sample.collected_at = batch.sent_at - rand(3)
     sample.save!
-    batch.save!
     # puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
     n_samples -= 1
   end
+  batch.save!
 end
 
 # Set received date on all batches except 10 batches that will be in transit
@@ -342,9 +342,27 @@ until n_batches == 10 do
   n_batches -= 1
 end
 
-puts "...Created #{Batch.count} batches with #{Sample.where("batch_id IS NOT NULL").count} samples"
+# Creates batches that have not been sent yet (pendentes)
+# because sender can edit until sent_at date is sumitted
+5.times do
+  batch = Batch.create!(sender: sender)
+  # puts "Created empty batch [#{batch.id}], sent #{batch.sent_at} from #{batch.sender.institution} by #{batch.sender.email} | not yet received"
+  # Attaches 2 samples in the batch
+  2.times do
+    sample = Sample.find_by_batch_id(nil)
+    sample.batch = batch
+    sample.save!
+    # puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
+    n_samples -= 1
+  end
+  batch.save!
+end
+
+puts "...Created #{Batch.count} batches with #{Sample.where("batch_id IS NOT ?", nil).count} samples"
+puts "...#{Batch.where("received_at IS NOT ?", nil).count} batches were received"
+puts "...#{Batch.where("received_at IS ? AND sent_at IS NOT ?", nil, nil).count} batches were sent but are not received yet"
+puts "... #{Batch.where(sent_at: nil).count} batches were not sent yet"
 puts "...#{Sample.where(batch_id: nil).count} samples are not on a batch yet"
-puts "...#{Batch.where(received_at: nil).count} batches were not received yet"
 puts "BATCHES DONE WITH SAMPLES!"
 # END BATCHES
 

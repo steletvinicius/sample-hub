@@ -35,41 +35,47 @@
             <td><%= "#{batch.sender.institution}" %></td>
             <td><%= "#{batch.sender.first_name} #{batch.sender.last_name}" %></td>
 
-            <% if batch.sent_at %>
-              <td><%= date_mask(batch.sent_at) %></td>
-            <% else %>
-              <td></td>
-            <% end %>
+            <td><%= date_mask(batch.sent_at) if batch.sent_at %></td>
 
             <% if batch.received_at %>
               <td>Recebida</td>
             <% elsif batch.sent_at %>
               <td>Enviada</td>
             <% else %>
-              <td>Pendente</td>
+              <td>Não enviada</td>
             <% end %>
 
-            <% if batch.received_at %>
-              <td><%= date_mask(batch.received_at) %></td>
-              <td><%= "#{batch.receiver.first_name} #{batch.receiver.last_name}" %></td>
-            <% else %>
-              <td></td>
-              <td></td>
-            <% end %>
+            <td><%= date_mask(batch.received_at) if batch.received_at %></td>
+            <td><%= "#{batch.receiver.first_name} #{batch.receiver.last_name}" if batch.received_at %></td>
+
+            <%# INI USER ACTIONS %>
             <td>
-              <% if batch.received_at %>
-                <%= link_to icon('fas','eye'), edit_batch_path(batch), :title => "ver remessa" %>
-              <% else %>
+              <%# sender can edit and destroy if batch is not sent %>
+              <% if sender?(current_user) && batch.sent_at.nil? %>
                 <%= link_to icon('fas','edit'), edit_batch_path(batch), :title => "editar" %>
-              <% end %>
-              <% if sender?(current_user) %>
                 <%= link_to icon('far','trash-alt'), batch_path(batch),
                             method: :delete,
                             data: { confirm: "Retirar amostras e apagar remessa #{batch.id}?" }, 
-                            :title => "apagar" 
-                %>
+                            :title => "apagar" %>
+              <%# sender can view if batch is sent %>
+              <% elsif sender?(current_user) && batch.received_at.nil? %>
+                <%= link_to icon('fas','eye'), edit_batch_path(batch), :title => "ver remessa" %>
+              <% end %>
+
+              <%# receiver can view if batch has not been sent %>
+              <% if receiver?(current_user) && batch.sent_at.nil? %>
+                <%= link_to icon('fas','eye'), edit_batch_path(batch), :title => "ver remessa" %>
+              <%# receiver SHOULD BE ABLE TO MARK AS RECEIVED if batch has been sent %>
+              <% elsif receiver?(current_user) && batch.sent_at && batch.received_at.nil? %>
+                <%= link_to icon('fas','edit'), edit_batch_path(batch), :title => "editar" %>
+              <% end %>
+              <%# if batch was received everyone can view %>
+              <% if batch.received_at %>
+                <%= link_to icon('fas','eye'), edit_batch_path(batch), :title => "ver remessa" %>
               <% end %>
             </td>
+            <%# END USER ACTIONS %>
+
           </tr>
         <% end %>
         </tbody>
