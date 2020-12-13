@@ -61,8 +61,7 @@ loop do
   break unless x < cd_exames.length
 end
 
-puts "Created #{Procedure.count} SUS procedures."
-puts "PROCEDURES DONE!"
+puts "Created #{Procedure.count} SUS procedures. PROCEDURES DONE!"
 
 puts " "
 puts "Creating users..."
@@ -116,9 +115,9 @@ user = User.create!(
 puts "Created admin user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email}"
 
 receiver = User.create!(
-  first_name: 'Vinicius',
+  first_name: 'Bruna',
   last_name: 'Stelet',
-  email: 'vinicius@recepcao.com',
+  email: 'bruna@recepcao.com',
   password: '123456',
   role: 'Recepção',
   institution: 'Inca'
@@ -128,7 +127,7 @@ puts "Created receiver   [#{receiver.id}] #{receiver.first_name} #{receiver.last
 sender = User.create!(
   first_name: 'Ana',
   last_name: 'Secretária',
-  email: 'envio@teste.com',
+  email: 'ana@envio.com',
   password: '123456',
   role: 'Envio',
   institution: 'HC1',
@@ -142,13 +141,12 @@ cadastro = User.create!(
   email: 'thiago@cadastro.com',
   password: '123456',
   role: 'Cadastro',
-  institution: 'HC1',
+  institution: 'Into',
   cpf: '568912'
 )
 puts "Created sender cadastro [#{cadastro.id}] #{cadastro.first_name} #{cadastro.last_name} | #{cadastro.email}"
 
-puts "...Created #{User.count} users"
-puts "USERS DONE!"
+puts "...Created #{User.count} users. USERS DONE!"
 
 ##### BEGIN - SEED - Patients #####
 puts " "
@@ -220,8 +218,7 @@ patient = Patient.create(
 )
 # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
-puts "...Created #{Patient.count} patients"
-puts "PATIENTS DONE!"
+puts "...Created #{Patient.count} patients. PATIENTS DONE!"
 ##### END - SEED - Patients #####
 
 
@@ -245,8 +242,7 @@ family.relationship = "FILHA(O)"
 family.save!
 puts "Criou parente [#{family.id}] #{family.donor.first_name} id[#{family.donor.id}] é #{family.relationship} de #{family.receptor.first_name} #{family.receptor.last_name} [#{family.receptor.id}]"
 
-puts "...Criou #{Family.count} parentes"
-puts "FAMILIES DONE!"
+puts "...Criou #{Family.count} parentes. FAMILIES DONE!"
 ##### END - SEED - Families #####
 
 puts " "
@@ -285,8 +281,7 @@ doctors.each do |doctor|
   # puts "Created doctor #{doc.first_name} #{doc.last_name} - CRM #{doc.crm} with ID #{doc.id}"
 end
 
-puts "...Created #{Doctor.count} doctors"
-puts "DOCTORS DONE!"
+puts "...Created #{Doctor.count} doctors. DOCTORS DONE!"
 
 # INI SAMPLES
 puts " "
@@ -304,8 +299,7 @@ puts "Creating new samples DB..."
   # puts "Created sample with id #{sample.id} and category #{sample.category}"
 end
 
-puts "...Created #{Sample.count} samples without a batch"
-puts "SAMPLES DONE!"
+puts "...Created #{Sample.count} samples without a batch. SAMPLES DONE!"
 
 
 # INI BATCHES ONLY AFTER SAMPLES ALREADY EXIST
@@ -313,7 +307,7 @@ puts " "
 puts "Creating batches and attaching samples..."
 # puts samples into batches but leaves at least 5 samples without a batch
 n_samples = Sample.count
-until n_samples <= 30 do
+until n_samples <= 50 do
   # creates a new empty batch
   date_sent = Date.today - rand(360)
   batch = Batch.create!(sender: sender, sent_at: date_sent)
@@ -344,7 +338,7 @@ end
 
 # Creates batches that have not been sent yet (pendentes)
 # because sender can edit until sent_at date is sumitted
-5.times do
+10.times do
   batch = Batch.create!(sender: sender)
   # puts "Created empty batch [#{batch.id}], sent #{batch.sent_at} from #{batch.sender.institution} by #{batch.sender.email} | not yet received"
   # Attaches 2 samples in the batch
@@ -361,7 +355,7 @@ end
 puts "...Created #{Batch.count} batches with #{Sample.where("batch_id IS NOT ?", nil).count} samples"
 puts "...#{Batch.where("received_at IS NOT ?", nil).count} batches were received"
 puts "...#{Batch.where("received_at IS ? AND sent_at IS NOT ?", nil, nil).count} batches were sent but are not received yet"
-puts "... #{Batch.where(sent_at: nil).count} batches were not sent yet"
+puts "...#{Batch.where(sent_at: nil).count} batches were not sent yet"
 puts "...#{Sample.where(batch_id: nil).count} samples are not on a batch yet"
 puts "BATCHES DONE WITH SAMPLES!"
 # END BATCHES
@@ -376,8 +370,7 @@ puts "Creating exams..."
   # puts "Created exam id #{exam.id} to sample #{exam.sample.id} with procedure #{exam.procedure.id}"
 end
 
-puts "...Created #{Exam.count} exams"
-puts "EXAMS DONE!"
+puts "...Created #{Exam.count} exams. EXAMS DONE!"
 
 puts " "
 puts "FINISHED SEEDING!"

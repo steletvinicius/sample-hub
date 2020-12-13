@@ -56,6 +56,7 @@ class BatchesController < ApplicationController
     authorize @batch
     # update receiver if received_at is updated
     if @batch.update(batch_params)
+      raise
       flash[:success] = "Remessa atualizada com sucesso"
       redirect_to edit_batch_path(@batch)
     else

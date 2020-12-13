@@ -14,7 +14,7 @@
     <%# sender can edit sent date if batch has not been sent yet %>
     <% elsif sender?(current_user) %>
       <%= simple_form_for(@batch) do |f| %>
-        <%= f.input :sent_at, label: "Data de envio" %>
+        <%= f.input :sent_at, label: "Data do envio", as: :string, required: false, input_html: {class: "datepicker"} %>
         <%= f.button :submit, "enviar remessa", class: "btn btn-primary" %>
       <% end %>
     <% end %>
@@ -25,8 +25,8 @@
     <%# receiver can edit received date after batch is sent %>
     <% elsif receiver?(current_user) && @batch.sent_at %>
       <%= simple_form_for(@batch) do |f| %>
-        <%= f.input :received_at, label: "Data de recebimento" %>
-        <%= f.button :submit, "receber remessa", class: "btn btn-primary" %>
+        <%= f.input :received_at, label: "Data do recebimento", as: :string, required: false, input_html: {class: "datepicker"}  %>
+        <%= f.button :submit, "confirmar recebimento", class: "btn btn-primary" %>
       <% end %>
     <% end %>
   </div>
