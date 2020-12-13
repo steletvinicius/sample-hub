@@ -6,8 +6,9 @@ class BatchPolicy < ApplicationPolicy
     end
   end
 
-  # receiver and admin can view any batch, sender can view only from his own institution
-  def show?
+  # sender can update batch from his own institution, receiver can update any batch
+  # admin can view but not edit (controller/view handles this)
+  def update?
     if user.role == "Recepção" || user.admin?
       true
     elsif (user.role == "Envio" || user.role == "Cadastro") && user.institution == record.sender.institution
