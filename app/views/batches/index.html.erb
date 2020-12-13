@@ -1,14 +1,18 @@
 <div class="container my-4">
+
   <h2>Remessas</h2>
+
   <div class="my-2">
-    <% if sender?(current_user) || current_user.admin? %>
-      <%= link_to 'Criar nova remessa', samples_path, class: "btn btn-primary", style: "color: white;" %>
+    <% if sender?(current_user) %>
+      <%= link_to 'Criar nova remessa', samples_path, class: "btn btn-primary" %>
     <% end %>
   </div>
+
   <% if @batches.count.zero? %>
     <p>Nenhuma remessa encontrada</p>
+
   <% else %>
-    <%# ini list of batches %>
+    <%# INI BATCHES TABLE %>
     <div class="card">
       <table class="table table-hover align-bottom">
         <thead>
@@ -53,16 +57,24 @@
               <td></td>
             <% end %>
             <td>
-              <%= link_to icon('fas','sign-in-alt'), batch_path(batch) %>
-              <%= link_to icon('far','trash-alt'), batch_path(batch),
-                          method: :delete,
-                          data: { confirm: "Retirar amostras e apagar remessa #{batch.id}?" } %>
+              <% if batch.received_at %>
+                <%= link_to icon('fas','eye'), edit_batch_path(batch), :title => "ver remessa" %>
+              <% else %>
+                <%= link_to icon('fas','edit'), edit_batch_path(batch), :title => "editar" %>
+              <% end %>
+              <% if sender?(current_user) %>
+                <%= link_to icon('far','trash-alt'), batch_path(batch),
+                            method: :delete,
+                            data: { confirm: "Retirar amostras e apagar remessa #{batch.id}?" }, 
+                            :title => "apagar" 
+                %>
+              <% end %>
             </td>
           </tr>
         <% end %>
         </tbody>
       </table>
     </div>
-    <%# end list of batches %>
+    <%# END BATCHES TABLE %>
   <% end %>
 </div>
