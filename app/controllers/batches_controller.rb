@@ -19,6 +19,9 @@ class BatchesController < ApplicationController
   #   end
   # end
   def create
+    # samples to include on new batch to send to laboratory
+    @samples_to_batch = params[:sample_ids]
+    raise
     @user = current_user
     @batch = Batch.new(batch_params)
     @batch.sender = @user
@@ -63,7 +66,7 @@ class BatchesController < ApplicationController
       redirect_to edit_batch_path(@batch)
     end
   end
-  
+
 
   def destroy
     @batch = Batch.find(params[:id])
@@ -89,6 +92,6 @@ class BatchesController < ApplicationController
   end
 
   def batch_params
-    params.require(:batch).permit(:sent_at, :received_at)
+    params.require(:batch).permit(:sent_at, :received_at, :sample_ids[])
   end
 end
