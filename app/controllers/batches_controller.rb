@@ -50,13 +50,6 @@ class BatchesController < ApplicationController
     @user = current_user
     authorize @batch
 
-    # VALIDATIONS SHOULD BE ON THE CLIENT SIDE WHEREVER POSSIBLE?
-    # if ((@user.role == "Envio" || @user.role == "Cadastro") && @batch.received_at != batch_params[:received_at]) ||
-    #   (@user.role == "Recepção" && batch_params[:sent_at] != @batch.sent_at)
-    #   flash.alert = "ERRO: Você não tem permissão para fazer isso"
-    #   redirect_to edit_batch_path(@batch) and return
-    # end
-
     if params[:batch][:sample_id]
       sample = Sample.find(params[:batch][:sample_id].to_i)
       sample.batch = nil
@@ -148,6 +141,6 @@ class BatchesController < ApplicationController
   end
 
   def batch_params
-    params.require(:batch).permit(:sent_at, :received_at, :sample_ids[])
+    params.require(:batch).permit(:sent_at, :received_at)
   end
 end
