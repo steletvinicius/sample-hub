@@ -1,0 +1,4 @@
+var container = document.getElementById("resultsPatient")
+
+container.innerHTML = "";
+container.insertAdjacentHTML("beforeend", "<%= j render 'patient', patient: @patient %>");
