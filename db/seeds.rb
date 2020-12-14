@@ -141,7 +141,7 @@ cadastro = User.create!(
   email: 'thiago@cadastro.com',
   password: '123456',
   role: 'Cadastro',
-  institution: 'Into',
+  institution: 'HC1',
   cpf: '568912'
 )
 puts "Created sender cadastro [#{cadastro.id}] #{cadastro.first_name} #{cadastro.last_name} | #{cadastro.email}"
@@ -287,7 +287,7 @@ puts "...Created #{Doctor.count} doctors. DOCTORS DONE!"
 puts " "
 puts "Creating new samples DB..."
 
-150.times do
+250.times do
   sample = Sample.create(
     patient: Patient.all.sample,
     doctor: Doctor.all.sample,
@@ -307,10 +307,11 @@ puts " "
 puts "Creating batches and attaching samples..."
 # puts samples into batches but leaves at least 5 samples without a batch
 n_samples = Sample.count
+senders = User.where(role: 'Envio')
 until n_samples <= 50 do
   # creates a new empty batch
   date_sent = Date.today - rand(360)
-  batch = Batch.create!(sender: sender, sent_at: date_sent)
+  batch = Batch.create!(sender: senders.sample, sent_at: date_sent)
   # puts "Created empty batch [#{batch.id}], sent #{batch.sent_at} from #{batch.sender.institution} by #{batch.sender.email} | not yet received"
 
   # Attaches 2 to 5 samples in the batch
@@ -351,6 +352,8 @@ end
   end
   batch.save!
 end
+
+
 
 puts "...Created #{Batch.count} batches with #{Sample.where("batch_id IS NOT ?", nil).count} samples"
 puts "...#{Batch.where("received_at IS NOT ?", nil).count} batches were received"

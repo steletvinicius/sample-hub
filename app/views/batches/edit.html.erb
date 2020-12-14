@@ -1,34 +1,33 @@
 <div class="container my-4">
-  <h2>Remessa 
-    <%= @batch.sender.institution %> 
-    código <%= @batch.id %>
-  </h2>
+  <h2>Remessa <%= @batch.id %> - <%= @batch.sender.institution %></h2>
 
   <p>Situação: <%= @status %></p>
 
   <%# INI BATCH EDIT SECTION %>
-  <div style="display: grid; width: 400px; ">
-    <%# if batch is sent, everyone can view the sent date %>
-    <% if @batch.sent_at %>
+  <div style="display: grid; width: 200px; ">
+
+    <% if @batch.sent_at %> <%# if batch is sent render the sent date %>
       <p>Enviada em <%= date_mask(@batch.sent_at) %></p>
-    <%# sender can edit sent date if batch has not been sent yet %>
-    <% elsif sender?(current_user) %>
+    <% elsif policy(@batch).edit? %> <%# sender can edit sent date if batch has not been sent yet %>
       <%= simple_form_for(@batch) do |f| %>
-        <%= f.input :sent_at, label: "Data do envio", as: :string, required: false, input_html: {class: "datepicker"} %>
+        <%= f.input :sent_at, required: true, label: "Data do envio", 
+          as: :string, input_html: {class: "datepicker"},
+          error: 'Por favor selecione uma data' %>
         <%= f.button :submit, "enviar remessa", class: "btn btn-primary" %>
       <% end %>
     <% end %>
 
-    <%# if batch is received, everyone can view the delivery date %>
-    <% if @batch.received_at %>
+    <% if @batch.received_at %> <%# if batch is received, render the date %>
       <p>Recebida em <%= date_mask(@batch.received_at) %></p>
-    <%# receiver can edit received date after batch is sent %>
-    <% elsif receiver?(current_user) && @batch.sent_at %>
+    <% elsif policy(@batch).edit? && @batch.sent_at %> <%# receiver can edit received date after batch is sent %>
       <%= simple_form_for(@batch) do |f| %>
-        <%= f.input :received_at, label: "Data do recebimento", as: :string, required: false, input_html: {class: "datepicker"}  %>
-        <%= f.button :submit, "confirmar recebimento", class: "btn btn-primary" %>
+        <%= f.input :received_at, required: true, label: "Data do recebimento",
+          as: :string, input_html: {class: "datepicker"},
+          error: 'Por favor selecione uma data'  %>
+        <%= f.button :submit, "confirmar recebimento", class: "btn btn-primary mb-4" %>
       <% end %>
     <% end %>
+
   </div>
   <%# END BATCH EDIT SECTION %>
 
@@ -39,8 +38,8 @@
   <% end %>
 
   <%# INI SAMPLES TABLE %>
-  <table class="caption-top"">
-    <caption><%= pluralize(@samples.count, 'amostra', plural: 'amostras') %></caption>
+  <span><%= pluralize(@samples.count, 'amostra', plural: 'amostras') %></span>
+  <table class="caption-top">
     <table class="table table-hover align-bottom">
       <thead  style="background-color: gray; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
         <tr>
