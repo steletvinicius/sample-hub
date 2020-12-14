@@ -14,27 +14,21 @@ class BatchesController < ApplicationController
   end
 
   def create
-
     @batch = Batch.new
-    # samples to include on new batch to send to laboratory
-    @samples_to_batch = params[:sample_ids]
-    raise
     @user = current_user
     authorize @batch
 
     @batch.sender = @user
 
-    samples = Sample.where(batch_params[:samples])
-    if samples.count > 1
-      samples.each do |sample|
-
-      end
-    end
-
     if @batch.save
+      params[:sample_ids].each do |sample_id|
+        sample = Sample.find(sample_id.to_i)
+        sample.batch = @batch
+        sample.save
+      end
       redirect_to edit_batch_path(@batch)
     else
-      render samples_path # confirmar se essa é a view que cria um novo batch
+      render samples_path
     end
   end
 
@@ -42,9 +36,9 @@ class BatchesController < ApplicationController
     set_batch
     authorize @batch
     @samples = Sample.where(batch: @batch)
-    if !@batch.received_at.nil?
+    if @batch.received_at
       @status = "Recebida"
-    elsif !@batch.sent_at.nil?
+    elsif @batch.sent_at
       @status = "Enviada"
     else
       @status = "Não enviada"
