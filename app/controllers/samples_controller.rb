@@ -11,24 +11,29 @@ class SamplesController < ApplicationController
   def new
     @sample = Sample.new
     authorize @sample
+    @patients = policy_scope(Patient).order(created_at: :desc)
   end
 
   def create
-    @sample = Sample.new(sample_params)
+    @sample = Sample.new
+    @sample.patient = Patient.find(params[:patient_id].to_i)
     authorize @sample
     if @sample.save
-      # precisa trocar esse redirect para alguma página útil
-      redirect_to root_path
+      redirect_to edit_sample_path(@sample)
     else
-      render :new
+      redirect_to new_patient_path
     end
   end
 
   def edit
+    @doctors = policy_scope(Doctor).order(first_name: :asc)
   end
 
   def update
-    if @sample.update(sample_params)
+    @sample.doctor = Doctor.find(params[:doctor_id].to_i)
+    @sample.category = params[:category]
+    @sample.observation = params[:observation]
+    if @sample.save
       redirect_to samples_path
     else
       render :edit
@@ -38,12 +43,11 @@ class SamplesController < ApplicationController
   private
 
   def sample_params
-    params.require(:sample).permit(:batch_id, :patient_id, :doctor_id, :collected_at, :category, :quantity, :observation)
+    params.require(:sample).permit(:patient_id, :doctor_id, :collected_at, :category, :quantity, :observation)
   end
 
   def set_sample
     @sample = Sample.find(params[:id])
     authorize @sample
   end
-
 end

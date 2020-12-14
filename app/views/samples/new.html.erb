@@ -1,2 +1,25 @@
-<h1>Criar nova amostra</h1>
-<%= render 'shared/form_sample' %>
+<div class="container">
+  <h1 class="text-center">Criar nova amostra</h1>
+  <h1 class="text-center">Escolha seu paciente</h1>
+  <hr>
+
+  <div id="patients">
+    <% if @patients.present? %>
+      <form id="search-patient" class="text-left form-inline" action="/samples" method="post">
+        <select class="select2 form-control ml-auto mr-2" placeholder="Nome..." name="patient_id">
+          <% @patients.each do |patient| %>
+            <option value="<%= patient.id %>">
+              <%= "#{patient.first_name} #{patient.last_name} - CPF #{patient.cpf}" %>
+            </option>
+          <% end %>
+        </select>
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+        <input type="submit" class="btn btn-primary mr-auto ml-2" value="Criar amostra">
+      </form>
+      <ul id="results" class="list-inline"></ul>
+    <% else %>
+      <p>Não existem pacientes cadastrados no Sample Hub</p>
+    <% end %>
+  </div>
+  <%= link_to "Criar novo paciente", new_patient_path %>
+</div>

@@ -12,6 +12,11 @@
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
         <li class="nav-item">
+          <%= link_to "Nova Amostra", new_sample_path,
+            class: "btn btn-outline-primary mx-2 mt-2",
+            style:"border-radius: 50px; font-weight: bold;" %>
+        </li>
+        <li class="nav-item">
           <%= link_to "Amostras", samples_path,
             class: "btn btn-outline-primary mx-2 mt-2",
             style:"border-radius: 50px; font-weight: bold;" %>

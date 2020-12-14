@@ -1,0 +1,10 @@
+<%= simple_form_for @patient do |f| %>
+<%= f.input :first_name, label: "Nome" %>
+<%= f.input :last_name, label: "Sobrenome" %>
+<%= f.input :gender, collection: ["M", "F"], label: "Sexo" %>
+<%= f.input :born_at, as: :string, label: "Data de nascimento (xx/xx/xxxx)" %>
+<%= f.input :address, label: "Endereço" %>
+<%= f.input :cpf, label: "CPF (apenas números)" %>
+<%= f.input :sus_code, label: "Cartão SUS (apenas números)" %>
+<%= f.submit "Enviar" %>
+<% end %>
