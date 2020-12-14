@@ -3,7 +3,7 @@
   <% if @doctors.present? %>
       <form id="search-doctor" class="text-left form-inline" action="/samples/<%= @sample.id %>" method="post">
         <input name="_method" type="hidden" value="patch" />
-        <select class="select2 form-control ml-auto mr-2" placeholder="Nome..." name="doctor_id">
+        <select class="select2 form-control ml-auto mr-2" placeholder="Nome..." name="sample[doctor_id]">
           <% @doctors.each do |doctor| %>
             <option value="<%= doctor.id %>">
               <%= "#{doctor.first_name} #{doctor.last_name} - CRM #{doctor.crm}" %>
@@ -11,14 +11,14 @@
           <% end %>
         </select>
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-        <select name="category" class="text-left form-inline" id="category" placeholder="Categoria...">
+        <select name="sample[category]" class="text-left form-inline" id="category" placeholder="Categoria...">
           <% ["Sangue", "Soro", "Segmento de cordão"].each do |category| %>
             <option value="<%= category %>">
               <%= category %>
             </option>
           <% end %>
         </select>
-        <input type="text" class="text-left form-inline" label="Observação" name="observation">
+        <input type="text" class="text-left form-inline" label="Observação" name="sample[observation]">
         <input type="submit" class="btn btn-primary mr-auto ml-2" value="Criar amostra">
       </form>
       <ul id="results" class="list-inline"></ul>
