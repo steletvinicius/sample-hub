@@ -57,6 +57,13 @@ class BatchesController < ApplicationController
     #   redirect_to edit_batch_path(@batch) and return
     # end
 
+    if params[:batch][:sample_id]
+      sample = Sample.find(params[:batch][:sample_id].to_i)
+      sample.batch = nil
+      sample.save
+      redirect_to edit_batch_path(@batch) and return
+    end
+
     if @batch.received_at
       flash.alert = "ERRO: Essa remessa já foi recebida e não pode ser alterada"
       redirect_to edit_batch_path(@batch) and return
