@@ -1,5 +1,5 @@
 class SamplesController < ApplicationController
-  before_action :set_sample, only: %i[edit update edit_both]
+  before_action :set_sample, only: %i[edit update]
 
   def index
     # samples with date of collection pending
@@ -11,26 +11,29 @@ class SamplesController < ApplicationController
   def new
     @sample = Sample.new
     authorize @sample
+    @patients = policy_scope(Patient).order(created_at: :desc)
   end
 
   def create
-    @sample = Sample.new(sample_params)
+    @sample = Sample.new
+    @sample.patient = Patient.find(params[:patient_id].to_i)
     authorize @sample
-    if @sample.save!
-      redirect_to edit_both_sample_path
+    if @sample.save
+      redirect_to edit_sample_path(@sample)
     else
       redirect_to new_patient_path
     end
   end
 
   def edit
-  end
-
-  def edit_both
+    @doctors = policy_scope(Doctor).order(first_name: :asc)
   end
 
   def update
-    if @sample.update(sample_params)
+    @sample.doctor = Doctor.find(params[:doctor_id].to_i)
+    @sample.category = params[:category]
+    @sample.observation = params[:observation]
+    if @sample.save
       redirect_to samples_path
     else
       render :edit
@@ -40,7 +43,7 @@ class SamplesController < ApplicationController
   private
 
   def sample_params
-    params.require(:sample).permit(:batch_id, :patient_id, :doctor_id, :collected_at, :category, :quantity, :observation)
+    params.require(:sample).permit(:patient_id, :doctor_id, :collected_at, :category, :quantity, :observation)
   end
 
   def set_sample

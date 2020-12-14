@@ -9,8 +9,6 @@ Rails.application.routes.draw do
 
   resources :samples, only: %i[index new create edit update]
 
-  get '/samples/edit_both', to: 'samples#edit_both', as: edit_both_sample_path
-
   resources :batches, only: %i[index create edit update destroy]
 
   resources :exams, only: %i[new create]

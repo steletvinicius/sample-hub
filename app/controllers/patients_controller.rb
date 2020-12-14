@@ -20,7 +20,7 @@ class PatientsController < ApplicationController
       @sample = Sample.new
       authorize @sample
       @sample.patient = @patient
-      @sample.save!
+      @sample.save
       redirect_to edit_sample_path(@sample)
     else
       render :new
