@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-
+  before_action :configure_permitted_parameters, if: :devise_controller?
   skip_before_action :authenticate_user!, only: :home
 
   include Pundit
@@ -9,12 +9,21 @@ class ApplicationController < ActionController::Base
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
-  # Uncomment when you *really understand* Pundit!
-  # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  # def user_not_authorized
-  #   flash[:alert] = "You are not authorized to perform this action."
-  #   redirect_to(root_path)
-  # end
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  def user_not_authorized
+    flash[:alert] = "Você não tem autorização para fazer isso."
+    redirect_to(root_path)
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name,
+                                                      :role, :institution, :cpf,
+                                                      :admin, :active])
+
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name,
+                                                              :role, :institution, :cpf,
+                                                              :admin, :active])
+  end
 
   private
 

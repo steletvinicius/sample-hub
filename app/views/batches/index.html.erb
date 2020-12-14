@@ -1,0 +1,87 @@
+<div class="container my-4">
+
+  <h2>Remessas</h2>
+
+  <div class="my-2">
+    <% if sender?(current_user) %>
+      <%= link_to 'Criar nova remessa', samples_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <% if @batches.count.zero? %>
+    <p>Nenhuma remessa encontrada</p>
+
+  <% else %>
+    <%# INI BATCHES TABLE %>
+    <div class="caption-top">
+      <caption>Total: <%= pluralize(@batches.count, 'remessa', plural: 'remessas') %></caption>
+      <table class="table table-sm table-hover" style="background-color: white;">
+        <thead style="background-color: gray; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Instituição</th>
+            <th scope="col">Enviada por</th>
+            <th scope="col" style="text-align: center;">Data enviada </th>
+            <th scope="col">Situação</th>
+            <th scope="col" style="text-align: center;">Data recebida</th>
+            <th scope="col">Recebida por</th>
+            <th scope="col" style="text-align: center;">Ações</th>
+          </tr>
+        </thead>
+
+        <tbody style="background-color: white;">
+        <% @batches.reverse.each do |batch| %>
+          <tr>
+            <th scope="row"><%= batch.id %></th>
+            <td><%= "#{batch.sender.institution}" %></td>
+            <td><%= "#{batch.sender.first_name} #{batch.sender.last_name}" %></td>
+
+            <td style="text-align: center;"><%= date_mask(batch.sent_at) if batch.sent_at %></td>
+
+            <% if batch.received_at %>
+              <td>Recebida</td>
+            <% elsif batch.sent_at %>
+              <td>Enviada</td>
+            <% else %>
+              <td>Não enviada</td>
+            <% end %>
+
+            <td style="text-align: center;"><%= date_mask(batch.received_at) if batch.received_at %></td>
+            <td><%= "#{batch.receiver.first_name} #{batch.receiver.last_name}" if batch.received_at %></td>
+
+            <%# INI ACTION LINKS %>
+            <td style="text-align: center;">
+              <%# sender can edit and destroy if batch is not sent %>
+              <% if sender?(current_user) && batch.sent_at.nil? %>
+                <%= link_to icon('fas','edit'), edit_batch_path(batch), :title => "editar" %>
+                <%= link_to icon('far','trash-alt'), batch_path(batch),
+                            method: :delete,
+                            data: { confirm: "Retirar amostras e apagar remessa #{batch.id}?" }, 
+                            :title => "apagar" %>
+              <%# sender can view if batch is sent %>
+              <% elsif sender?(current_user) && batch.received_at.nil? %>
+                <%= link_to icon('fas','eye'), edit_batch_path(batch), :title => "ver remessa" %>
+              <% end %>
+
+              <%# receiver can view if batch has not been sent %>
+              <% if receiver?(current_user) && batch.sent_at.nil? %>
+                <%= link_to icon('fas','eye'), edit_batch_path(batch), :title => "ver remessa" %>
+              <%# receiver SHOULD BE ABLE TO MARK AS RECEIVED if batch has been sent %>
+              <% elsif receiver?(current_user) && batch.sent_at && batch.received_at.nil? %>
+                <%= link_to icon('fas','edit'), edit_batch_path(batch), :title => "editar" %>
+              <% end %>
+              <%# if batch was received everyone can view %>
+              <% if batch.received_at %>
+                <%= link_to icon('fas','eye'), edit_batch_path(batch), :title => "ver remessa" %>
+              <% end %>
+            </td>
+            <%# END ACTION LINKS %>
+
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%# END BATCHES TABLE %>
+  <% end %>
+</div>
