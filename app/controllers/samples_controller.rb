@@ -30,11 +30,10 @@ class SamplesController < ApplicationController
   end
 
   def update
-    @sample.doctor = Doctor.find(params[:doctor_id].to_i)
-    @sample.category = params[:category]
-    @sample.observation = params[:observation]
-    if @sample.save
+    if @sample.update(sample_params)
+      # Criar funcao para cadastrar o exame
       redirect_to samples_path
+
     else
       render :edit
     end
@@ -49,5 +48,8 @@ class SamplesController < ApplicationController
   def set_sample
     @sample = Sample.find(params[:id])
     authorize @sample
+  end
+
+  def set_exam
   end
 end
