@@ -1,4 +1,13 @@
 <div class="container my-4">
   <h1>Editar nova amostra</h1>
-  <%= render 'shared/form_sample' %>
+  <%= simple_form_for @sample do |f| %>
+  <%= f.input :batch_id %>
+  <!--<%= f.select :patient_id, collection: Patient.all.sort.map { |patient| "#{patient.first_name} #{patient.last_name}" } %>
+  <%= f.select :doctor_id, collection: Doctor.all.sort.map { |doctor| "#{doctor.first_name} #{doctor.last_name} - CRM #{doctor.crm}" } %>-->
+  <%= f.input :collected_at, as: :string, required: false, input_html: {class: "datepicker"} %>
+  <%= f.input :category, collection: ["Sangue", "Soro", "Segmento de cordão"] %>
+  <%= f.input :quantity %>
+  <%= f.input :observation %>
+  <%= f.submit "Enviar" %>
+<% end %>
 </div>

@@ -1,5 +1,5 @@
 class SamplesController < ApplicationController
-  before_action :set_sample, only: %i[edit update]
+  before_action :set_sample, only: %i[edit update edit_both]
 
   def index
     @samples = policy_scope(Sample).order(collected_at: :asc)
@@ -13,15 +13,17 @@ class SamplesController < ApplicationController
   def create
     @sample = Sample.new(sample_params)
     authorize @sample
-    if @sample.save
-      # precisa trocar esse redirect para alguma página útil
-      redirect_to root_path
+    if @sample.save!
+      redirect_to edit_both_sample_path
     else
-      render :new
+      redirect_to new_patient_path
     end
   end
 
   def edit
+  end
+
+  def edit_both
   end
 
   def update
@@ -42,5 +44,4 @@ class SamplesController < ApplicationController
     @sample = Sample.find(params[:id])
     authorize @sample
   end
-
 end

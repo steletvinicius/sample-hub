@@ -1,2 +1,5 @@
 <h1>Criar nova amostra</h1>
-<%= render 'shared/form_sample' %>
+<%= simple_form_for @sample do |f| %>
+  <%= f.association :patient, as: :select, class: "select2" %>
+  <%= f.submit "Seguir" %>
+<% end %>
