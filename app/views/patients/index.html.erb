@@ -2,22 +2,33 @@
   <h1 class="text-center">Pacientes</h1>
   <hr>
 
-  <div id="patients">
-    <% if @patients.present? %>
-      <form id="search-patient" class="text-left form-inline">
-        <select class="select2 form-control ml-auto mr-2" placeholder="Nome...">
-          <% @patients.each do |patient| %>
-            <option value="<%= patient %>">
-              <%= "#{patient.first_name} #{patient.last_name}" %>
-            </option>
-          <% end %>
-        </select>
+  <div class="d-flex justify-content-left">
+    <div id="patients">
+      <% if @patients.present? %>
+        <%= form_with url: patients_path, method: 'get', remote: true do %>
+          <select name="selectPatient" id="selectPatient" class="select2 form-control ml-auto mr-2" placeholder="Nome...">
+            <% @patients.each do |patient| %>
+              <option value="<%= patient.id %>">
+                <%= "#{patient.first_name} #{patient.last_name}" %>
+              </option>
+            <% end %>
+          </select>
 
-        <input type="submit" class="btn btn-primary mr-auto ml-2" value="Buscar" remote: true>
-      </form>
-      <ul id="results" class="list-inline"></ul>
-    <% else %>
-      <p>Não existem pacientes cadastrados no Sample Hub</p>
-    <% end %>
+          <input type="submit" class="btn btn-primary mr-auto ml-2" value="Buscar">
+        <% end %>
+        <ul id="results" class="list-inline"></ul>
+      <% else %>
+        <p>Não existem pacientes cadastrados no Sample Hub</p>
+      <% end %>
+    </div>
   </div>
+
+  <div class="row">
+
+    <ul id="resultsPatient">
+
+    </ul>
+    
+  </div>
+
 </div>
