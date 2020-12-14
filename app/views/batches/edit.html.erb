@@ -8,7 +8,7 @@
 
     <% if @batch.sent_at %> <%# if batch is sent render the sent date %>
       <p>Enviada em <%= date_mask(@batch.sent_at) %></p>
-    <% elsif sender?(current_user) %> <%# sender can edit sent date if batch has not been sent yet %>
+    <% elsif sender?(current_user) || current_user.admin? %> <%# sender can edit sent date if batch has not been sent yet %>
       <%= simple_form_for(@batch) do |f| %>
         <%= f.input :sent_at, label: "Data do envio", 
           as: :string, input_html: { class: "datepicker", required: true },
@@ -19,7 +19,7 @@
 
     <% if @batch.received_at %> <%# if batch is received, render the date %>
       <p>Recebida em <%= date_mask(@batch.received_at) %></p>
-    <% elsif receiver?(current_user) && @batch.sent_at %> <%# receiver can edit received date after batch is sent %>
+    <% elsif (receiver?(current_user) && @batch.sent_at) || current_user.admin? %> <%# receiver can edit received date after batch is sent %>
       <%= simple_form_for(@batch) do |f| %>
         <%= f.input :received_at, label: "Data do recebimento",
           as: :string, input_html: { class: "datepicker", required: true },
@@ -31,7 +31,7 @@
   </div>
   <%# END BATCH EDIT SECTION %>
 
-  <% if sender?(current_user) && @batch.sent_at.nil? %>
+  <% if sender?(current_user) && @batch.sent_at.nil? || current_user.admin? %>
     <div class="my-2">
       <%= link_to 'adicionar mais amostras', samples_path, class: "btn btn-primary" %>
     </div>
@@ -70,11 +70,12 @@
 
             <%# INI ACTION LINKS %>
             <td style="text-align: center;">
-              <% if sender?(current_user) && @batch.sent_at.nil? %>
-                <%= link_to icon('fas','edit'), edit_sample_path(sample), :title => "editar" %>
-                <%= link_to icon('fas','minus-circle'), edit_sample_path(sample), :title => "remover da remessa" %>
+              <% if sender?(current_user) && @batch.sent_at.nil? || current_user.admin? %>
+                <%= link_to icon('fas','edit'), edit_sample_path(sample), :title => "editar amostra" %>
+                <%= link_to icon('fas','minus-circle'), batch_path(batch: { sample_id: sample.id }),
+                            method: :put, :title => "remover da remessa" %>
               <% else %>
-                <%= link_to icon('far','eye'), edit_sample_path(sample), :title => "ver amostra" %>
+                <%= link_to icon('far','eye'), :title => "ver amostra" %>
               <% end %>
             </td>
             <%# END ACTION LINKS %>
@@ -85,4 +86,5 @@
     </table>
   </table>
   <%# END SAMPLES TABLE %>
+  <%= link_to "Back", :back %>
 </div>
