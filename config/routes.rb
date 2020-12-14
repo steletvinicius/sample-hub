@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   resources :exams, only: %i[new create]
 
   resources :procedures, only: %i[index create new edit delete]
+
+  resources :families, only: %i[new create]
 end

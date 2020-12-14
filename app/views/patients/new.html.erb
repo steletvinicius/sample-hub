@@ -6,5 +6,10 @@
 <%= f.input :address, label: "Endereço" %>
 <%= f.input :cpf, label: "CPF (apenas números)" %>
 <%= f.input :sus_code, label: "Cartão SUS (apenas números)" %>
+<%= f.label "Tipo de paciente" %>
+<%= f.input :patient_type do %>
+  <%= radio_button_tag "patient_type", 'receptor' %> Receptor
+  <%= radio_button_tag "patient_type", 'donor' %> Doador
+<% end %>
 <%= f.submit "Enviar" %>
 <% end %>
