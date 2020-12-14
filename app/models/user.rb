@@ -7,15 +7,16 @@ class User < ApplicationRecord
 
   validates :first_name, :last_name, presence: true 
 
+  validates :cpf, uniqueness: true 
+  validates :institution, presence: true
+
   validates :role, inclusion: { in: [ 
                                       'Cadastro',
                                       'Envio',
                                       'Recepção'
                                     ], allow_nil: false }
 
-  validates :cpf, uniqueness: true 
-  validates :institution, presence: true
-
+  # enum role: { 'Cadastro':0, 'Envio':1, 'Recepção':2}
 
   # def name_cannot_contain_numbers
   #   if :first_name.match?(/\D+/)

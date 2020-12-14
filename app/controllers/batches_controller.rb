@@ -1,34 +1,40 @@
 class BatchesController < ApplicationController
 
   def index
-    @batches = policy_scope(Batch)
+    @batches = policy_scope(Batch).includes(:sender, :receiver)
     # sender can only view batch sent from his own institution
     if current_user.role == 'Recepção' || current_user.admin?
       @batches
     elsif current_user.role == 'Envio' || current_user.role == 'Cadastro'
-      @batches = @batches.where(sender: current_user) # alterar critério para sender.institution == current_user.institution
+      users = User.where(institution: current_user.institution)
+      @batches = Batch.select { |batch| users.include?(batch.sender) }
     else
       @batches = []
     end
   end
 
-  # ISSO TEM QUE ESTAR NO ACTION NEW DO CONTROLLER DO BATCH
-  # def sent_at_must_be_today_or_earlier
-  #   if sent_at > Date.today
-  #     errors.add(:start_date, "Data não pode estar em branco e não pode ser uma data futura")
-  #   end
-  # end
   def create
+
+    @batch = Batch.new
+    # samples to include on new batch to send to laboratory
+    @samples_to_batch = params[:sample_ids]
+    raise
     @user = current_user
-    @batch = Batch.new(batch_params)
-    @batch.sender = @user
-    @batch.institution = @user.institution
     authorize @batch
 
+    @batch.sender = @user
+
+    samples = Sample.where(batch_params[:samples])
+    if samples.count > 1
+      samples.each do |sample|
+
+      end
+    end
+
     if @batch.save
-      redirect_to batches_path
+      redirect_to edit_batch_path(@batch)
     else
-      render samples_path # confirmar se essa é a view que dispara o post de batch
+      render samples_path # confirmar se essa é a view que cria um novo batch
     end
   end
 
@@ -45,33 +51,83 @@ class BatchesController < ApplicationController
     end
   end
 
-  # ISSO TEM QUE ENTRAR NO UPDATE NO CONTROLLER DO BATCH
-  # def received_at_must_be_later_than_sent_at
-  #   if received_at < sent_at
-  #     errors.add(:received_at, "Data de recebimento anterior à data de envio")
-  #   end
-  # end
   def update
-    set_batch
+    set_batch()
+    @user = current_user
     authorize @batch
-    # update receiver if received_at is updated
-    if @batch.update(batch_params)
-      flash[:success] = "Remessa atualizada com sucesso"
-      redirect_to edit_batch_path(@batch)
-    else
-      flash[:error] = "Something went wrong"
-      redirect_to edit_batch_path(@batch)
+
+    # VALIDATIONS SHOULD BE ON THE CLIENT SIDE WHEREVER POSSIBLE?
+    # if ((@user.role == "Envio" || @user.role == "Cadastro") && @batch.received_at != batch_params[:received_at]) ||
+    #   (@user.role == "Recepção" && batch_params[:sent_at] != @batch.sent_at)
+    #   flash.alert = "ERRO: Você não tem permissão para fazer isso"
+    #   redirect_to edit_batch_path(@batch) and return
+    # end
+
+    if @batch.received_at
+      flash.alert = "ERRO: Essa remessa já foi recebida e não pode ser alterada"
+      redirect_to edit_batch_path(@batch) and return
+    end
+
+    if batch_params.has_key?(:received_at)
+      received_at = batch_params[:received_at].to_datetime
+
+      if received_at.nil?
+        flash.alert = "ERRO: A data não pode estar em branco"
+        redirect_to edit_batch_path(@batch) and return
+      elsif @batch.sent_at.nil?
+        flash.alert = "ERRO: Esta remessa não tem data de envio"
+        redirect_to edit_batch_path(@batch) and return
+      elsif received_at < @batch.sent_at
+        flash.alert = "ERRO: Data de recebimento anterior à data de envio"
+        redirect_to edit_batch_path(@batch) and return
+      else
+        @batch.receiver = @user
+        @batch.received_at = received_at
+        if @batch.save
+          flash.notice = "Recebimento da remessa confirmado com sucesso. Obrigado!"
+          redirect_to edit_batch_path(@batch) and return
+        else
+          flash.alert = "Algo impediu a confirmação do envio!"
+          redirect_to edit_batch_path(@batch)
+        end
+      end
+    end
+
+    if batch_params.has_key?(:sent_at)
+      sent_at = batch_params[:sent_at].to_datetime
+
+      if sent_at.nil?
+        flash.alert = "ERRO: A data não pode estar em branco"
+        redirect_to edit_batch_path(@batch) and return
+      elsif sent_at > Date.today
+        flash.alert = "ERRO: A data de envio não pode ser posterior à data de hoje"
+        redirect_to edit_batch_path(@batch) and return
+      elsif @batch.sent_at
+        flash.alert = "ERRO: O envio desta remessa já foi confirmado"
+        redirect_to edit_batch_path(@batch) and return
+      elsif Sample.where("batch_id = ? AND collected_at = ?", @batch, nil).count > 0
+        flash.alert = "ERRO: Essa remessa contém amostras sem data de coleta"
+        redirect_to edit_batch_path(@batch) and return
+      else
+        @batch.sender = @user
+        @batch.sent_at = sent_at
+        if @batch.save
+          flash.notice = "Envio da remessa confirmado com sucesso. Obrigado!"
+          redirect_to edit_batch_path(@batch) and return
+        else
+          flash.alert = "Algo impediu a confirmação do recebimento!"
+          redirect_to edit_batch_path(@batch) and return
+        end
+      end
     end
   end
-  
 
   def destroy
-    @batch = Batch.find(params[:id])
+    set_batch()
     authorize @batch
     if @batch.received_at
-      redirect_to edit_batch_path(@batch), alert: "Essa remessa já foi recebida e não pode ser alterada"
+      redirect_to edit_batch_path(@batch), alert: "ERRO: Essa remessa já foi recebida e não pode ser alterada"
     else
-      # if not received, removes batch from samples and destroys batch
       samples = Sample.where(batch: @batch)
       samples.each do |sample|
         sample.batch = nil
@@ -82,13 +138,15 @@ class BatchesController < ApplicationController
     end
   end
 
+  # ----------------------------------------------------------------------------
   private
+
 
   def set_batch
     @batch = Batch.find(params[:id])
   end
 
   def batch_params
-    params.require(:batch).permit(:sent_at, :received_at)
+    params.require(:batch).permit(:sent_at, :received_at, :sample_ids[])
   end
 end
