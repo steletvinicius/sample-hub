@@ -14,7 +14,11 @@ class BatchesController < ApplicationController
   end
 
   def create
+
     @batch = Batch.new
+    # samples to include on new batch to send to laboratory
+    @samples_to_batch = params[:sample_ids]
+    raise
     @user = current_user
     authorize @batch
 
@@ -143,6 +147,6 @@ class BatchesController < ApplicationController
   end
 
   def batch_params
-    params.require(:batch).permit(:sent_at, :received_at)
+    params.require(:batch).permit(:sent_at, :received_at, :sample_ids[])
   end
 end

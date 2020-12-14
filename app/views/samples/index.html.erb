@@ -1,22 +1,58 @@
 <!-- Amostras a serem recebidas da coleta -->
-<div class="container">
-  <div class="d-flex flex-start flex-wrap justify-content-between align-items-start">
-  <% @samples.each do |sample| %>
-  <div class="card-product">
-    <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
-    <div class="card-product-infos">
-      <h2><%= sample.patient.first_name%> <%= sample.patient.last_name%></h2>
-      <p>Data de nascimento: <%= sample.patient.born_at %></p>
-      <p> <strong><%= sample.category %></strong></p>
-      <%= simple_form_for sample, remote: true do |f|%>
-        <%= f.input :collected_at, as: :date %>
-        <%= f.button :submit %>
+<div class="samples-container">
+  <div class="row">
+    <h2>Amostras para inserir data de coleta:</h2>
+    <div class="d-flex flex-start flex-wrap justify-content-between align-items-start">
+    <% @samples_to_complete.each do |sample| %>
+      <div class="card-product">
+        <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
+          <div class="card-product-infos">
+            <h2>Sample ID: <%= sample.id%></h2>
+            <h2>Nome: <%= sample.patient.first_name%> <%= sample.patient.last_name%></h2>
+              <p>Data de nascimento: <%= date_mask(sample.patient.born_at) %></p>
+              <p>Tipo de amostra: <strong><%= sample.category %></strong></p>
+              <%= simple_form_for sample, remote: true do |f|%>
+                <%= f.input :collected_at, label: 'Data da coleta', as: :string, required: false, input_html: {class: "datepicker"} %>
+                <%= f.button :submit, class:"btn btn-primary" %>
+              <% end %>
+          </div>
+        </div>
       <% end %>
     </div>
   </div>
-  <% end %>
+
+  <hr>
+  <hr>
+
+  <h2>Amostras prontas para envio ao laboratório:</h2>
+  <div class="row">
+    <form action="/batches" method="post">
+      <div class="d-flex flex-start flex-wrap justify-content-between align-items-start">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+        <% @samples_ready_to_send.each do |sample| %>
+          <div class="card-product">
+            <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
+            <div class="card-product-infos">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="checkbox_remessa" name="sample_ids[]" value="<%= sample.id %>"/>
+                <label for="checkbox_remessa" class="form-check-label">Adicionar a nova remessa</label>
+              </div>
+              <h2>Sample ID: <%= sample.id%></h2>
+              <h2>Nome: <%= sample.patient.first_name%> <%= sample.patient.last_name%></h2>
+              <p>Data de nascimento: <%= date_mask(sample.patient.born_at) %></p>
+              <p>Tipo de amostra: <strong><%= sample.category %></strong></p>
+              <p>Data da coleta: <strong><%= sample.collected_at%></strong></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="d-flex justify-content-center">
+        <input type="submit" value="Criar batch" class="btn btn-primary">
+      </div>
+    </form>
   </div>
 </div>
+
 
 <!-- Amostras a recebidas da coleta, a serem enviadas para o laboratório -->
 <!-- Precisam ter um checkbox para inclusão em batches -->
