@@ -8,10 +8,10 @@
 
     <% if @batch.sent_at %> <%# if batch is sent render the sent date %>
       <p>Enviada em <%= date_mask(@batch.sent_at) %></p>
-    <% elsif policy(@batch).edit? %> <%# sender can edit sent date if batch has not been sent yet %>
+    <% elsif sender?(current_user) %> <%# sender can edit sent date if batch has not been sent yet %>
       <%= simple_form_for(@batch) do |f| %>
-        <%= f.input :sent_at, required: true, label: "Data do envio", 
-          as: :string, input_html: {class: "datepicker"},
+        <%= f.input :sent_at, label: "Data do envio", 
+          as: :string, input_html: { class: "datepicker", required: true },
           error: 'Por favor selecione uma data' %>
         <%= f.button :submit, "enviar remessa", class: "btn btn-primary" %>
       <% end %>
@@ -19,10 +19,10 @@
 
     <% if @batch.received_at %> <%# if batch is received, render the date %>
       <p>Recebida em <%= date_mask(@batch.received_at) %></p>
-    <% elsif policy(@batch).edit? && @batch.sent_at %> <%# receiver can edit received date after batch is sent %>
+    <% elsif receiver?(current_user) && @batch.sent_at %> <%# receiver can edit received date after batch is sent %>
       <%= simple_form_for(@batch) do |f| %>
-        <%= f.input :received_at, required: true, label: "Data do recebimento",
-          as: :string, input_html: {class: "datepicker"},
+        <%= f.input :received_at, label: "Data do recebimento",
+          as: :string, input_html: { class: "datepicker", required: true },
           error: 'Por favor selecione uma data'  %>
         <%= f.button :submit, "confirmar recebimento", class: "btn btn-primary mb-4" %>
       <% end %>

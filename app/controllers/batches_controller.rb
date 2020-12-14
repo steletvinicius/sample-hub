@@ -52,12 +52,12 @@ class BatchesController < ApplicationController
     @user = current_user
     authorize @batch
 
-    # VALIDATIONS SHOULD BE ON THE CLIENT SIDE WHEREVER POSSIBLE!
-    if ((@user.role == "Envio" || @user.role == "Cadastro") && @batch.received_at != batch_params[:received_at]) ||
-      (@user.role == "Recepção" && batch_params[:sent_at] != @batch.sent_at)
-      flash.alert = "ERRO: Você não tem permissão para fazer isso"
-      redirect_to edit_batch_path(@batch) and return
-    end
+    # VALIDATIONS SHOULD BE ON THE CLIENT SIDE WHEREVER POSSIBLE?
+    # if ((@user.role == "Envio" || @user.role == "Cadastro") && @batch.received_at != batch_params[:received_at]) ||
+    #   (@user.role == "Recepção" && batch_params[:sent_at] != @batch.sent_at)
+    #   flash.alert = "ERRO: Você não tem permissão para fazer isso"
+    #   redirect_to edit_batch_path(@batch) and return
+    # end
 
     if @batch.received_at
       flash.alert = "ERRO: Essa remessa já foi recebida e não pode ser alterada"
@@ -65,7 +65,7 @@ class BatchesController < ApplicationController
     end
 
     if batch_params.has_key?(:received_at)
-      received_at = batch_params[:received_at]
+      received_at = batch_params[:received_at].to_datetime
 
       if received_at.nil?
         flash.alert = "ERRO: A data não pode estar em branco"
@@ -90,7 +90,7 @@ class BatchesController < ApplicationController
     end
 
     if batch_params.has_key?(:sent_at)
-      sent_at = batch_params[:sent_at]
+      sent_at = batch_params[:sent_at].to_datetime
 
       if sent_at.nil?
         flash.alert = "ERRO: A data não pode estar em branco"
@@ -101,7 +101,7 @@ class BatchesController < ApplicationController
       elsif @batch.sent_at
         flash.alert = "ERRO: O envio desta remessa já foi confirmado"
         redirect_to edit_batch_path(@batch) and return
-      elsif Sample.where("batch = ? AND collected_at = ?", @batch, nil).count > 0
+      elsif Sample.where("batch_id = ? AND collected_at = ?", @batch, nil).count > 0
         flash.alert = "ERRO: Essa remessa contém amostras sem data de coleta"
         redirect_to edit_batch_path(@batch) and return
       else
