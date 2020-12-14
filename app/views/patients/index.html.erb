@@ -1,11 +1,23 @@
 <div class="container">
   <h1 class="text-center">Pacientes</h1>
   <hr>
-  
-  <form id="search-patient" class="text-left form-inline">
-    <input id="keyword" type="text" class="form-control ml-auto mr-2" placeholder="Nome...">
-    <input type="submit" class="btn btn-primary mr-auto ml-2" value="Buscar">
-  </form>
-  
-  <ul id="results" class="list-inline"></ul>
+
+  <div id="patients">
+    <% if @patients.present? %>
+      <form id="search-patient" class="text-left form-inline">
+        <select class="select2 form-control ml-auto mr-2" placeholder="Nome...">
+          <% @patients.each do |patient| %>
+            <option value="<%= patient %>">
+              <%= "#{patient.first_name} #{patient.last_name}" %>
+            </option>
+          <% end %>
+        </select>
+
+        <input type="submit" class="btn btn-primary mr-auto ml-2" value="Buscar" remote: true>
+      </form>
+      <ul id="results" class="list-inline"></ul>
+    <% else %>
+      <p>Não existem pacientes cadastrados no Sample Hub</p>
+    <% end %>
+  </div>
 </div>
