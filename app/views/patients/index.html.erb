@@ -1,40 +1,23 @@
 <div class="container">
   <h1 class="text-center">Pacientes</h1>
   <hr>
-  <div class="d-flex flex-start flex-wrap justify-content-between align-items-start">
 
-  <% if @patients.count.zero? %>
-    <p>Não existem pacientes cadastrados.</p>
-  <% else %>
-    <% @patients.each do |patient| %>
-      <div class="card m-2" style="width: 18rem;">
-        
-        <div class="card-body">
-          <div class="d-flex">
-          <h5 class="card-title">
-            <%= link_to patient[1][:name], patient_path(patient[0]) %>
-            <h6><span class="badge badge-pill badge-success ml-2 mr-2"><%=  patient[1][:age] %></span></h6> 
-          </h5>
-            <% if patient[1].has_key?(:family) %>
-                <h3><span class="badge badge-pill badge-secondary"><%=  patient[1][:family].length %></span></h3>
-            <% end %>
-          </div>
-          
-          <% if patient[1].has_key?(:family) %> 
-            <ul class="list-group list-group-flush">
-              <% patient[1][:family].each do |p| %>
-                <li class="list-group-item justify-content-between align-items-center">
-                  <%= link_to "#{p[:name]} (#{p[:relationship]})" , patient_path(p[:id]) %>
-                  <span class="badge badge-pill badge-success"><%=  p[:age] %></span>            
-                </li>
-              <% end %>
-            </ul>
-          <% else %>
-            <!-- Add informação se necessário -->
+  <div id="patients">
+    <% if @patients.present? %>
+      <form id="search-patient" class="text-left form-inline">
+        <select class="select2 form-control ml-auto mr-2" placeholder="Nome...">
+          <% @patients.each do |patient| %>
+            <option value="<%= patient %>">
+              <%= "#{patient.first_name} #{patient.last_name}" %>
+            </option>
           <% end %>
-        </div>
-      </div>
-    <% end %> <!-- Fim - Patients.each -->
-  <% end %> <!-- Fim - @patients.count.zero? >
+        </select>
+
+        <input type="submit" class="btn btn-primary mr-auto ml-2" value="Buscar" remote: true>
+      </form>
+      <ul id="results" class="list-inline"></ul>
+    <% else %>
+      <p>Não existem pacientes cadastrados no Sample Hub</p>
+    <% end %>
   </div>
 </div>
