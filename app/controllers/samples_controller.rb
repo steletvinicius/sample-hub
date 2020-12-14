@@ -42,4 +42,5 @@ class SamplesController < ApplicationController
     @sample = Sample.find(params[:id])
     authorize @sample
   end
+
 end

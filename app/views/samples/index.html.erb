@@ -6,10 +6,10 @@
     <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
     <div class="card-product-infos">
       <h2><%= sample.patient.first_name%> <%= sample.patient.last_name%></h2>
-      <p>Data de nascimento: <%= sample.patient.born_at %></p>
+      <p>Data de nascimento: <%= date_mask(sample.patient.born_at) %></p>
       <p> <strong><%= sample.category %></strong></p>
       <%= simple_form_for sample, remote: true do |f|%>
-        <%= f.input :collected_at, as: :date %>
+        <%= f.input :collected_at, as: :string, required: false, input_html: {class: "datepicker"} %>
         <%= f.button :submit %>
       <% end %>
     </div>
