@@ -4,6 +4,7 @@
       <form id="search-doctor" class="text-left form-inline" action="/samples/<%= @sample.id %>" method="post">
         <input name="_method" type="hidden" value="patch" />
         <select class="select2 form-control ml-auto mr-2" placeholder="Nome..." name="sample[doctor_id]">
+          <option disabled selected value> --- Pesquise/Selecione - Doutor --- </option>
           <% @doctors.each do |doctor| %>
             <option value="<%= doctor.id %>">
               <%= "#{doctor.first_name} #{doctor.last_name} - CRM #{doctor.crm}" %>
@@ -12,6 +13,7 @@
         </select>
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <select name="sample[category]" class="text-left form-inline" id="category" placeholder="Categoria...">
+          <option disabled selected value> --- Pesquise / Selecione  --- </option>
           <% ["Sangue", "Soro", "Segmento de cordão"].each do |category| %>
             <option value="<%= category %>">
               <%= category %>
