@@ -156,6 +156,7 @@ patient = Patient.create(
   first_name: "Ana",
   last_name: "Milena",
   gender: "F",
+  patient_type: "donor",
   born_at: "12/02/1920",
   address: "Brasília, Distrito Federal, Brasil",
   cpf: "91858387051",
@@ -167,6 +168,7 @@ patient = Patient.create(
   first_name: "João",
   last_name: "Francisco",
   gender: "M",
+  patient_type: "receptor",
   born_at: "07/07/1950",
   address: "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil",
   cpf: "98186492062",
@@ -178,6 +180,7 @@ patient = Patient.create(
   first_name: "Marya",
   last_name: "Jullyane",
   gender: "F",
+  patient_type: "receptor",
   born_at: "09/01/1955",
   address: "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil",
   cpf: "21547068000",
@@ -189,6 +192,7 @@ patient = Patient.create(
   first_name: "Junior",
   last_name: "Olimpio",
   gender: "M",
+  patient_type: "donor",
   born_at: "15/07/1980",
   address: "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
   cpf: "77596796028",
@@ -200,6 +204,7 @@ patient = Patient.create(
   first_name: "Leia",
   last_name: "Silva",
   gender: "F",
+  patient_type: "receptor",
   born_at: "15/07/1980",
   address: "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
   cpf: "09141415035Leiaient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
@@ -209,11 +214,13 @@ patient = Patient.create(
   first_name: "Evandro",
   last_name: "Souza",
   gender: "M",
+  patient_type: "receptor",
   born_at: "15/07/1900",
   address: "Catetinho, Park Way, Distrito Federal, Brasil",
   cpf: "55450937024",
   sus_code: "290317708190008"
 )
+
 # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
 puts "...Created #{Patient.count} patients. PATIENTS DONE!"
