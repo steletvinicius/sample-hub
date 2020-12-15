@@ -12,41 +12,43 @@
     <p>Nenhuma remessa encontrada</p>
 
   <% else %>
-  <div >
-    <ul class="nav nav-pills">
-      <li>
-        <a href="#" class="nav-link selected">Enviadas</a>
-      </li>
-      <li>
-        <a href="#" class="nav-link">Não enviadas</a>
-      </li>
-      <li>
-        <a href="#" class="nav-link">Recebidas</a>
-      </li>
-    </ul>
-  </div>
+    <div>
+      <%# INI FILTER TABS %>
+      <div class="d-flex align-items-center justify-content-between">
+        <i id="counter">Total: <%= pluralize(@batches.count, 'remessa', plural: 'remessas') %></i>
+        <ul class="nav nav-pills">
+          <li>
+            <button class="nav-link btn btn-secondary selected" 
+                    id="filterUnsent">Não enviadas</button>
+          </li>
+          <li>
+            <button class="nav-link btn" 
+                    id="filterSent">Enviadas</button>
+          </li>
+          <li>
+            <button class="nav-link btn" 
+                    id="filterReceived">Recebidas</button>
+          </li>
+        </ul>
+      </div>
+      <%# END FILTER TABS %>
 
-    <%# INI BATCHES TABLE %>
-    <div class="caption-top">
-      <caption>Total: <%= pluralize(@batches.count, 'remessa', plural: 'remessas') %></caption>
-      <table class="table table-sm table-hover" style="background-color: white;">
-        <thead style="background-color: gray; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Instituição</th>
-            <th scope="col">Enviada por</th>
-            <th scope="col" style="text-align: center;">Enviada em</th>
-            <th scope="col" style="text-align: center;">Recebida em</th>
-            <th scope="col">Recebida por</th>
-            <th scope="col" style="text-align: center;">Amostras</th>
-            <th scope="col" style="text-align: center;">Ações</th>
-          </tr>
-        </thead>
+      <%# INI BATCHES TABLE %>
+      <table id="tblBatches" class="table table-sm table-hover" style="background-color: white;">
+        <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
+          <th style="text-align: center;">ID</th>
+          <th>Instituição</th>
+          <th>Enviada por</th>
+          <th style="text-align: center;">Enviada em</th>
+          <th style="text-align: center;">Recebida em</th>
+          <th>Recebida por</th>
+          <th style="text-align: center;">Amostras</th>
+          <th style="text-align: center;">Ações</th>
+        </tr>
 
-        <tbody style="background-color: white;">
         <% @batches.each do |batch| %>
-          <tr>
-            <th scope="row"><%= batch.id %></th>
+          <tr style="background-color: white;">
+            <td scope="row" style="text-align: center;"><%= batch.id %></td>
             <td><%= "#{batch.sender.institution}" %></td>
             <td><%= "#{batch.sender.first_name} #{batch.sender.last_name}" %></td>
 
@@ -83,12 +85,11 @@
               <% end %>
             </td>
             <%# END ACTION LINKS %>
-
           </tr>
         <% end %>
-        </tbody>
       </table>
+      <%# END BATCHES TABLE %>
     </div>
-    <%# END BATCHES TABLE %>
   <% end %>
+
 </div>

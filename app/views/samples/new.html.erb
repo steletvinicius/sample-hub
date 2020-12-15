@@ -7,6 +7,7 @@
     <% if @patients.present? %>
       <form id="search-patient" class="text-left form-inline" action="/samples" method="post">
         <select class="select2 form-control ml-auto mr-2" placeholder="Nome..." name="patient_id">
+          <option disabled selected value> --- Pesquise / Selecione  --- </option>
           <% @patients.each do |patient| %>
             <option value="<%= patient.id %>">
               <%= "#{patient.first_name} #{patient.last_name} - CPF #{patient.cpf}" %>
