@@ -39,7 +39,7 @@ class SamplesController < ApplicationController
   private
 
   def sample_params
-    params.require(:sample).permit(:patient_id, :doctor_id, :collected_at, :category, :quantity, :observation)
+    params.require(:sample).permit(:patient_id, :doctor_id, :collected_at, :category, :quantity, :observation, :status)
   end
 
   def set_sample
