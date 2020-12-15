@@ -6,7 +6,6 @@ const initFlatpickr = () => {
     locale: Portuguese,
     altInput: true,
     altFormat: "l, j \\de F, Y",
-    defaultDate: "today",
   });
 };
 
