@@ -14,7 +14,8 @@
   <% else %>
     <div>
       <%# INI FILTER TABS %>
-      <div >
+      <div class="d-flex align-items-center justify-content-between">
+        <i id="counter">Total: <%= pluralize(@batches.count, 'remessa', plural: 'remessas') %></i>
         <ul class="nav nav-pills">
           <li>
             <button class="btn btn-secondary nav-link selected" 
@@ -33,11 +34,9 @@
       <%# END FILTER TABS %>
 
       <%# INI BATCHES TABLE %>
-      <p> </p>
-      <p id="counter">Total: <%= pluralize(@batches.count, 'remessa', plural: 'remessas') %></p>
       <table id="tblBatches" class="table table-sm table-hover" style="background-color: white;">
-        <tr style="background-color: gray; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
-          <th>ID</th>
+        <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
+          <th style="text-align: center;">ID</th>
           <th>Instituição</th>
           <th>Enviada por</th>
           <th style="text-align: center;">Enviada em</th>
@@ -49,7 +48,7 @@
 
         <% @batches.each do |batch| %>
           <tr style="background-color: white;">
-            <td scope="row"><%= batch.id %></td>
+            <td scope="row" style="text-align: center;"><%= batch.id %></td>
             <td><%= "#{batch.sender.institution}" %></td>
             <td><%= "#{batch.sender.first_name} #{batch.sender.last_name}" %></td>
 
