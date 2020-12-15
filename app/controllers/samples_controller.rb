@@ -2,10 +2,7 @@ class SamplesController < ApplicationController
   before_action :set_sample, only: %i[edit update]
 
   def index
-    # samples with date of collection pending
-    @samples_to_complete = policy_scope(Sample).order(collected_at: :asc).where(collected_at: nil)
-    # samples ready to send to laboratory
-    @samples_ready_to_send = policy_scope(Sample).order(collected_at: :asc).where.not(collected_at: nil)
+    @samples = policy_scope(Sample).order(collected_at: :asc)
   end
 
   def new
