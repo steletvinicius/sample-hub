@@ -29,7 +29,7 @@ const initFilterTblSamples = () => {
 
 }
 
-const filtertblSamplesCollected = () => {
+const filterTblSamplesCollected = () => {
   const tabCollected = document.getElementById('filterCollected');
   const tabEmpty = document.getElementById('filterEmpty');
 
@@ -62,7 +62,7 @@ const filtertblSamplesCollected = () => {
   });
 }
 
-const filtertblSamplesUncollected = () => {
+const filterTblSamplesUncollected = () => {
   const tabCollected = document.getElementById('filterCollected');
   const tabEmpty = document.getElementById('filterEmpty');
 
@@ -95,7 +95,7 @@ const filtertblSamplesUncollected = () => {
   });
 }
 
-export { filtertblSamplesCollected };
-export { filtertblSamplesUncollected };
+export { filterTblSamplesCollected };
+export { filterTblSamplesUncollected };
 export { initFilterTblSamples };
 
