@@ -242,7 +242,7 @@ puts "Criou parente [#{family.id}] #{family.donor.first_name} id[#{family.donor.
 family = Family.new
 family.receptor = joao
 family.donor = Patient.find_by_first_name("Junior")
-family.relationship = "FILHA(O)"
+family.relationship = "FILHO/FILHA"
 family.save!
 puts "Criou parente [#{family.id}] #{family.donor.first_name} id[#{family.donor.id}] é #{family.relationship} de #{family.receptor.first_name} #{family.receptor.last_name} [#{family.receptor.id}]"
 
