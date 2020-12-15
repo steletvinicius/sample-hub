@@ -7,7 +7,11 @@
       </div>
       <div class="d-flex justify-content-between">
         <%= f.input :born_at, as: :string, label: "Data de nascimento", hint: "dd/mm/aaaa" %>
-        <%= f.input :gender, collection: ["M", "F"], label: "Sexo" %>
+        <%= f.input :gender, label: false do %>
+          <%= f.label "Sexo" %>
+          <%= radio_button_tag :gender, 'M' %> M
+          <%= radio_button_tag :gender, 'F' %> F
+        <% end %>
       </div>
       <%= f.input :address, label: "Endereço" %>
       <div class="d-flex justify-content-between">
