@@ -27,16 +27,32 @@ import { initFlatpickr } from "../plugins/flatpickr";
 
 // Internal imports:
 import { initSelect2 } from "../plugins/init_select2";
-import { initFilterTblBatches, filterTblBatchesReceived, filterTblBatchesUnsent, filterTblBatchesSent } from "../components/table"
+import { 
+  initFilterTblBatches, 
+  filterTblBatchesReceived, 
+  filterTblBatchesUnsent, 
+  filterTblBatchesSent 
+} from "../components/table_batches"
+
+import {
+  initFilterTblSamples,
+  filterTblSamplesCollected,
+  filterTblSamplesUncollected 
+} from "../components/table_samples"
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here:
   initFlatpickr();
   initSelect2();
+
+  initFilterTblBatches();
   filterTblBatchesReceived();
   filterTblBatchesUnsent();
   filterTblBatchesSent();
-  initFilterTblBatches();
+
+  initFilterTblSamples();
+  filterTblSamplesCollected();
+  filterTblSamplesUncollected();
 });
 
 // require('select2_simple_form');
