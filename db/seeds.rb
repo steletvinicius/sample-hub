@@ -153,8 +153,8 @@ puts " "
 puts "Make patients... 'May the Force be with you.'"
 
 patient = Patient.create(
-  first_name: "Shmi",
-  last_name: "Skywalker",
+  first_name: "Ana",
+  last_name: "Milena",
   gender: "F",
   born_at: "12/02/1920",
   address: "Brasília, Distrito Federal, Brasil",
@@ -164,8 +164,8 @@ patient = Patient.create(
 # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
 patient = Patient.create(
-  first_name: "Anakin",
-  last_name: "Skywalker",
+  first_name: "João",
+  last_name: "Francisco",
   gender: "M",
   born_at: "07/07/1950",
   address: "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil",
@@ -175,8 +175,8 @@ patient = Patient.create(
 # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
 patient = Patient.create(
-  first_name: "Padmé",
-  last_name: "Amidala",
+  first_name: "Marya",
+  last_name: "Jullyane",
   gender: "F",
   born_at: "09/01/1955",
   address: "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil",
@@ -186,8 +186,8 @@ patient = Patient.create(
 # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
 patient = Patient.create(
-  first_name: "Luke",
-  last_name: "Skywalker",
+  first_name: "Junior",
+  last_name: "Olimpio",
   gender: "M",
   born_at: "15/07/1980",
   address: "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
@@ -198,18 +198,16 @@ patient = Patient.create(
 
 patient = Patient.create(
   first_name: "Leia",
-  last_name: "Organa",
+  last_name: "Silva",
   gender: "F",
   born_at: "15/07/1980",
   address: "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
-  cpf: "09141415035",
-  sus_code: "958532819530006"
+  cpf: "09141415035Leiaient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 )
-# puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
 patient = Patient.create(
-  first_name: "Chewie",
-  last_name: "Chewbacca",
+  first_name: "Evandro",
+  last_name: "Souza",
   gender: "M",
   born_at: "15/07/1900",
   address: "Catetinho, Park Way, Distrito Federal, Brasil",
@@ -221,23 +219,22 @@ patient = Patient.create(
 puts "...Created #{Patient.count} patients. PATIENTS DONE!"
 ##### END - SEED - Patients #####
 
-
 ##### BEGIN - SEED - Families #####
 puts " "
 puts "Joining families... 'I am your father.'"
 
-anakim = Patient.find_by_first_name("Anakin")
+joao = Patient.find_by_first_name("João")
 
 family = Family.new
-family.receptor = anakim
-family.donor = Patient.find_by_first_name("Shmi")
+family.receptor = joao
+family.donor = Patient.find_by_first_name("Ana")
 family.relationship = "MÃE"
 family.save!
 puts "Criou parente [#{family.id}] #{family.donor.first_name} id[#{family.donor.id}] que é #{family.relationship} de #{family.receptor.first_name} #{family.receptor.last_name} [#{family.receptor.id}]"
 
 family = Family.new
-family.receptor = anakim
-family.donor = Patient.find_by_first_name("Luke")
+family.receptor = joao
+family.donor = Patient.find_by_first_name("Junior")
 family.relationship = "FILHA(O)"
 family.save!
 puts "Criou parente [#{family.id}] #{family.donor.first_name} id[#{family.donor.id}] é #{family.relationship} de #{family.receptor.first_name} #{family.receptor.last_name} [#{family.receptor.id}]"
@@ -301,14 +298,13 @@ end
 
 puts "...Created #{Sample.count} samples without a batch. SAMPLES DONE!"
 
-
 # INI BATCHES ONLY AFTER SAMPLES ALREADY EXIST
 puts " "
 puts "Creating batches and attaching samples..."
 # puts samples into batches but leaves at least 5 samples without a batch
 n_samples = Sample.count
 senders = User.where(role: 'Envio')
-until n_samples <= 50 do
+until n_samples <= 50
   # creates a new empty batch
   date_sent = Date.today - rand(360)
   batch = Batch.create!(sender: senders.sample, sent_at: date_sent)
@@ -328,7 +324,7 @@ end
 
 # Set received date on all batches except 10 batches that will be in transit
 n_batches = Batch.where(received_at: nil).count
-until n_batches == 10 do
+until n_batches == 10
   batch = Batch.find_by_received_at(nil)
   batch.receiver = receiver
   batch.received_at = batch.sent_at + rand(3)
@@ -353,11 +349,9 @@ end
   batch.save!
 end
 
-
-
-puts "...Created #{Batch.count} batches with #{Sample.where("batch_id IS NOT ?", nil).count} samples"
-puts "...#{Batch.where("received_at IS NOT ?", nil).count} batches were received"
-puts "...#{Batch.where("received_at IS ? AND sent_at IS NOT ?", nil, nil).count} batches were sent but are not received yet"
+puts "...Created #{Batch.count} batches with #{Sample.where('batch_id IS NOT ?', nil).count} samples"
+puts "...#{Batch.where('received_at IS NOT ?', nil).count} batches were received"
+puts "...#{Batch.where('received_at IS ? AND sent_at IS NOT ?', nil, nil).count} batches were sent but are not received yet"
 puts "...#{Batch.where(sent_at: nil).count} batches were not sent yet"
 puts "...#{Sample.where(batch_id: nil).count} samples are not on a batch yet"
 puts "BATCHES DONE WITH SAMPLES!"
@@ -378,4 +372,3 @@ puts "...Created #{Exam.count} exams. EXAMS DONE!"
 puts " "
 puts "FINISHED SEEDING!"
 puts " "
-
