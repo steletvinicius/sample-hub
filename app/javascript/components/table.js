@@ -2,7 +2,7 @@ const pluralizeJS = (count, singular, plural) =>
   `${count} ${count <= 1 ? singular : plural}`;
 
 const initFilterTblBatches = () => {
-  window.addEventListener('load', () => {
+  window.addEventListener('pageshow', () => {
     // Loop through all rows, and hide those that don't match criteria
     const table = document.getElementById("tblBatches");
     const tr = table.getElementsByTagName("tr");
@@ -13,6 +13,7 @@ const initFilterTblBatches = () => {
 
       if (dateCell) {
         const dateValue = dateCell.textContent || dateCell.innerText;
+        console.log(dateValue);
         if (dateValue === "") {
           tr[i].style.display = "";
           counter += 1;
