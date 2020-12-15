@@ -1,27 +1,19 @@
-const filterTblBatchesReceived = () => {
-  const tabReceived = document.getElementById('filterReceived');
-  const tabUnsent = document.getElementById('filterUnsent')
-  const tabSent = document.getElementById('filterSent')
+const pluralizeJS = (count, singular, plural) =>
+  `${count} ${count <= 1 ? singular : plural}`;
 
-  tabReceived.addEventListener('click', () => {
-    // add selected class to tab element
-    tabReceived.classList.add("selected");
-    tabReceived.classList.add("btn-secondary");
-    tabUnsent.classList.remove("selected");
-    tabUnsent.classList.remove("btn-secondary");
-    tabSent.classList.remove("selected");
-    tabSent.classList.remove("btn-secondary");
+const initFilterTblBatches = () => {
+  window.addEventListener('load', () => {
     // Loop through all rows, and hide those that don't match criteria
     const table = document.getElementById("tblBatches");
     const tr = table.getElementsByTagName("tr");
     let counter = 0;
 
     for (let i = 0; i < tr.length; i++) {
-      const dateCell = tr[i].getElementsByTagName("td")[4];
+      const dateCell = tr[i].getElementsByTagName("td")[3];
 
       if (dateCell) {
         const dateValue = dateCell.textContent || dateCell.innerText;
-        if (dateValue !== "") {
+        if (dateValue === "") {
           tr[i].style.display = "";
           counter += 1;
         } else {
@@ -32,10 +24,8 @@ const filterTblBatchesReceived = () => {
     const caption = document.getElementById("counter");
     caption.innerHTML = `Total ${pluralizeJS(counter, 'remessa', 'remessas')}`;
   });
-}
 
-const pluralizeJS = (count, singular, plural) =>
-  `${count} ${count <= 1 ? singular : plural}`;
+}
 
 const filterTblBatchesUnsent = () => {
   const tabReceived = document.getElementById('filterReceived');
@@ -61,6 +51,42 @@ const filterTblBatchesUnsent = () => {
       if (dateCell) {
         const dateValue = dateCell.textContent || dateCell.innerText;
         if (dateValue === "") {
+          tr[i].style.display = "";
+          counter += 1;
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+    const caption = document.getElementById("counter");
+    caption.innerHTML = `Total ${pluralizeJS(counter, 'remessa', 'remessas')}`;
+  });
+}
+
+const filterTblBatchesReceived = () => {
+  const tabReceived = document.getElementById('filterReceived');
+  const tabUnsent = document.getElementById('filterUnsent')
+  const tabSent = document.getElementById('filterSent')
+
+  tabReceived.addEventListener('click', () => {
+    // add selected class to tab element
+    tabReceived.classList.add("selected");
+    tabReceived.classList.add("btn-secondary");
+    tabUnsent.classList.remove("selected");
+    tabUnsent.classList.remove("btn-secondary");
+    tabSent.classList.remove("selected");
+    tabSent.classList.remove("btn-secondary");
+    // Loop through all rows, and hide those that don't match criteria
+    const table = document.getElementById("tblBatches");
+    const tr = table.getElementsByTagName("tr");
+    let counter = 0;
+
+    for (let i = 0; i < tr.length; i++) {
+      const dateCell = tr[i].getElementsByTagName("td")[4];
+
+      if (dateCell) {
+        const dateValue = dateCell.textContent || dateCell.innerText;
+        if (dateValue !== "") {
           tr[i].style.display = "";
           counter += 1;
         } else {
@@ -114,4 +140,5 @@ const filterTblBatchesSent = () => {
 export { filterTblBatchesUnsent };
 export { filterTblBatchesReceived };
 export { filterTblBatchesSent };
+export { initFilterTblBatches };
 
