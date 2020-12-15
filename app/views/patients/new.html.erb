@@ -1,15 +1,29 @@
-<%= simple_form_for @patient do |f| %>
-<%= f.input :first_name, label: "Nome" %>
-<%= f.input :last_name, label: "Sobrenome" %>
-<%= f.input :gender, collection: ["M", "F"], label: "Sexo" %>
-<%= f.input :born_at, as: :string, label: "Data de nascimento (xx/xx/xxxx)" %>
-<%= f.input :address, label: "Endereço" %>
-<%= f.input :cpf, label: "CPF (apenas números)" %>
-<%= f.input :sus_code, label: "Cartão SUS (apenas números)" %>
-<%= f.label "Tipo de paciente" %>
-<%= f.input :patient_type do %>
-  <%= radio_button_tag "patient_type", 'receptor' %> Receptor
-  <%= radio_button_tag "patient_type", 'donor' %> Doador
-<% end %>
-<%= f.submit "Enviar" %>
-<% end %>
+<div class="container my-5", style="width: 460px;">
+  <%= simple_form_for @patient do |f| %>
+    <div class="form-inputs">
+      <div class="d-flex justify-content-between">
+        <%= f.input :first_name, label: "Nome" %>
+        <%= f.input :last_name, label: "Sobrenome" %>
+      </div>
+      <div class="d-flex justify-content-between">
+        <%= f.input :born_at, as: :string, label: "Data de nascimento", hint: "dd/mm/aaaa" %>
+        <%= f.input :gender, collection: ["M", "F"], label: "Sexo" %>
+      </div>
+      <%= f.input :address, label: "Endereço" %>
+      <div class="d-flex justify-content-between">
+        <%= f.input :cpf, label: "CPF", hint: "apenas números" %>
+        <%= f.input :sus_code, label: "Cartão SUS", hint: "apenas números" %>
+      </div>
+      <div>
+        <%= f.label "Tipo de paciente" %>
+        <%= f.input :patient_type, label: false do %>
+          <%= radio_button_tag "patient_type", 'receptor'%> Receptor
+          <%= radio_button_tag "patient_type", 'donor' %> Doador
+        <% end %>
+      </div>
+    </div>
+    <div class="form-actions">
+      <%= f.submit "Cadastrar paciente", class: "btn btn-primary mb-3" %>
+    </div>
+  <% end %>
+</div>
