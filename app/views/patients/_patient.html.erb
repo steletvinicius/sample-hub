@@ -1,1 +1,32 @@
+<h1>
 <%= patient.first_name  %> <%= patient.last_name  %>
+</h1>
+<% if patient.patient_type == "donor" %>
+  <h2>Possível doador para o paciente:</h2>
+  <ul>
+    <% patient.donors.each do |family| %>
+      <li>
+        <%= "#{family.receptor.first_name} #{family.receptor.last_name}" %>
+      </li>
+    <% end %>
+  </ul>
+<% elsif patient.patient_type == "receptor" %>
+  <h2>Receptor com os possíveis doadores:</h2>
+  <ul>
+    <% patient.receptor.each do |family| %>
+      <li>
+        <%= "#{family.donor.first_name} #{family.donor.last_name}" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <h2>Paciente não aparentado</h2>
+<% end %>
+<h1>Amostras referentes a esse paciente:</h1>
+  <% patient.samples.each do |sample| %>
+  <li>
+    <% sample.collected_at ? date = "coletados no dia #{date_mask(sample.collected_at)}" : date = "encaminhados para coleta" %>
+    <%= "#{sample.quantity} tubos de #{sample.category} #{date} - status: #{sample.status}" %>
+  </li>
+  <% end %>
+<ul></ul>
