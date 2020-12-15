@@ -13,7 +13,7 @@ class SamplesController < ApplicationController
 
   def create
     @sample = Sample.new
-    @sample.patient = Patient.find(params[:patient_id].to_i)
+    @sample.patient = Patient.find(params[:patient_id].to_i) if params[:patient_id]
     authorize @sample
     if @sample.save
       redirect_to edit_sample_path(@sample)

@@ -21,10 +21,22 @@
           <% end %>
         </select>
         <input type="text" class="text-left form-inline" label="Observação" name="sample[observation]">
+        <%= hidden_field_tag "sample[status]", "criada" %>
         <input type="submit" class="btn btn-primary mr-auto ml-2" value="Criar amostra">
       </form>
       <ul id="results" class="list-inline"></ul>
     <% else %>
       <p>Não existem médicos cadastrados no Sample Hub</p>
     <% end %>
+
+    <div class="jumbotron">
+      <p><h3><%= @sample.patient.first_name %> <%= @sample.patient.last_name %></h3></p>
+      <hr>
+      <p>Gênero: <%= @sample.patient.gender %></p>
+      <p>Data de nascimento: <%= @sample.patient.born_at%></p> 
+      <p>Endereço: <%= @sample.patient.address %></p>
+      <p>CPF: <%= @sample.patient.cpf %></p>
+      <p>SUS: <%= @sample.patient.sus_code %></p>
+    </div>
+
 </div>

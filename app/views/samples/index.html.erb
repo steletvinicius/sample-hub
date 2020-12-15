@@ -1,4 +1,5 @@
 <h2>Amostras com informações a complementar:</h2>
+
 <div class="container">
   <table id="tblsamplesconfirmed" class="table table-sm table-hover" style="background-color: white;">
   <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
@@ -33,8 +34,10 @@
       </tr>
     <% end %>
   </table>
+  <hr>
+  <hr>
 
-<h2>Amostras prontas para envio ao laboratório:</h2>
+  <h2>Amostras prontas para envio ao laboratório:</h2>
 
   <form action="/batches" method="post">
     <%= hidden_field_tag "sample[status]", "enviada" %>
@@ -69,7 +72,8 @@
       <input type="submit" value="Criar batch" class="btn btn-primary">
     </div>
   </form>
-<hr>
-<hr>
-
 </div>
+
+
+
+

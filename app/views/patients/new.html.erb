@@ -7,7 +7,11 @@
       </div>
       <div class="d-flex justify-content-between">
         <%= f.input :born_at, as: :string, label: "Data de nascimento", hint: "dd/mm/aaaa" %>
-        <%= f.input :gender, collection: ["M", "F"], label: "Sexo" %>
+        <%= f.label "Sexo" %>
+        <%= f.radio_button :gender, "M" %>
+        <%= label :gender_male, "M" %>
+        <%= f.radio_button :gender, "F" %>
+        <%= label :gender_female, "F" %>
       </div>
       <%= f.input :address, label: "Endereço" %>
       <div class="d-flex justify-content-between">
@@ -16,10 +20,12 @@
       </div>
       <div>
         <%= f.label "Tipo de paciente" %>
-        <%= f.input :patient_type, label: false do %>
-          <%= radio_button_tag "patient_type", 'receptor'%> Receptor
-          <%= radio_button_tag "patient_type", 'donor' %> Doador
-        <% end %>
+        <%= f.radio_button :patient_type, "receptor" %>
+        <%= label :patient_type_receptor, "Receptor" %>
+        <%= f.radio_button :patient_type, "donor" %>
+        <%= label :patient_type_donor, "Doador" %>
+        <%= f.radio_button :patient_type, "not_relative" %>
+        <%= label :patient_type_donor, "Não aparentado" %>
       </div>
     </div>
     <div class="form-actions">

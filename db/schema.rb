@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_11_184228) do
+ActiveRecord::Schema.define(version: 2020_12_15_180506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2020_12_11_184228) do
     t.string "sus_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "patient_type"
   end
 
   create_table "procedures", force: :cascade do |t|
@@ -83,6 +84,7 @@ ActiveRecord::Schema.define(version: 2020_12_11_184228) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "patient_id", null: false
     t.bigint "doctor_id"
+    t.string "status", default: "incompleta", null: false
     t.index ["batch_id"], name: "index_samples_on_batch_id"
     t.index ["doctor_id"], name: "index_samples_on_doctor_id"
     t.index ["patient_id"], name: "index_samples_on_patient_id"
