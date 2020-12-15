@@ -35,6 +35,9 @@ gem 'pundit'
 # Seeding
 gem 'faker'
 
+# to use remote: true in forms and links to an action w/o reloading the page but w/ error msgs
+gem 'turbolinks_render'
+
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'

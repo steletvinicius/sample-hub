@@ -73,9 +73,9 @@
               <% if sender?(current_user) && @batch.sent_at.nil? || current_user.admin? %>
                 <%= link_to icon('fas','edit'), edit_sample_path(sample), :title => "editar amostra" %>
                 <%= link_to icon('fas','minus-circle'), batch_path(batch: { sample_id: sample.id }),
-                            method: :put, :title => "remover da remessa" %>
+                            method: :put, :title => "remover da remessa", remote: true %>
               <% else %>
-                <%= link_to icon('far','eye'), :title => "ver amostra" %>
+                <%= link_to icon('far','eye'), edit_sample_path(sample), :title => "ver amostra" %>
               <% end %>
             </td>
             <%# END ACTION LINKS %>
@@ -86,5 +86,4 @@
     </table>
   </table>
   <%# END SAMPLES TABLE %>
-  <%= link_to "Back", :back %>
 </div>
