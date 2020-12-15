@@ -37,3 +37,4 @@ document.addEventListener('turbolinks:load', () => {
 });
 
 // require('select2_simple_form');
+import "controllers"
