@@ -10,4 +10,5 @@ class Sample < ApplicationRecord
     message: "Esta não é uma categoria válida de amostra"
   }, allow_nil: true
   validates :quantity, numericality: { only_integer: true }, allow_nil: true
+  validates :status, inclusion: { in: ["criada", "coletada", "enviada", "recebida", "rejeitada"] }
 end
