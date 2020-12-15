@@ -11,6 +11,10 @@ class BatchesController < ApplicationController
     else
       @batches = []
     end
+    respond_to do |format|
+      format.html
+      format.json { render json: { batches: @batches } }
+    end
   end
 
   def create
