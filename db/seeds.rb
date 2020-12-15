@@ -295,8 +295,7 @@ puts "Creating new samples DB..."
   sample = Sample.create(
     patient: Patient.all.sample,
     doctor: Doctor.all.sample,
-    category: ["Sangue", "Soro", "Segmento de cordão"].sample,
-    quantity: rand(1..10)
+    category: ["Sangue", "Soro", "Segmento de cordão"].sample
   )
   sample.observation = "Esta é a observação para a sample com id #{sample.id}"
   sample.save!
