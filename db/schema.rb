@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2020_12_11_184228) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "patient_id", null: false
-    t.bigint "doctor_id"
+    t.bigint "doctor_id", null: false
     t.index ["batch_id"], name: "index_samples_on_batch_id"
     t.index ["doctor_id"], name: "index_samples_on_doctor_id"
     t.index ["patient_id"], name: "index_samples_on_patient_id"
