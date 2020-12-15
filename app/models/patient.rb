@@ -10,4 +10,5 @@ class Patient < ApplicationRecord
   validates :address, presence: true, length: { minimum: 3 }
   validates :cpf, presence: true, numericality: { only_integer: true }, uniqueness: true
   validates :sus_code, presence: true, numericality: { only_integer: true }
+  validates :patient_type, inclusion: { in: ['donor', 'receptor'] }
 end

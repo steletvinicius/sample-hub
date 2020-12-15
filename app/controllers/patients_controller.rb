@@ -18,7 +18,7 @@ class PatientsController < ApplicationController
     @patient = Patient.new(patient_params)
     authorize @patient
     if @patient.save
-      if params["patient_type"] == "receptor"
+      if @patient.patient_type == "receptor"
         @sample = Sample.new
         authorize @sample
         @sample.patient = @patient
@@ -35,7 +35,7 @@ class PatientsController < ApplicationController
   private
 
   def patient_params
-    params.require(:patient).permit(:first_name, :last_name, :gender, :born_at, :address, :cpf, :sus_code)
+    params.require(:patient).permit(:first_name, :last_name, :gender, :born_at, :address, :cpf, :sus_code, :patient_type)
   end
 
   def set_patient
