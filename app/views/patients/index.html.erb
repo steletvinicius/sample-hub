@@ -10,7 +10,7 @@
             <option disabled selected value> --- Pesquise / Selecione  --- </option>
             <% @patients.each do |patient| %>
               <option value="<%= patient.id %>">
-                <%= "#{patient.first_name} #{patient.last_name}" %>
+                <%= "#{patient.first_name} #{patient.last_name} - CPF #{patient.cpf}" %>
               </option>
             <% end %>
           </select>
