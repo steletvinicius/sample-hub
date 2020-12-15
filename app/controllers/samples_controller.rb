@@ -15,11 +15,15 @@ class SamplesController < ApplicationController
   end
 
   def create
-    @sample = Sample.new
-    @sample.patient = Patient.find(params[:patient_id].to_i)
-    authorize @sample
-    if @sample.save
-      redirect_to edit_sample_path(@sample)
+    if params[:patient_id]
+      @sample = Sample.new
+      @sample.patient = Patient.find(params[:patient_id].to_i)
+      authorize @sample
+      if @sample.save
+        redirect_to edit_sample_path(@sample)
+      else
+        redirect_to new_patient_path
+      end
     else
       redirect_to new_patient_path
     end
