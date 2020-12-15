@@ -27,4 +27,14 @@
     <% else %>
       <p>Não existem médicos cadastrados no Sample Hub</p>
     <% end %>
+
+    <div class="jumbotron">
+      <p><h3><%= @sample.patient.first_name %> <%= @sample.patient.last_name %></h3></p>
+      <p>Gênero: <%= @sample.patient.gender %></p>
+      <p>Data de nascimento: <%= @sample.patient.born_at%></p> 
+      <p>Endereço: <%= @sample.patient.address %></p>
+      <p>CPF: <%= @sample.patient.cpf %></p>
+      <p>SUS: <%= @sample.patient.sus_code %></p>
+    </div>
+
 </div>
