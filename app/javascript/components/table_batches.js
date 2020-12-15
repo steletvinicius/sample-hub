@@ -1,15 +1,17 @@
-const pluralizeJS = (count, singular, plural) =>
-  `${count} ${count <= 1 ? singular : plural}`;
 
+const pluralizeJS = (count, singular, plural) =>
+`${count} ${count <= 1 ? singular : plural}`;
+
+
+// => BATCHES
 const initFilterTblBatches = () => {
-  window.addEventListener('pageshow', () => {
     // Loop through all rows, and hide those that don't match criteria
     const table = document.getElementById("tblBatches");
     const tr = table.getElementsByTagName("tr");
     let counter = 0;
 
     for (let i = 0; i < tr.length; i++) {
-      const dateCell = tr[i].getElementsByTagName("td")[3];
+      const dateCell = tr[i].getElementsByTagName("td")[3]; // <==== ALTERAR COLUNA AQUI
 
       if (dateCell) {
         const dateValue = dateCell.textContent || dateCell.innerText;
@@ -24,7 +26,6 @@ const initFilterTblBatches = () => {
     }
     const caption = document.getElementById("counter");
     caption.innerHTML = `Total ${pluralizeJS(counter, 'remessa', 'remessas')}`;
-  });
 
 }
 
@@ -47,7 +48,7 @@ const filterTblBatchesUnsent = () => {
     let counter = 0;
 
     for (let i = 0; i < tr.length; i++) {
-      const dateCell = tr[i].getElementsByTagName("td")[3];
+      const dateCell = tr[i].getElementsByTagName("td")[3]; // <==== ALTERAR COLUNA AQUI
 
       if (dateCell) {
         const dateValue = dateCell.textContent || dateCell.innerText;
@@ -83,7 +84,7 @@ const filterTblBatchesReceived = () => {
     let counter = 0;
 
     for (let i = 0; i < tr.length; i++) {
-      const dateCell = tr[i].getElementsByTagName("td")[4];
+      const dateCell = tr[i].getElementsByTagName("td")[4]; // <==== ALTERAR COLUNA AQUI
 
       if (dateCell) {
         const dateValue = dateCell.textContent || dateCell.innerText;
@@ -119,8 +120,8 @@ const filterTblBatchesSent = () => {
     let counter = 0;
 
     for (let i = 0; i < tr.length; i++) {
-      const dateCellSent = tr[i].getElementsByTagName("td")[3];
-      const dateCellReceived = tr[i].getElementsByTagName("td")[4];
+      const dateCellSent = tr[i].getElementsByTagName("td")[3];      // <==== ALTERAR COLUNA AQUI
+      const dateCellReceived = tr[i].getElementsByTagName("td")[4];  // <==== ALTERAR COLUNA AQUI
 
       if (dateCellSent) {
         const dateValueSent = dateCellSent.textContent || dateCellSent.innerText;
@@ -138,8 +139,8 @@ const filterTblBatchesSent = () => {
   });
 }
 
-export { filterTblBatchesUnsent };
-export { filterTblBatchesReceived };
-export { filterTblBatchesSent };
 export { initFilterTblBatches };
+export { filterTblBatchesUnsent };
+export { filterTblBatchesSent };
+export { filterTblBatchesReceived };
 

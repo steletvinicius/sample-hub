@@ -66,6 +66,8 @@
               <td>Não aparentado</td>
             <% end %>
 
+            <%# TIPO DE AMOSTRA %>
+            <td><%= "#{sample.category}" %></td>
             <%# COLETADA EM (SHOULD BE ABLE TO EDIT IN THIS VIEW) %>
             <td style="text-align: center;"><%= date_mask(sample.collected_at) %></td>
 
