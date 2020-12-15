@@ -7,6 +7,7 @@
       <% if @patients.present? %>
         <%= form_with url: patients_path, method: 'get', remote: true do %>
           <select name="selectPatient" id="selectPatient" class="select2 form-control ml-auto mr-2" placeholder="Nome...">
+            <option disabled selected value> --- Pesquise / Selecione  --- </option>
             <% @patients.each do |patient| %>
               <option value="<%= patient.id %>">
                 <%= "#{patient.first_name} #{patient.last_name}" %>
