@@ -24,16 +24,18 @@ require("channels")
 // External imports
 import "bootstrap";
 import { initFlatpickr } from "../plugins/flatpickr";
-import { initSelect2 } from "../plugins/init_select2";
 
-// Internal imports, e.g:
-// import { initSelect2 } from '../components/init_select2';
+// Internal imports:
+import { initSelect2 } from "../plugins/init_select2";
+import { filterTblBatchesReceived, filterTblBatchesUnsent, filterTblBatchesSent } from "../components/table"
 
 document.addEventListener('turbolinks:load', () => {
-  // Call your functions here, e.g:
-  // initSelect2();
+  // Call your functions here:
   initFlatpickr();
   initSelect2();
+  filterTblBatchesReceived();
+  filterTblBatchesUnsent();
+  filterTblBatchesSent();
 });
 
 // require('select2_simple_form');
