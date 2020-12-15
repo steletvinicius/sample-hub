@@ -18,11 +18,15 @@ class PatientsController < ApplicationController
     @patient = Patient.new(patient_params)
     authorize @patient
     if @patient.save
-      @sample = Sample.new
-      authorize @sample
-      @sample.patient = @patient
-      @sample.save
-      redirect_to edit_sample_path(@sample)
+      if params["patient_type"] == "receptor"
+        @sample = Sample.new
+        authorize @sample
+        @sample.patient = @patient
+        @sample.save
+        redirect_to edit_sample_path(@sample)
+      else
+        redirect_to new_family_path(patient: @patient)
+      end
     else
       render :new
     end
