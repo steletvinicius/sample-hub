@@ -220,6 +220,7 @@ patient = Patient.create(
   cpf: "55450937024",
   sus_code: "290317708190008"
 )
+
 # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
 puts "...Created #{Patient.count} patients. PATIENTS DONE!"
