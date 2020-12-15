@@ -8,6 +8,6 @@ class Patient < ApplicationRecord
   validates :gender, presence: true, inclusion: { in: ["M", "F"] }
   validates :born_at, presence: true
   validates :address, presence: true, length: { minimum: 3 }
-  validates :cpf, presence: true, numericality: { only_integer: true }
+  validates :cpf, presence: true, numericality: { only_integer: true }, uniqueness: true
   validates :sus_code, presence: true, numericality: { only_integer: true }
 end

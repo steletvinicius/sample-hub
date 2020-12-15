@@ -1,7 +1,7 @@
 class BatchesController < ApplicationController
 
   def index
-    @batches = policy_scope(Batch).includes(:sender, :receiver)
+    @batches = policy_scope(Batch).includes(:sender, :receiver).order(sent_at: :desc)
     # sender can only view batch sent from his own institution
     if current_user.role == 'Recepção' || current_user.admin?
       @batches
