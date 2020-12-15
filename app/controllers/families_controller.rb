@@ -3,7 +3,7 @@ class FamiliesController < ApplicationController
     @family = Family.new
     authorize @family
     @patient = Patient.find(params["patient"].to_i)
-    @patients = policy_scope(Patient).order(created_at: :desc)
+    @patients = policy_scope(Patient).order(created_at: :desc).where(patient_type: "receptor")
   end
 
   def create

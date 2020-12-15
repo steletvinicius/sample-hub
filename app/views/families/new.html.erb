@@ -1,33 +1,36 @@
-<h1>Dados do Doador</h1>
-<%= @patient.first_name %>
-<%= @patient.last_name %>
-<%= @patient.cpf %>
-
 <h1>Escolha o receptor:</h1>
 
-<div id="relationship">
+<div id="relationship" class="container">
     <% if @patients.present? %>
-      <form id="search-patient" class="text-left form-inline" action="/families" method="post">
-        <select class="select2 form-control ml-auto mr-2" placeholder="Nome..." name="family[receptor_id]">
+      <form id="search-patient" class="text-left" action="/families" method="post">
+        <div>
+        <select class="select2 form-control ml-auto mr-2 mt-3" placeholder="Nome..." name="family[receptor_id]">
           <% @patients.each do |patient| %>
             <option value="<%= patient.id %>">
               <%= "#{patient.first_name} #{patient.last_name} - CPF #{patient.cpf}" %>
             </option>
           <% end %>
         </select>
-        <select name="family[relationship]" id="relationship">
-        <% ["MÃE", "PAI", "IRMÃ(ÃO)", "FILHA(O)", "CÔNJUGE", "COMPANHEIRA(O)", "AVÓ(Ô)", "PRIMA(O)", "TIA(O)"].each do |relation| %>
+        </div>
+        <div class="ml-auto mr-2 mt-3">
+        <h1>Dados do Doador</h1>
+        <%= "#{@patient.first_name} #{@patient.last_name} - CPF #{@patient.cpf}" %>
+        </div>
+        <div >
+        <select name="family[relationship]" id="relationship" class="form-control ml-auto mr-2 mt-3">
+        <% ["MÃE", "PAI", "IRMÃO/IRMÃ", "FILHO/FILHA", "CÔNJUGE", "COMPANHEIRA/COMPANHEIRO", "AVÔ/AVÓ", "PRIMO/PRIMA", "TIO/TIA", "OUTRO"].each do |relation| %>
             <option value="<%= relation %>">
               <%= relation %>
             </option>
           <% end %>
         </select>
+        </div>
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <%= hidden_field_tag "family[donor_id]", @patient.id %>
-        <input type="submit" class="btn btn-primary mr-auto ml-2" value="Cadastrar parentesco">
+        <input type="submit" class="btn btn-primary mr-auto ml-2 mt-3" value="Cadastrar parentesco">
       </form>
       <ul id="results" class="list-inline"></ul>
     <% else %>
-      <p>Não existem pacientes cadastrados no Sample Hub</p>
+      <p>Não existem receptores cadastrados no Sample Hub</p>
     <% end %>
   </div>

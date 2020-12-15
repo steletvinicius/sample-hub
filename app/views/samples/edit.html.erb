@@ -21,6 +21,7 @@
           <% end %>
         </select>
         <input type="text" class="text-left form-inline" label="Observação" name="sample[observation]">
+        <%= hidden_field_tag "sample[status]", "criada" %>
         <input type="submit" class="btn btn-primary mr-auto ml-2" value="Criar amostra">
       </form>
       <ul id="results" class="list-inline"></ul>
