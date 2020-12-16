@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Radio button</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap">
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="../css/dsgov.css">
+    <!-- Fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <p class="h5">Radio button padrão</p>
+      <p class="label mb-0">Rótulo</p>
+      <p class="help-text">Informações adicionais</p>
+      <div class="br-radio">
+        <input id="op-1" type="radio" name="radio" aria-label="radio">
+        <label for="op-1">opcao-1</label>
+      </div>
+      <div class="br-radio">
+        <input id="op-2" type="radio" name="radio" aria-label="radio" checked>
+        <label for="op-2">opcao-2</label>
+      </div>
+      <div class="br-radio">
+        <input id="op-3" type="radio" name="radio" aria-label="radio">
+        <label for="op-3">opcao-3</label>
+      </div>
+      <div class="br-radio">
+        <input id="op-4" type="radio" name="radio" aria-label="radio">
+        <label for="op-4">opcao-4</label>
+      </div>
+      <div class="feedback mt-1"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i><span> Texto de mensagem</span>
+      </div>
+      <p class="h5 mt-5">Listagem horizontal</p>
+      <div class="br-radio d-inline">
+        <input id="h-radio-1" type="radio" name="h-radio" aria-label="h-radio">
+        <label for="h-radio-1">Opção 1</label>
+      </div>
+      <div class="br-radio d-inline">
+        <input id="h-radio-2" type="radio" name="h-radio" aria-label="h-radio">
+        <label for="h-radio-2">Opção 2</label>
+      </div>
+      <div class="br-radio d-inline">
+        <input id="h-radio-3" type="radio" name="h-radio" aria-label="h-radio">
+        <label for="h-radio-3">Opção 3</label>
+      </div>
+      <p class="h5 mt-5">Estados e validação</p>
+      <div class="br-radio">
+        <input id="check-state-disabled" type="radio" name="validate-radio" aria-label="validate-radio" disabled>
+        <label for="check-state-disabled">desativado</label>
+      </div>
+      <div class="br-radio" invalid>
+        <input id="check-state-invalid" type="radio" name="validate-radio" aria-label="validate-radio">
+        <label for="check-state-invalid">Inválido</label>
+      </div>
+      <div class="br-radio" valid>
+        <input id="check-state-valid" type="radio" name="validate-radio" aria-label="validate-radio" checked>
+        <label for="check-state-valid">Válido</label>
+      </div>
+      <div class="feedback text-danger mt-1"><i class="fas fa-times-circle" aria-hidden="true"></i><span> Preenchimento Obrigatório</span>
+      </div>
+    </div>
+    <script src="../js/dsgov.js"></script>
+  </body>
+</html>

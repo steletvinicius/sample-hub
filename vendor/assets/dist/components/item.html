@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Item</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap">
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="../css/dsgov.css">
+    <!-- Fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6 col-lg-4">
+          <p class="h5">Item Interativo</p><a class="br-item" href="javascript:void(0)">
+            <div class="row align-items-center">
+              <div class="col-auto"><img class="rounded" src="https://picsum.photos/40/40" alt="imagem de exemplo 1"></div>
+              <div class="col">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</div>
+            </div></a>
+        </div>
+        <div class="col-sm-6 col-lg-4 mt-5 mt-sm-0">
+          <p class="h5">Item com elementos interativos</p>
+          <div class="br-item">
+            <div class="row align-items-center">
+              <div class="col">Lorem ipsum <a href="javascript:void(0);">dolor</a>, sit amet consectetur <a href="javascript:void(0);">adipisicing</a> elit.</div>
+              <div class="col-auto">
+                <button class="br-button circle" type="button"><i class="fas fa-city" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Item com seleção</p>
+      <div class="row">
+        <div class="col-sm-6 col-lg-4">
+          <div class="br-item" data-toggle="selection">
+            <div class="br-checkbox">
+              <input id="check-01" type="checkbox" checked>
+              <label for="check-01">Rótulo do Checkbox</label>
+            </div>
+          </div>
+          <div class="br-item" data-toggle="selection">
+            <div class="br-checkbox">
+              <input id="check-02" type="checkbox">
+              <label for="check-02">Rótulo do Checkbox</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4 mt-5 mt-sm-0">
+          <div class="br-item" data-toggle="selection">
+            <div class="br-radio">
+              <input id="radio-01" type="radio" name="radio">
+              <label for="radio-01">Rótulo do Checkbox</label>
+            </div>
+          </div>
+          <div class="br-item" data-toggle="selection">
+            <div class="br-radio">
+              <input id="radio-02" type="radio" name="radio">
+              <label for="radio-02">Rótulo do Checkbox</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Item desativado</p>
+      <div class="row">
+        <div class="col-sm-6 col-lg-4">
+          <div class="br-item" disabled>
+            <div class="row align-items-center">
+              <div class="col-auto"><img class="rounded" src="https://picsum.photos/40/40" alt="imagem de exemplo 1"></div>
+              <div class="col"><span>Lorem ipsum dolor sit amet consectetur adipisicing elit</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/dsgov.js"></script>
+  </body>
+</html>

@@ -2,7 +2,7 @@ class SamplesController < ApplicationController
   before_action :set_sample, only: %i[edit update]
 
   def index
-    @samples = policy_scope(Sample).order(collected_at: :asc).where(batch: nil)
+    @samples = policy_scope(Sample).where(batch_id: nil).order(collected_at: :asc)
   end
 
   def new
@@ -39,7 +39,7 @@ class SamplesController < ApplicationController
   private
 
   def sample_params
-    params.require(:sample).permit(:patient_id, :doctor_id, :collected_at, :category, :quantity, :observation)
+    params.require(:sample).permit(:patient_id, :doctor_id, :collected_at, :category, :quantity, :observation, :status)
   end
 
   def set_sample

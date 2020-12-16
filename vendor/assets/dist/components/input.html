@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Input</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap">
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="../css/dsgov.css">
+    <!-- Fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <p class="h5">Input padrão</p>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="br-input">
+            <label for="cpf-id1">CPF</label>
+            <input id="cpf-id1" type="text" placeholder="Digite somente números">
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Input com botão</p>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="br-input">
+            <label for="password-id1">Senha</label>
+            <input id="password-id1" type="password" placeholder="Sua senha de 8 a 11 digitos">
+            <button class="icon" type="button"><span class="sr-only">Mostrar senha</span><i class="fas fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Input pequeno</p>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="bg-primary-pastel-02 p-1">
+            <div class="br-input" filter>
+              <label for="filtro-id">Filtrar por:</label>
+              <input id="filtro-id" type="text" placeholder="Pesquisar em notícias">
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Validação e estados</p>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="br-input" valid>
+            <label for="cpf-id2">CPF</label>
+            <input id="cpf-id2" type="text" placeholder="Digite somente números">
+          </div>
+          <div class="mt-1">
+            <div class="feedback color-success">
+              <div class="icon"><i class="fas fa-check-circle" aria-hidden="true"></i>
+              </div>CPF válido
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="br-input" invalid>
+            <label for="cpf-id3">CPF</label>
+            <input id="cpf-id3" type="text" placeholder="Digite somente números">
+          </div>
+          <div class="mt-1">
+            <div class="feedback color-danger">
+              <div class="icon"><i class="fas fa-times-circle" aria-hidden="true"></i>
+              </div>CPF inválido
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="br-input">
+            <label for="cpf-id4">CPF</label>
+            <input id="cpf-id4" type="text" placeholder="Digite somente números" disabled>
+          </div>
+          <div class="mt-1">
+            <div class="feedback">
+              <div class="icon"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+              </div>Campo Desabilitado
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/dsgov.js"></script>
+  </body>
+</html>

@@ -157,10 +157,10 @@ patient = Patient.create(
   last_name: "Milena",
   gender: "F",
   patient_type: "donor",
-  born_at: "12/02/1920",
+  born_at: Faker::Date.birthday,
   address: "Brasília, Distrito Federal, Brasil",
-  cpf: "91858387051",
-  sus_code: "157833392350004"
+  cpf: Faker::CPF.numeric,
+  sus_code: Faker::Number.number(digits: 15)
 )
 # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
@@ -169,10 +169,10 @@ patient = Patient.create(
   last_name: "Francisco",
   gender: "M",
   patient_type: "receptor",
-  born_at: "07/07/1950",
+  born_at: Faker::Date.birthday,
   address: "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil",
-  cpf: "98186492062",
-  sus_code: "130551386630008"
+  cpf: Faker::CPF.numeric,
+  sus_code: Faker::Number.number(digits: 15)
 )
 # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
@@ -181,10 +181,10 @@ patient = Patient.create(
   last_name: "Jullyane",
   gender: "F",
   patient_type: "receptor",
-  born_at: "09/01/1955",
+  born_at: Faker::Date.birthday,
   address: "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil",
-  cpf: "21547068000",
-  sus_code: "717388181830004"
+  cpf: Faker::CPF.numeric,
+  sus_code: Faker::Number.number(digits: 15)
 )
 # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
@@ -193,10 +193,10 @@ patient = Patient.create(
   last_name: "Olimpio",
   gender: "M",
   patient_type: "donor",
-  born_at: "15/07/1980",
+  born_at: Faker::Date.birthday,
   address: "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
-  cpf: "77596796028",
-  sus_code: "158568593440006"
+  cpf: Faker::CPF.numeric,
+  sus_code: Faker::Number.number(digits: 15)
 )
 # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
@@ -205,9 +205,10 @@ patient = Patient.create(
   last_name: "Silva",
   gender: "F",
   patient_type: "receptor",
-  born_at: "15/07/1980",
+  born_at: Faker::Date.birthday,
   address: "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
-  cpf: "09141415035Leiaient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+  cpf: Faker::CPF.numeric,
+  sus_code: Faker::Number.number(digits: 15)
 )
 
 patient = Patient.create(
@@ -215,11 +216,27 @@ patient = Patient.create(
   last_name: "Souza",
   gender: "M",
   patient_type: "receptor",
-  born_at: "15/07/1900",
+  born_at: Faker::Date.birthday,
   address: "Catetinho, Park Way, Distrito Federal, Brasil",
-  cpf: "55450937024",
-  sus_code: "290317708190008"
+  cpf: Faker::CPF.numeric,
+  sus_code: Faker::Number.number(digits: 15)
 )
+
+10.times do
+  patient = Patient.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    gender: ["M", "F"].sample,
+    patient_type: ["receptor", "donor", "not_relative"].sample,
+    born_at: Faker::Date.birthday,
+    address: ["Catetinho, Park Way, Distrito Federal, Brasil",
+              "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
+              "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil"].sample,
+    cpf: Faker::CPF.numeric,
+    sus_code: Faker::Number.number(digits: 15)
+  )
+  puts "Created patient #{patient.id} #{patient.first_name}, #{patient.born_at.strftime('%d/%m/%Y')} by #{patient.last_name}"
+end
 
 # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
@@ -245,6 +262,16 @@ family.donor = Patient.find_by_first_name("Junior")
 family.relationship = "FILHO/FILHA"
 family.save!
 puts "Criou parente [#{family.id}] #{family.donor.first_name} id[#{family.donor.id}] é #{family.relationship} de #{family.receptor.first_name} #{family.receptor.last_name} [#{family.receptor.id}]"
+
+5.times do
+  family = Family.create(
+    receptor: Patient.where(patient_type: "receptor").sample,
+    donor: Patient.where(patient_type: "donor").sample,
+    relationship: ["MÃE", "PAI", "IRMÃO/IRMÃ", "FILHO/FILHA", "CÔNJUGE",
+                   "COMPANHEIRA/COMPANHEIRO", "AVÔ/AVÓ",
+                   "PRIMO/PRIMA", "TIO/TIA", "OUTRO"].sample
+  )
+end
 
 puts "...Criou #{Family.count} parentes. FAMILIES DONE!"
 ##### END - SEED - Families #####

@@ -1,0 +1,249 @@
+.br-tooltip,
+.br-notification {
+  background: var(--color-info, #155bcb);
+  color: var(--color-secondary-01, #fff);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  font-weight: var(--font-weight-semi-bold, 600);
+  padding: var(--spacing-scale-2x) var(--spacing-scale-4xh);
+  font-size: var(--font-size-scale-base, 14px);
+  border-radius: 4px;
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  position: absolute !important;
+  opacity: 0;
+  visibility: hidden;
+  max-width: 240px;
+  z-index: 999;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutOpacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.br-tooltip[data-show],
+.br-notification[data-show] {
+  visibility: visible;
+  opacity: 1;
+  animation: fadeInOpacity ease-in-out 0.5s;
+}
+
+.br-tooltip[popover],
+.br-notification[popover] {
+  max-width: 320px;
+  width: auto;
+  min-width: 240px;
+}
+
+.br-tooltip[success],
+.br-notification[success] {
+  background: var(--color-success, #168821);
+}
+
+.br-tooltip[success] .arrow,
+.br-notification[success] .arrow {
+  border-color: var(--color-success, #168821);
+}
+
+.br-tooltip[error],
+.br-notification[error] {
+  background: var(--color-danger, #e60000);
+}
+
+.br-tooltip[error] .arrow,
+.br-notification[error] .arrow {
+  border-color: var(--color-danger, #e60000);
+}
+
+.br-tooltip[warning],
+.br-notification[warning] {
+  background: var(--color-warning, #ffcd07);
+  color: var(--color-secondary-08, #333);
+}
+
+.br-tooltip[warning] .arrow,
+.br-notification[warning] .arrow {
+  border-color: var(--color-warning, #ffcd07);
+}
+
+.br-tooltip[info], .br-tooltip,
+.br-notification[info],
+.br-notification {
+  background: var(--color-info, #155bcb);
+}
+
+.br-tooltip[info] .arrow, .br-tooltip .arrow,
+.br-notification[info] .arrow,
+.br-notification .arrow {
+  border-color: var(--color-info, #155bcb);
+}
+
+.br-tooltip .arrow,
+.br-notification .arrow {
+  position: absolute !important;
+  z-index: -1 !important;
+  width: 0px !important;
+  height: 0px !important;
+}
+
+.br-tooltip[data-popper-placement^='top'] > .arrow,
+.br-notification[data-popper-placement^='top'] > .arrow {
+  bottom: -8px;
+  margin-left: 0px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top-width: 8px;
+  border-top-style: solid;
+}
+
+.br-tooltip[data-popper-placement^='bottom'] > .arrow,
+.br-notification[data-popper-placement^='bottom'] > .arrow {
+  top: -8px;
+  margin-left: 0px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom-width: 8px;
+  border-bottom-style: solid;
+}
+
+.br-tooltip[data-popper-placement^='left'] > .arrow,
+.br-notification[data-popper-placement^='left'] > .arrow {
+  right: calc(var(--spacing-scale-base) * -1);
+  margin-top: calc(var(--spacing-scale-base) * -1);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left-width: 8px;
+  border-left-style: solid;
+}
+
+.br-tooltip[data-popper-placement^='right'] > .arrow,
+.br-notification[data-popper-placement^='right'] > .arrow {
+  left: calc(var(--spacing-scale-base) * -1);
+  margin-top: calc(var(--spacing-scale-base) * -1);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right-width: 8px;
+  border-right-style: solid;
+}
+
+.br-tooltip .text,
+.br-tooltip .subtext,
+.br-tooltip .link,
+.br-notification .text,
+.br-notification .subtext,
+.br-notification .link {
+  display: block;
+  max-width: 100%;
+  min-width: 180px;
+}
+
+.br-tooltip .popover-header,
+.br-notification .popover-header {
+  font-size: var(--font-size-scale-base, 14px);
+  text-align: center;
+  margin-bottom: 1em;
+  width: 100%;
+  min-width: 180px;
+}
+
+.br-tooltip .popover-header .fas,
+.br-tooltip .popover-header .svg-inline--fa,
+.br-notification .popover-header .fas,
+.br-notification .popover-header .svg-inline--fa {
+  font-size: var(--font-size-scale-up-06, 2.986);
+  text-align: center;
+}
+
+.br-tooltip .popover-image,
+.br-notification .popover-image {
+  width: auto;
+  height: auto;
+  max-width: 45%;
+  max-height: 120px;
+  border: 3px solid var(--color-secondary-01, #fff);
+  overflow: hidden;
+  margin-left: -10px;
+}
+
+.br-tooltip .popover-body,
+.br-notification .popover-body {
+  font-size: var(--font-size-scale-down-01, 0.833);
+  margin-bottom: 1em;
+  min-width: 180px;
+  width: 100%;
+}
+
+.br-tooltip .popover-image + div,
+.br-notification .popover-image + div {
+  width: 65%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.br-tooltip .popover-image + div div,
+.br-notification .popover-image + div div {
+  text-align: left;
+  padding-left: var(--spacing-scale-base);
+}
+
+.br-tooltip .popover-footer,
+.br-notification .popover-footer {
+  font-size: var(--font-size-scale-down-01, 0.833);
+  text-align: center;
+  width: 100%;
+  min-width: 180px;
+}
+
+.br-tooltip .text,
+.br-notification .text {
+  font-size: var(--font-size-scale-base, 14px);
+  font-weight: var(--font-weight-semi-bold, 600);
+}
+
+.br-tooltip .subtext,
+.br-notification .subtext {
+  font-size: var(--font-size-scale-down-01, 0.833);
+  font-weight: var(--font-weight-medium, 500);
+}
+
+.br-tooltip .link,
+.br-notification .link {
+  text-decoration: underline;
+  width: 100%;
+  text-align: right;
+  color: inherit;
+}
+
+.br-tooltip .close,
+.br-notification .close {
+  background: transparent;
+  position: absolute;
+  color: inherit;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+
+/*# sourceMappingURL=tooltip.css.map*/

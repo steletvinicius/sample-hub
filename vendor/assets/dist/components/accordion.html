@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Accordion</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap">
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="../css/dsgov.css">
+    <!-- Fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <p class="h5">Comportamento padrão</p>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="br-accordion">
+            <div class="item">
+              <button class="header" type="button" aria-controls="id1" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">O que é esse serviço?</span></button>
+            </div>
+            <div class="content" id="id1" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id2" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Quem pode utilizar esse serviço?</span></button>
+            </div>
+            <div class="content" id="id2" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id3" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Etapas para realização desse serviço</span></button>
+            </div>
+            <div class="content" id="id3" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id4" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Outras informações sobre esse serviço</span></button>
+            </div>
+            <div class="content" id="id4" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mt-3 mt-md-0">
+          <div class="br-accordion" negative>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id5" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">O que é esse serviço?</span></button>
+            </div>
+            <div class="content" id="id5" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id6" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Quem pode utilizar esse serviço?</span></button>
+            </div>
+            <div class="content" id="id6" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id7" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Etapas para realização desse serviço</span></button>
+            </div>
+            <div class="content" id="id7" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id8" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Outras informações sobre esse serviço</span></button>
+            </div>
+            <div class="content" id="id8" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Único item por vez</p>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="br-accordion" single>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id9" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Assuntos</span></button>
+            </div>
+            <div class="content" id="id9" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id10" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Serviços</span></button>
+            </div>
+            <div class="content" id="id10" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id11" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Canais de atendimento</span></button>
+            </div>
+            <div class="content" id="id11" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id12" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Galeria de aplicativos</span></button>
+            </div>
+            <div class="content" id="id12" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id13" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Centrais de conteúdo</span></button>
+            </div>
+            <div class="content" id="id13" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id14" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Navegação</span></button>
+            </div>
+            <div class="content" id="id14" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id15" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Planalto</span></button>
+            </div>
+            <div class="content" id="id15" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mt-3 mt-md-0">
+          <div class="br-accordion" negative single>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id16" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Assuntos</span></button>
+            </div>
+            <div class="content" id="id16" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id17" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Serviços</span></button>
+            </div>
+            <div class="content" id="id17" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id18" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Canais de atendimento</span></button>
+            </div>
+            <div class="content" id="id18" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id19" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Galeria de aplicativos</span></button>
+            </div>
+            <div class="content" id="id19" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id20" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Centrais de conteúdo</span></button>
+            </div>
+            <div class="content" id="id20" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id21" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Navegação</span></button>
+            </div>
+            <div class="content" id="id21" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+            <div class="item">
+              <button class="header" type="button" aria-controls="id22" aria-expanded="false"><span class="icon"><i class="fas fa-angle-down" aria-hidden="true"></i></span><span class="title">Planalto</span></button>
+            </div>
+            <div class="content" id="id22" aria-hidden="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/dsgov.js"></script>
+  </body>
+</html>

@@ -1,0 +1,302 @@
+@charset "UTF-8";
+.br-list ul {
+  list-style: none;
+}
+
+.br-list ul li::before {
+  color: currentColor;
+  content: '•';
+  display: inline-block;
+  opacity: 0.65;
+  padding-right: var(--spacing-scale-base);
+  position: absolute;
+  transform: scale(3) translate(-2px, -1px);
+}
+
+.br-list ul,
+.br-list ol {
+  margin: 0;
+}
+
+.br-list ul li,
+.br-list ol li {
+  padding: var(--spacing-scale-base) 0;
+}
+
+.br-list ul ul,
+.br-list ul ol,
+.br-list ol ul,
+.br-list ol ol {
+  margin: var(--spacing-scale-base) 0 calc(var(--spacing-scale-base) * -1);
+}
+
+.br-list dt {
+  font-weight: var(--font-weight-semi-bold);
+  padding: var(--spacing-scale-base) 0;
+}
+
+.br-list dd {
+  font-style: italic;
+  padding: var(--spacing-scale-base) 0;
+}
+
+.br-list .header {
+  align-items: center;
+  display: flex;
+  font-size: var(--font-size-scale-down-01);
+  font-weight: var(--font-weight-bold);
+  justify-content: space-between;
+  padding: var(--spacing-scale-base) var(--spacing-scale-2x);
+}
+
+.br-list .item {
+  align-items: center;
+  display: flex;
+  height: 56px;
+}
+
+.br-list .item .support {
+  padding: 0 var(--spacing-scale-2x);
+}
+
+.br-list .item .support:first-child {
+  padding-right: 0;
+}
+
+.br-list .item .support:last-child {
+  padding-left: 0;
+}
+
+.br-list .item .content {
+  flex: 1;
+  padding: 0 var(--spacing-scale-2x);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.br-list .item .content .subtitle,
+.br-list .item .content .text,
+.br-list .item .content .description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.br-list .item .content .description {
+  opacity: 0.6;
+}
+
+.br-list .item.divider, .br-list .item[divider] {
+  border-bottom: 1px solid var(--color-secondary-04);
+}
+
+.br-list .item.one-line, .br-list .item[one-line] {
+  height: 56px;
+}
+
+.br-list .item.two-lines, .br-list .item[two-lines] {
+  height: 72px;
+}
+
+.br-list .item.three-lines, .br-list .item[three-lines] {
+  height: 88px;
+}
+
+.br-list .item.selected, .br-list .item[selected] {
+  background: var(--status-selected-background);
+  color: var(--status-selected-text);
+}
+
+.br-list .item.highlighted, .br-list .item[highlighted] {
+  background: var(--status-highlight-background) linear-gradient(var(--status-highlight-overlay), var(--status-highlight-overlay));
+  color: var(--status-highlight-text);
+}
+
+.br-list .item:disabled, .br-list .item[disabled] {
+  opacity: 0.65;
+}
+
+.br-list a.item,
+.br-list button.item {
+  background: transparent;
+  border: 0;
+  color: var(--text-color);
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.br-list a.item:not([disabled]):focus,
+.br-list button.item:not([disabled]):focus {
+  background: var(--status-focused-background) linear-gradient(var(--status-focused-overlay), var(--status-focused-overlay));
+}
+
+.br-list a.item:not([disabled]):hover,
+.br-list button.item:not([disabled]):hover {
+  background: var(--status-hover-background);
+}
+
+.br-list a.item:not([disabled]):active,
+.br-list button.item:not([disabled]):active {
+  background: var(--status-pressed-background);
+  color: var(--status-pressed-text);
+}
+
+.br-list a.item:not([disabled]):active, .br-list a.item:not([disabled]).active, .br-list a.item:not([disabled])[active],
+.br-list button.item:not([disabled]):active,
+.br-list button.item:not([disabled]).active,
+.br-list button.item:not([disabled])[active] {
+  background: var(--status-activated-background);
+  color: var(--status-activated-text);
+}
+
+.br-list.condensed .item, .br-list[condensed] .item {
+  height: 48px;
+}
+
+@media (min-width: 992px) {
+  .br-list.condensed .item, .br-list[condensed] .item {
+    height: 32px;
+  }
+}
+
+.br-list.condensed .item.one-line, .br-list.condensed .item[one-line], .br-list[condensed] .item.one-line, .br-list[condensed] .item[one-line] {
+  height: 48px;
+}
+
+@media (min-width: 992px) {
+  .br-list.condensed .item.one-line, .br-list.condensed .item[one-line], .br-list[condensed] .item.one-line, .br-list[condensed] .item[one-line] {
+    height: 32px;
+  }
+}
+
+.br-list.condensed .item.two-lines, .br-list.condensed .item[two-lines], .br-list[condensed] .item.two-lines, .br-list[condensed] .item[two-lines] {
+  height: 56px;
+}
+
+.br-list.condensed .item.three-lines, .br-list.condensed .item[three-lines], .br-list[condensed] .item.three-lines, .br-list[condensed] .item[three-lines] {
+  height: 72px;
+}
+
+.br-list .item.active + .br-list, .br-list .item[active] + .br-list {
+  max-height: 200em;
+}
+
+.br-list .br-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 400ms ease-in-out;
+}
+
+.br-list[horizontal] {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.br-list[horizontal] .header {
+  width: 100%;
+}
+
+.br-list[horizontal] .item,
+.br-list[horizontal] .br-list .item {
+  height: 4em;
+}
+
+.br-list[horizontal] .item .content,
+.br-list[horizontal] .br-list .item .content {
+  height: auto;
+  overflow: hidden;
+  padding: 0 var(--spacing-scale-2x);
+  white-space: initial;
+  text-overflow: unset;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.br-list[horizontal] .col,
+.br-list[horizontal] [class*="col-"] {
+  flex-grow: 0;
+  padding: 0;
+}
+
+@media (max-width: 991.98px) {
+  .br-list[horizontal] .col,
+  .br-list[horizontal] [class*="col-"] {
+    flex-basis: 100% !important;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .br-list[horizontal] .item .support:last-child {
+    display: none;
+    pointer-events: none;
+  }
+  .br-list[horizontal] .br-list {
+    max-height: 200em !important;
+    background-image: none;
+  }
+}
+
+.br-list[one-line] .item,
+.br-list[one-line] .br-list .item {
+  height: 2em;
+}
+
+.br-list[one-line] .item .content,
+.br-list[one-line] .br-list .item .content {
+  height: auto;
+  overflow: hidden;
+  padding: 0 var(--spacing-scale-2x);
+  white-space: initial;
+  text-overflow: unset;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.br-list[two-lines] .item,
+.br-list[two-lines] .br-list .item {
+  height: 4em;
+}
+
+.br-list[two-lines] .item .content,
+.br-list[two-lines] .br-list .item .content {
+  height: auto;
+  overflow: hidden;
+  padding: 0 var(--spacing-scale-2x);
+  white-space: initial;
+  text-overflow: unset;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.br-list[three-lines] .item,
+.br-list[three-lines] .br-list .item {
+  height: 6em;
+}
+
+.br-list[three-lines] .item .content,
+.br-list[three-lines] .br-list .item .content {
+  height: auto;
+  overflow: hidden;
+  padding: 0 var(--spacing-scale-2x);
+  white-space: initial;
+  text-overflow: unset;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.br-list .br-item {
+  text-align: left;
+  white-space: nowrap;
+  width: 100%;
+}
+
+
+/*# sourceMappingURL=list.css.map*/

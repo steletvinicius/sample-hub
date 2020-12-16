@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Card</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap">
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="../css/dsgov.css">
+    <!-- Fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <p class="h5">Card simples</p>
+          <div class="br-card">
+            <div class="front">
+              <div class="content"><img src="https://picsum.photos/id/0/1080" alt="Imagem de exemplo"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-5 mt-sm-0">
+          <p class="h5">Card complexo</p>
+          <div class="br-card">
+            <div class="front">
+              <div class="header d-flex justify-content-between">
+                <div class="d-flex">
+                  <div class="mr-3">
+                    <div class="br-avatar">
+                      <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <p class="h5 text-primary-default mb-0">Maria Amorim</p><span>UX Designer</span>
+                  </div>
+                </div>
+                <button class="br-button circle small" type="button" aria-label="Ícone ilustrativo"><i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="content"><img src="https://picsum.photos/id/10/1080" alt="Imagem de exemplo">
+                <p class="mt-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore perferendis nam porro atque ex at, numquam non optio ab eveniet error vel ad exercitationem, earum et fugiat recusandae harum? Assumenda.</p>
+              </div>
+              <div class="footer d-flex justify-content-between align-items-center">
+                <button class="br-button" type="button">Button
+                </button>
+                <div>
+                  <button class="br-button circle small" type="button" aria-label="Ícone ilustrativo"><i class="fas fa-heart" aria-hidden="true"></i>
+                  </button>
+                  <button class="br-button circle small" type="button" aria-label="Ícone ilustrativo"><i class="fas fa-share-alt" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <p class="h5">Card com flip</p>
+          <div class="br-card">
+            <div class="front">
+              <div class="header d-flex justify-content-between">
+                <div>
+                  <p class="h5">Card com flip</p>
+                </div>
+                <div>
+                  <button class="br-button circle small flip" type="button" aria-label="Girar o card"><i class="fas fa-exchange-alt" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="content">
+                <p>Clique no botão acima para ver o conteúdo de trás do Card.</p>
+              </div>
+            </div>
+            <div class="back">
+              <div class="header d-flex justify-content-between">
+                <div>
+                  <p class="h5">Título do Card</p><span>Subtítulo do Card</span>
+                </div>
+                <button class="br-button circle small flip" type="button" aria-label="Girar o card"><i class="fas fa-exchange-alt" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit necessitatibus quod voluptates voluptatibus sequi labore voluptatum ab, odio nesciunt in similique sed, porro facilis rem unde, aut mollitia ut ex!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-5 mt-sm-0">
+          <p class="h5">Card com expansão</p>
+          <div class="br-card" expanded="off">
+            <div class="front">
+              <div class="header d-flex justify-content-between">
+                <div class="d-flex">
+                  <div class="mr-3">
+                    <div class="br-avatar">
+                      <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <p class="h5 text-primary-default mb-0">Maria Amorim</p><span>UX Designer</span>
+                  </div>
+                </div>
+                <button class="br-button circle small" type="button" aria-label="Ícone ilustrativo"><i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="content"><img src="https://picsum.photos/id/100/1080" alt="Imagem de exemplo">
+                <p class="mt-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore perferendis nam porro atque ex at, numquam non optio ab eveniet error vel ad exercitationem, earum et fugiat recusandae harum? Assumenda.</p>
+              </div>
+              <div class="footer">
+                <div class="text-right">
+                  <button class="br-button circle small expand" type="button" aria-label="Expandir o card"><i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div class="expanded">
+                  <div class="br-list mx-n3">
+                    <div class="header">
+                      <div class="title">Items de 3 linhas com separadores</div>
+                    </div>
+                    <div class="item three-lines divider">
+                      <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+                      </div>
+                      <div class="content">
+                        <div class="subtitle">Subtítulo</div>
+                        <div class="text">Texto Principal</div>
+                        <div class="description">Texto secundário Lorem Ipsum dolor sit amet</div>
+                      </div>
+                      <div class="support">meta</div>
+                    </div>
+                    <div class="item three-lines divider">
+                      <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+                      </div>
+                      <div class="content">
+                        <div class="subtitle">Subtítulo</div>
+                        <div class="text">Texto Principal</div>
+                        <div class="description">Texto secundário Lorem Ipsum dolor sit amet</div>
+                      </div>
+                      <div class="support">meta</div>
+                    </div>
+                    <div class="item three-lines">
+                      <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+                      </div>
+                      <div class="content">
+                        <div class="subtitle">Subtítulo</div>
+                        <div class="text">Texto Principal</div>
+                        <div class="description">Texto secundário Lorem Ipsum dolor sit amet</div>
+                      </div>
+                      <div class="support">meta</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-5 mt-md-0">
+          <p class="h5">Card desativado</p>
+          <div class="br-card" disabled="on" aria-disabled="true">
+            <div class="front">
+              <div class="header d-flex justify-content-between">
+                <div class="d-flex">
+                  <div class="mr-3">
+                    <div class="br-avatar">
+                      <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <p class="h5 text-primary-default mb-0">Maria Amorim</p><span>UX Designer</span>
+                  </div>
+                </div>
+                <button class="br-button circle small" type="button" aria-label="Ícone ilustrativo"><i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="content"><img src="https://picsum.photos/id/1001/1080" alt="Imagem de exemplo">
+                <p class="mt-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore perferendis nam porro atque ex at, numquam non optio ab eveniet error vel ad exercitationem, earum et fugiat recusandae harum? Assumenda.</p>
+              </div>
+              <div class="footer d-flex justify-content-between align-items-center">
+                <button class="br-button" type="button">Button
+                </button>
+                <div>
+                  <button class="br-button circle small" type="button" aria-label="Ícone ilustrativo"><i class="fas fa-heart" aria-hidden="true"></i>
+                  </button>
+                  <button class="br-button circle small" type="button" aria-label="Ícone ilustrativo"><i class="fas fa-share-alt" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/dsgov.js"></script>
+  </body>
+</html>

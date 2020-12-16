@@ -34,6 +34,8 @@ gem 'pundit'
 
 # Seeding
 gem 'faker'
+# Seeding - Gerador de CPF.
+gem 'cpf_faker'
 
 # to use remote: true in forms and links to an action w/o reloading the page but w/ error msgs
 gem 'turbolinks_render'

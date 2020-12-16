@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Badge</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap">
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="../css/dsgov.css">
+    <!-- Fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <p class="h5">Sinalização de status</p>
+      <div class="row">
+        <div class="col-auto">
+          <div class="br-badge" bottom danger aria-label="atenção informação importante">
+            <div class="icon"></div>
+            <div class="content"><i class="fas fa-user-tie fa-2x text-primary-default" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="br-badge" bottom success aria-label="informação de sucesso no procedimento">
+            <div class="icon"></div>
+            <div class="content"><i class="fas fa-user-tie fa-2x text-primary-default" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="d-inline-flex align-items-center">
+            <div class="br-badge" success aria-label="informação de sucesso no procedimento">
+              <div class="icon"></div>
+              <div class="content">
+                <div class="br-avatar">
+                  <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Sinalização de status com símbolo</p>
+      <div class="row">
+        <div class="col-auto">
+          <div class="br-badge" bottom warning>
+            <div class="content"><i class="fas fa-file fa-2x"></i></div>
+            <div class="icon"><i class="fas fa-exclamation-triangle" aria-label="atenção verificar a informação"></i></div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="br-badge ml-3" bottom success>
+            <div class="icon"><i class="fas fa-check" aria-label="Informação de status ok "></i></div>
+            <div class="content"><i class="fas fa-plane-departure fa-2x"></i></div>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Contagem</p>
+      <div class="row">
+        <div class="col-auto">
+          <div class="br-badge" danger>
+            <div class="icon">5</div>
+            <div class="content"><i class="fas fa-car fa-2x" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="br-badge" bottom danger aria-label="Badge com contador">
+            <div class="icon">5</div>
+            <div class="content"><i class="fas fa-car fa-2x" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="d-inline-flex align-items-center">
+            <div class="br-badge" danger aria-label="Badge com contador">
+              <div class="icon">5</div>
+              <div class="content">
+                <div class="br-avatar">
+                  <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="br-badge" danger aria-label="Badge com contador">
+            <div class="content"><i class="fas fa-envelope fa-2x"></i></div>
+            <div class="icon">999+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/dsgov.js"></script>
+  </body>
+</html>

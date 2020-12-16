@@ -1,0 +1,111 @@
+.br-badge {
+  display: inline-block;
+  position: relative;
+}
+
+.br-badge .icon {
+  background: var(--color-secondary-03);
+  border-radius: 40px;
+  box-shadow: 0 0 0 1px var(--color-secondary-01);
+  display: inline-block;
+  font-size: var(--font-size-scale-down-01);
+  font-weight: var(--font-weight-semi-bold);
+  min-height: 18px;
+  min-width: 18px;
+  padding: 0 var(--spacing-scale-half);
+  position: absolute;
+  text-align: center;
+  top: 0;
+  z-index: 1;
+}
+
+.br-badge .icon .svg-inline--fa,
+.br-badge .icon .fa,
+.br-badge .icon .fab,
+.br-badge .icon .fad,
+.br-badge .icon .fal,
+.br-badge .icon .far,
+.br-badge .icon .fas {
+  --icon-size: v(icon-size-xs);
+  width: auto;
+}
+
+.br-badge .icon:first-child {
+  right: calc(100% - var(--spacing-scale-baseh));
+}
+
+.br-badge .icon:last-child {
+  left: calc(100% - var(--spacing-scale-baseh));
+}
+
+.br-badge .icon:empty {
+  border-radius: 50%;
+  min-height: 8px;
+  min-width: 8px;
+  padding: 0;
+}
+
+.br-badge .content {
+  display: inline-block;
+}
+
+.br-badge.is-bottom .icon, .br-badge.bottom .icon, .br-badge[bottom] .icon {
+  bottom: 0;
+  top: auto;
+}
+
+.br-badge.is-medium .icon, .br-badge.medium .icon, .br-badge[medium] .icon {
+  transform: scale(1.5);
+}
+
+.br-badge.is-medium .icon:first-child, .br-badge.medium .icon:first-child, .br-badge[medium] .icon:first-child {
+  right: calc(100% - var(--spacing-scale-base) * 1.75 * 1.5);
+}
+
+.br-badge.is-medium .icon:last-child, .br-badge.medium .icon:last-child, .br-badge[medium] .icon:last-child {
+  left: calc(100% - var(--spacing-scale-base) * 1.75 * 1.5);
+}
+
+.br-badge.is-medium .icon:empty, .br-badge.medium .icon:empty, .br-badge[medium] .icon:empty {
+  min-height: 13.5px;
+  min-width: 13.5px;
+}
+
+.br-badge.is-large .icon, .br-badge.large .icon, .br-badge[large] .icon {
+  transform: scale(2.5);
+}
+
+.br-badge.is-large .icon:first-child, .br-badge.large .icon:first-child, .br-badge[large] .icon:first-child {
+  right: calc(100% - var(--spacing-scale-base) * 1.75 * 2.5);
+}
+
+.br-badge.is-large .icon:last-child, .br-badge.large .icon:last-child, .br-badge[large] .icon:last-child {
+  left: calc(100% - var(--spacing-scale-base) * 1.75 * 2.5);
+}
+
+.br-badge.is-large .icon:empty, .br-badge.large .icon:empty, .br-badge[large] .icon:empty {
+  min-height: 13.5px;
+  min-width: 13.5px;
+}
+
+.br-badge.is-success .icon, .br-badge.success .icon, .br-badge[success] .icon {
+  background: var(--color-success);
+  color: var(--color-secondary-01);
+}
+
+.br-badge.is-warning .icon, .br-badge.warning .icon, .br-badge[warning] .icon {
+  background: var(--color-warning);
+}
+
+.br-badge.is-danger .icon, .br-badge.danger .icon, .br-badge[danger] .icon {
+  background: var(--color-danger);
+  color: var(--color-secondary-01);
+}
+
+.br-badge.is-info .icon, .br-badge.info .icon, .br-badge[info] .icon {
+  background: var(--color-info);
+  color: var(--color-secondary-01);
+}
+
+
+/*# sourceMappingURL=badge.css.map*/
