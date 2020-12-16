@@ -1,7 +1,12 @@
 module ApplicationHelper
-  # returns a date as string formatted to dd-mm-yyyy (31-12-2020) for views
+  # returns a date as string formatted to dd/mm/yyyy (31/12/2020) for views
   def date_mask(date)
     date.strftime("%d/%m/%Y") unless date.nil?
+  end
+
+  # returns a date as string formatted to dd/mm-yyyy (31/12 13:54) for views
+  def datetime_mask(date)
+    date.strftime("%d/%m - %H:%M") unless date.nil?
   end
 
   # ONLY WORKS ON VIEWS - NOT FOR CONTROLLERS / PUNDIT POLICIES
