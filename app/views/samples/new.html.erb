@@ -8,19 +8,23 @@
       <div id="patients" class="d-flex flex-column border border-primary rounded p-2">
         <% if @patients.present? %>
           <form id="search-patient" class="text-center" action="/samples" method="post">
-            <h4 class="text-center mb-3">Escolha um paciente: </h4>
-            <select class="select2 form-control" placeholder="Nome..." name="patient_id">
-              <option disabled selected value> --- Pesquise / Selecione  --- </option>
-              <% @patients.each do |patient| %>
-                <option value="<%= patient.id %>">
-                   <%= "#{patient.first_name} #{patient.last_name} - CPF #{patient.cpf}" %>
-                </option>
-              <% end %>
-            </select>
+
             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <input type="submit" class="btn btn-primary mt-5" value="Criar amostra">
+            <div class="form-group">
+              <h4 class="text-center mb-3">Escolha um paciente: </h4>
+              <select class="select2 form-control" placeholder="Nome..." name="patient_id">
+                <option disabled selected value> --- Pesquise / Selecione  --- </option>
+                <% @patients.each do |patient| %>
+                  <option value="<%= patient.id %>">
+                     <%= "#{patient.first_name} #{patient.last_name} - CPF #{patient.cpf}" %>
+                  </option>
+                <% end %>
+              </select>
+            </div>
+            <div class="form-group text-right">
+              <input type="submit" class="btn btn-primary mt-2 mr-5" value="Criar amostra">
+            </div>
           </form>
-          <ul id="results" class="list-inline"></ul>
         <% else %>
           <p>Não existem pacientes cadastrados no Sample Hub</p>
         <% end %>

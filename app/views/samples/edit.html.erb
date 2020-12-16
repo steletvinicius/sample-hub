@@ -1,42 +1,68 @@
-<div class="container my-4">
-  <h1>Criar amostra com ID <%= @sample.id %> para o paciente <%= @sample.patient.first_name %></h1>
-  <% if @doctors.present? %>
-      <form id="search-doctor" class="text-left form-inline" action="/samples/<%= @sample.id %>" method="post">
-        <input name="_method" type="hidden" value="patch" />
-        <select class="select2 form-control ml-auto mr-2" placeholder="Nome..." name="sample[doctor_id]">
-          <option disabled selected value> --- Pesquise/Selecione - Doutor --- </option>
-          <% @doctors.each do |doctor| %>
-            <option value="<%= doctor.id %>">
-              <%= "#{doctor.first_name} #{doctor.last_name} - CRM #{doctor.crm}" %>
-            </option>
-          <% end %>
-        </select>
-        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-        <select name="sample[category]" class="text-left form-inline" id="category" placeholder="Categoria...">
-          <option disabled selected value> --- Pesquise / Selecione  --- </option>
-          <% ["Sangue", "Soro", "Segmento de cordão"].each do |category| %>
-            <option value="<%= category %>">
-              <%= category %>
-            </option>
-          <% end %>
-        </select>
-        <input type="text" class="text-left form-inline" label="Observação" name="sample[observation]">
-        <%= hidden_field_tag "sample[status]", "criada" %>
-        <input type="submit" class="btn btn-primary mr-auto ml-2" value="Criar amostra">
-      </form>
-      <ul id="results" class="list-inline"></ul>
-    <% else %>
-      <p>Não existem médicos cadastrados no Sample Hub</p>
-    <% end %>
-
-    <div class="jumbotron">
-      <p><h3><%= @sample.patient.first_name %> <%= @sample.patient.last_name %></h3></p>
-      <hr>
-      <p>Gênero: <%= @sample.patient.gender %></p>
-      <p>Data de nascimento: <%= @sample.patient.born_at.strftime("%d/%m/%Y")%></p> 
-      <p>Endereço: <%= @sample.patient.address %></p>
-      <p>CPF: <%= @sample.patient.cpf %></p>
-      <p>SUS: <%= @sample.patient.sus_code %></p>
+<div class="container">
+  <h1 class="text-center">02ª Etapa:</h1>
+  <hr>
+  <h2 class="text-center"> Criação de requisição de coleta </h2>
+  <hr>
+  <div class="row justify-content-between">
+    <div class="col-4">
+      <div class="border border-primary rounded h-100 text-left">
+        <% if @doctors.present? %>
+        <h4 class="text-center mt-5">ID da amostra: <%= @sample.id %></h4>
+          <form id="search-doctor" class="d-flex flex-column p-5" action="/samples/<%= @sample.id %>" method="post">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <input name="_method" type="hidden" value="patch" />
+            <div class="form-group mb-4">
+              <h4>Médico responsável:</h4>
+              <select class="select2 form-control text-center" placeholder="Nome..." name="sample[doctor_id]">
+                <option disabled selected value> --- Pesquise/Selecione - Doutor --- </option>
+                <% @doctors.each do |doctor| %>
+                  <option value="<%= doctor.id %>">
+                    <%= "#{doctor.first_name} #{doctor.last_name} - CRM #{doctor.crm}" %>
+                  </option>
+                <% end %>
+              </select>
+            </div>
+            <div class="form-group mb-4">
+              <h4>Tipo de amostra:</h4>
+              <select name="sample[category]"  id="category" placeholder="Categoria...">
+                <option disabled selected value> --- Pesquise / Selecione  --- </option>
+                <% ["Sangue", "Soro", "Segmento de cordão"].each do |category| %>
+                  <option value="<%= category %>">
+                    <%= category %>
+                  </option>
+                <% end %>
+              </select>
+            </div>
+            <div class="form-group mb-4">
+              <h4>Observação (opcional):</h4>
+              <input type="text" label="Observação" name="sample[observation]">
+              <%= hidden_field_tag "sample[status]", "criada" %>
+            </div>
+            <div class="form-group text-right">
+              <input type="submit" class="btn btn-primary" value="Criar amostra">
+            </div>
+          </form>
+        <% else %>
+          <p>Não existem médicos cadastrados no Sample Hub</p>
+        <% end %>
+      </div>
     </div>
 
+    <div class="col">
+      <% if @doctors.present? %>
+        <div class="jumbotron h-100">
+          <h2 class="text-center"> Dados do Paciente: </h2>
+          <hr>
+          <p><h4><%= @sample.patient.first_name %> <%= @sample.patient.last_name %></h4></p>
+
+          <p>Gênero: <%= @sample.patient.gender %></p>
+          <p>Data de nascimento: <%= @sample.patient.born_at.strftime("%d/%m/%Y")%></p>
+          <p>Endereço: <%= @sample.patient.address %></p>
+          <p>CPF: <%= @sample.patient.cpf %></p>
+          <p>SUS: <%= @sample.patient.sus_code %></p>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
 </div>
