@@ -5,7 +5,7 @@ class Family < ApplicationRecord
   validates :receptor_id, presence: true
   validates :donor_id, presence: true
   validates :relationship, presence: true, inclusion: { in: [
-    "MÃE", "PAI", "IRMÃO/IRMÃ", "FILHO/FILHA", "CÔNJUGE", "COMPANHEIRA/COMPANHEIRO", "AVÔ/AVÓ",
+    "MÃE/PAI", "IRMÃO/IRMÃ", "FILHO/FILHA", "CÔNJUGE", "COMPANHEIRA/COMPANHEIRO", "AVÔ/AVÓ",
     "PRIMO/PRIMA", "TIO/TIA", "OUTRO"
   ] }
 end

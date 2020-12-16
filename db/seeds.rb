@@ -267,7 +267,7 @@ puts "Criou parente [#{family.id}] #{family.donor.first_name} id[#{family.donor.
   family = Family.create(
     receptor: Patient.where(patient_type: "receptor").sample,
     donor: Patient.where(patient_type: "donor").sample,
-    relationship: ["MÃE", "PAI", "IRMÃO/IRMÃ", "FILHO/FILHA", "CÔNJUGE",
+    relationship: ["MÃE/PAI", "IRMÃO/IRMÃ", "FILHO/FILHA", "CÔNJUGE",
                    "COMPANHEIRA/COMPANHEIRO", "AVÔ/AVÓ",
                    "PRIMO/PRIMA", "TIO/TIA", "OUTRO"].sample
   )
