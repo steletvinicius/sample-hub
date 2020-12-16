@@ -48,6 +48,7 @@
           <th scope="col">Tipo de Paciente</th>
           <th scope="col">Tipo de Amostra</th>
           <th scope="col" style="text-align: center;">Coletada em</th>
+          <th scope="col" style="text-align: center;">Quantidade</th>
           <th scope="col" style="text-align: center;">Ações</th>
         </tr>
       </thead>
@@ -70,6 +71,7 @@
             <td><%= "#{sample.category}" %></td>
             <%# COLETADA EM (SHOULD BE ABLE TO EDIT IN THIS VIEW) %>
             <td style="text-align: center;"><%= date_mask(sample.collected_at) %></td>
+            <td style="text-align: center;"><%= "#{Sample.where(batch: @batch).count}" %></td>
 
             <%# INI ACTION LINKS %>
             <td style="text-align: center;">
