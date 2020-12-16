@@ -1,77 +1,83 @@
-<h2>Amostras com informações a complementar:</h2>
 
-<div class="container">
+<div class="container-xl my-4">
+  <h2>Amostras</h2>
+  <h4>Aguardando coleta</h4>
+  <p><%= pluralize(@samples.where("collected_at IS ? OR quantity IS ?", nil, nil).count, "amostra", "amostras") %></p>
+
   <table id="tblsamplesconfirmed" class="table table-sm table-hover" style="background-color: white;">
-  <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
-    <th style="text-align: center;">ID</th>
-    <th>Nome do Paciente</th>
-    <th>Tipo de Amostra</th>
-    <th>Quantidade</th>
-    <th>Data da coleta</th>
-    <th style="text-align: center;">Ação</th>
-  </tr>
+    <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
+      <th style="text-align: center;">ID</th>
+      <th>Nome do Paciente</th>
+      <th>Tipo de Amostra</th>
+      <th style="text-align: center;">Data da coleta</th>
+      <th style="text-align: center;">Quantidade</th>
+      <th style="text-align: center;">Ação</th>
+    </tr>
     <% @samples.each do |sample| %>
       <% if sample.collected_at == nil || sample.quantity == nil %>
-      <tr style="background-color: white;">
-        <td scope="row" style="text-align: center;"><%= sample.id %></td>
-        <td><%=sample.patient.first_name%> <%=sample.patient.last_name%> </td>
-        <td><%=sample.category%></td>
-        <td>
-          <div class="form-group string optional sample_collected_at form-group-valid">
-            <%= hidden_field_tag "sample[status]", "coletada" %>
-            <input class="form-control is-valid string optional datepicker flatpickr-input" type="hidden" value="Insira a data da coleta" name="sample[collected_at]" id="sample_collected_at">
-          </div>
-        </td>
-        <td>
-          <div class="form-group integer optional sample_quantity">
-            <input class="form-control numeric integer optional" type="number" step="1" name="sample[quantity]" id="sample_quantity">
-          </div>
-        </td>
-        <td>
-          <input type="submit" name="commit" value="Atualizar Sample" class="btn btn btn-primary" data-disable-with="Atualizar Sample">
-        </td>
+        <tr style="background-color: white;">
+          <td scope="row" style="text-align: center;"><%= sample.id %></td>
+          <td><%=sample.patient.first_name%> <%=sample.patient.last_name%> </td>
+          <td><%=sample.category%></td>
+          <td style="text-align: center;">
+            <div class="form-group string optional sample_collected_at form-group-valid">
+              <%= hidden_field_tag "sample[status]", "coletada" %>
+              <input class="form-control is-valid string optional datepicker flatpickr-input" type="hidden" value="Insira a data da coleta" name="sample[collected_at]" id="sample_collected_at">
+            </div>
+          </td>
+          <td style="text-align: center;">
+            <div class="form-group integer optional sample_quantity">
+              <input class="form-control numeric integer optional" type="number" step="1" name="sample[quantity]" id="sample_quantity">
+            </div>
+          </td>
+          <td style="text-align: center;">
+            <input type="submit" name="commit" value="Gravar" class="btn btn btn-primary" data-disable-with="Atualizar Sample">
+          </td>
+        </tr>
       <% end %>
-      </tr>
     <% end %>
   </table>
-  <hr>
-  <hr>
 
-  <h2>Amostras prontas para envio ao laboratório:</h2>
+  <div class="d-flex justify-content-between align-items-center mt-5 mb-2">
+    <div>
+      <h2>Aguardando remessa</h2>
+      <p><%= pluralize(@samples.where("collected_at IS NOT ? AND quantity IS NOT ?", nil, nil).count, "amostra", "amostras") %></p>
+    </div>
+    <input type="submit" value="Nova remessa" class="btn btn-primary">
+  </div>
 
   <form action="/batches" method="post">
     <%= hidden_field_tag "sample[status]", "enviada" %>
-    <table id="tblsamplesconfirmed" class="table table-sm table-hover" style="background-color: white;">
-          <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
-            <th style="text-align: center;">ID</th>
-            <th>Nome do Paciente</th>
-            <th>Tipo de Amostra</th>
-            <th>Quantidade</th>
-            <th>Data da coleta</th>
-            <th style="text-align: center;">Ação</th>
+    <table id="tblsamplesconfirmed" class="table table table-hover" style="background-color: white;">
+      <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
+        <th style="text-align: center;">ID</th>
+        <th>Nome do Paciente</th>
+        <th>Tipo de Amostra</th>
+        <th>Quantidade</th>
+        <th>Data da coleta</th>
+        <th style="text-align: center;">Remessa</th>
+      </tr>
+      <% @samples.each do |sample| %>
+        <% if sample.collected_at && sample.quantity %>
+          <tr style="background-color: white;">
+            <td scope="row" style="text-align: center;"><%= sample.id %></td>
+            <td><%=sample.patient.first_name%> <%=sample.patient.last_name%> </td>
+            <td><%=sample.category%></td>
+            <td><%=sample.quantity%></td>
+            <td><%=date_mask(sample.collected_at)%></td>
+            <td style="text-align: center;">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="checkbox_remessa" name="sample_ids[]" value="<%= sample.id %>"/>
+                <label for="checkbox_remessa" class="form-check-label"></label>
+              </div>
+            </td>
           </tr>
-            <% @samples.each do |sample| %>
-              <% if sample.collected_at && sample.quantity %>
-              <tr style="background-color: white;">
-                <td scope="row" style="text-align: center;"><%= sample.id %></td>
-                <td><%=sample.patient.first_name%> <%=sample.patient.last_name%> </td>
-                <td><%=sample.category%></td>
-                <td><%=sample.quantity%></td>
-                <td><%=sample.collected_at%></td>
-                <td>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkbox_remessa" name="sample_ids[]" value="<%= sample.id %>"/>
-                    <label for="checkbox_remessa" class="form-check-label">Adicionar a remessa</label>
-                  </div>
-                </td>
-              <% end %>
-            <% end %>
-          </tr>
+        <% end %>
+      <% end %>
     </table>
-    <div class="d-flex justify-content-center">
-      <input type="submit" value="Criar batch" class="btn btn-primary">
-    </div>
   </form>
+
+
 </div>
 
 

@@ -1,0 +1,158 @@
+.br-avatar {
+  display: inline-block;
+}
+
+.br-avatar .change {
+  background: transparent;
+  border: 0;
+  display: inline-block;
+  padding: 0;
+  position: relative;
+}
+
+.br-avatar .change .icon {
+  bottom: 0;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+}
+
+.br-avatar .image {
+  background-color: var(--color-primary-pastel-02);
+  border: 0;
+  border-radius: 50%;
+  color: var(--color-primary-pastel-01);
+  display: inline-block;
+  height: 40px;
+  overflow: hidden;
+  padding: 0;
+  text-align: center;
+  width: 40px;
+}
+
+.br-avatar .image img {
+  height: 40px;
+  width: 40px;
+}
+
+.br-avatar .image .svg-inline--fa,
+.br-avatar .image .fa,
+.br-avatar .image .fab,
+.br-avatar .image .fad,
+.br-avatar .image .fal,
+.br-avatar .image .far,
+.br-avatar .image .fas {
+  --icon-size: var(--icon-size-2x);
+  margin-top: 0.25em;
+}
+
+.br-avatar.is-medium .change .svg-inline--fa,
+.br-avatar.is-medium .change .fa,
+.br-avatar.is-medium .change .fab,
+.br-avatar.is-medium .change .fad,
+.br-avatar.is-medium .change .fal,
+.br-avatar.is-medium .change .far,
+.br-avatar.is-medium .change .fas, .br-avatar.medium .change .svg-inline--fa,
+.br-avatar.medium .change .fa,
+.br-avatar.medium .change .fab,
+.br-avatar.medium .change .fad,
+.br-avatar.medium .change .fal,
+.br-avatar.medium .change .far,
+.br-avatar.medium .change .fas, .br-avatar[medium] .change .svg-inline--fa,
+.br-avatar[medium] .change .fa,
+.br-avatar[medium] .change .fab,
+.br-avatar[medium] .change .fad,
+.br-avatar[medium] .change .fal,
+.br-avatar[medium] .change .far,
+.br-avatar[medium] .change .fas {
+  --icon-size: var(--icon-size-2x);
+}
+
+.br-avatar.is-medium .image, .br-avatar.medium .image, .br-avatar[medium] .image {
+  height: 100px;
+  width: 100px;
+}
+
+.br-avatar.is-medium .image img, .br-avatar.medium .image img, .br-avatar[medium] .image img {
+  height: 100px;
+  width: 100px;
+}
+
+.br-avatar.is-medium .image .svg-inline--fa,
+.br-avatar.is-medium .image .fa,
+.br-avatar.is-medium .image .fab,
+.br-avatar.is-medium .image .fad,
+.br-avatar.is-medium .image .fal,
+.br-avatar.is-medium .image .far,
+.br-avatar.is-medium .image .fas, .br-avatar.medium .image .svg-inline--fa,
+.br-avatar.medium .image .fa,
+.br-avatar.medium .image .fab,
+.br-avatar.medium .image .fad,
+.br-avatar.medium .image .fal,
+.br-avatar.medium .image .far,
+.br-avatar.medium .image .fas, .br-avatar[medium] .image .svg-inline--fa,
+.br-avatar[medium] .image .fa,
+.br-avatar[medium] .image .fab,
+.br-avatar[medium] .image .fad,
+.br-avatar[medium] .image .fal,
+.br-avatar[medium] .image .far,
+.br-avatar[medium] .image .fas {
+  --icon-size: var(--icon-size-5x);
+}
+
+.br-avatar.is-large .change .svg-inline--fa,
+.br-avatar.is-large .change .fa,
+.br-avatar.is-large .change .fab,
+.br-avatar.is-large .change .fad,
+.br-avatar.is-large .change .fal,
+.br-avatar.is-large .change .far,
+.br-avatar.is-large .change .fas, .br-avatar.large .change .svg-inline--fa,
+.br-avatar.large .change .fa,
+.br-avatar.large .change .fab,
+.br-avatar.large .change .fad,
+.br-avatar.large .change .fal,
+.br-avatar.large .change .far,
+.br-avatar.large .change .fas, .br-avatar[large] .change .svg-inline--fa,
+.br-avatar[large] .change .fa,
+.br-avatar[large] .change .fab,
+.br-avatar[large] .change .fad,
+.br-avatar[large] .change .fal,
+.br-avatar[large] .change .far,
+.br-avatar[large] .change .fas {
+  --icon-size: var(--icon-size-3x);
+}
+
+.br-avatar.is-large .image, .br-avatar.large .image, .br-avatar[large] .image {
+  height: 160px;
+  width: 160px;
+}
+
+.br-avatar.is-large .image img, .br-avatar.large .image img, .br-avatar[large] .image img {
+  height: 160px;
+  width: 160px;
+}
+
+.br-avatar.is-large .image .svg-inline--fa,
+.br-avatar.is-large .image .fa,
+.br-avatar.is-large .image .fab,
+.br-avatar.is-large .image .fad,
+.br-avatar.is-large .image .fal,
+.br-avatar.is-large .image .far,
+.br-avatar.is-large .image .fas, .br-avatar.large .image .svg-inline--fa,
+.br-avatar.large .image .fa,
+.br-avatar.large .image .fab,
+.br-avatar.large .image .fad,
+.br-avatar.large .image .fal,
+.br-avatar.large .image .far,
+.br-avatar.large .image .fas, .br-avatar[large] .image .svg-inline--fa,
+.br-avatar[large] .image .fa,
+.br-avatar[large] .image .fab,
+.br-avatar[large] .image .fad,
+.br-avatar[large] .image .fal,
+.br-avatar[large] .image .far,
+.br-avatar[large] .image .fas {
+  --icon-size: var(--icon-size-8x);
+}
+
+
+/*# sourceMappingURL=avatar.css.map*/

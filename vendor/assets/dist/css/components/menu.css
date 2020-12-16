@@ -1,0 +1,190 @@
+.br-menu {
+  background: var(--color-secondary-01);
+  box-shadow: 3px 0 3px rgba(var(--rgb-secondary-09), 0.16);
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.br-menu .folders {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+}
+
+.br-menu .folders ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.br-menu .folders .close-menu {
+  left: var(--spacing-scale-base);
+  position: absolute;
+  top: 10px;
+  z-index: 1;
+}
+
+.br-menu .folders .folder .header {
+  align-items: center;
+  background: var(--color-secondary-01);
+  border: 0;
+  border-color: var(--color-secondary-04);
+  border-style: solid;
+  border-width: 0 0 1px;
+  color: var(--color-primary-default);
+  display: flex;
+  padding: 0 0 0 var(--spacing-scale-4x);
+  position: relative;
+  text-align: left;
+  width: 100%;
+}
+
+.br-menu .folders .folder .header[hidden] {
+  display: none;
+}
+
+.br-menu .folders .folder .header::after {
+  background: var(--color-warning);
+  bottom: 0;
+  content: "";
+  height: 2px;
+  margin-left: var(--spacing-scale-2x);
+  position: absolute;
+  width: 80px;
+}
+
+.br-menu .folders .folder .header.logo::after {
+  content: none;
+}
+
+.br-menu .folders .folder .header .support {
+  padding: 0 var(--spacing-scale-2x);
+}
+
+.br-menu .folders .folder .header .support:first-child {
+  padding-right: 0;
+}
+
+.br-menu .folders .folder .header .support:last-child {
+  padding-left: 0;
+}
+
+.br-menu .folders .folder .header .content {
+  flex: 1;
+  padding: var(--spacing-scale-2x);
+}
+
+.br-menu .folders .folder .header .content img {
+  display: block;
+  max-height: 20px;
+  object-fit: scale-down;
+  object-position: 0 0;
+}
+
+.br-menu .folders .folder .header:not([disabled]):focus {
+  background: var(--status-focused-background) linear-gradient(var(--status-focused-overlay), var(--status-focused-overlay));
+}
+
+.br-menu .folders .folder .header:not([disabled]):hover {
+  background: var(--status-hover-background);
+}
+
+.br-menu .folders .folder .header:not([disabled]):active {
+  background: var(--status-pressed-background);
+  color: var(--status-pressed-text);
+}
+
+.br-menu .folders .folder .item {
+  align-items: center;
+  background: var(--color-secondary-01);
+  border: 0;
+  border-color: var(--color-secondary-04);
+  border-style: solid;
+  border-width: 0 0 1px;
+  color: var(--color-primary-default);
+  display: flex;
+  padding: 0 0 0 var(--spacing-scale-4x);
+  text-align: left;
+  width: 100%;
+}
+
+.br-menu .folders .folder .item .support {
+  padding: 0 var(--spacing-scale-2x);
+}
+
+.br-menu .folders .folder .item .support:first-child {
+  padding-right: 0;
+}
+
+.br-menu .folders .folder .item .support:last-child {
+  padding-left: 0;
+}
+
+.br-menu .folders .folder .item .content {
+  flex: 1;
+  padding: var(--spacing-scale-2x);
+}
+
+.br-menu .folders .folder .item:not([disabled]):focus {
+  background: var(--status-focused-background) linear-gradient(var(--status-focused-overlay), var(--status-focused-overlay));
+}
+
+.br-menu .folders .folder .item:not([disabled]):hover {
+  background: var(--status-hover-background);
+}
+
+.br-menu .folders .folder .item:not([disabled]):active {
+  background: var(--status-pressed-background);
+  color: var(--status-pressed-text);
+}
+
+.br-menu .folders .folder .item:not([disabled]):active, .br-menu .folders .folder .item:not([disabled]).active, .br-menu .folders .folder .item:not([disabled])[active] {
+  background: var(--status-activated-background);
+  color: var(--status-activated-text);
+}
+
+.br-menu .folders .folder .item:not([disabled]):active[hidden], .br-menu .folders .folder .item:not([disabled]).active[hidden], .br-menu .folders .folder .item:not([disabled])[active][hidden] {
+  display: none;
+}
+
+.br-menu .folders .folder .item[active] {
+  padding-left: 0 !important;
+}
+
+.br-menu .folders .folder .item[active] .support {
+  order: -1;
+  padding-left: var(--spacing-scale-base);
+  padding-right: 0;
+}
+
+.br-menu .folders .folder .item[linked] {
+  background: var(--status-activated-background) !important;
+  color: var(--status-activated-text) !important;
+}
+
+.br-menu .folders .folder .item[disabled] {
+  background: var(--status-disabled-background);
+  color: var(--status-disabled-text);
+}
+
+.br-menu .footer {
+  background: var(--color-secondary-01);
+  padding: var(--spacing-scale-3x) 0 0 var(--spacing-scale-4x);
+}
+
+.br-menu .footer .footer-block {
+  padding: 0 var(--spacing-scale-2x) var(--spacing-scale-4x);
+}
+
+.br-menu .footer .footer-block .title {
+  font-weight: var(--font-weight-semi-bold);
+}
+
+.br-menu .footer .footer-block .content {
+  font-weight: var(--font-weight-medium);
+}
+
+
+/*# sourceMappingURL=menu.css.map*/

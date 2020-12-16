@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>List</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap">
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="../css/dsgov.css">
+    <!-- Fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <p class="h5">Lista numerada</p>
+          <div class="br-list">
+            <ol>
+              <li>Texto de uma linha</li>
+              <li>Texto de uma linha
+                <ol>
+                  <li>Texto de uma linha</li>
+                  <li>Texto de uma linha</li>
+                </ol>
+              </li>
+              <li>Texto de uma linha</li>
+            </ol>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <p class="h5 mt-5 mt-sm-0">Lista sem ordem</p>
+          <div class="br-list">
+            <ul>
+              <li>Texto de uma linha</li>
+              <li>Texto de uma linha
+                <ul>
+                  <li>Texto de uma linha</li>
+                  <li>Texto de uma linha</li>
+                </ul>
+              </li>
+              <li>Texto de uma linha</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm col-md-4">
+          <p class="h5 mt-5 mt-md-0">Lista de definição</p>
+          <div class="br-list">
+            <dl>
+              <dt>Texto de uma linha</dt>
+              <dd>Texto de uma linha</dd>
+              <dt>Texto de uma linha</dt>
+              <dd>Texto de uma linha</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Lista Complexa</p>
+      <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <div class="br-list">
+            <div class="header">
+              <div class="title">Itens de 1 linha sem separadores</div>
+            </div><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-right" aria-hidden="true"></i>
+              </div></a><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-right" aria-hidden="true"></i>
+              </div></a><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-right" aria-hidden="true"></i>
+              </div></a>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mt-5 mt-sm-0">
+          <div class="br-list" checkable>
+            <div class="header">
+              <div class="title">Itens de 2 linhas com controles e separadores</div>
+            </div>
+            <div class="item two-lines divider" disabled>
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">
+                <div class="text">Texto principal</div>
+                <div class="description">Texto secundário</div>
+              </div>
+              <div class="support">
+                <div class="br-checkbox">
+                  <input id="checkbox-1" type="checkbox" aria-label="descreva o elemento" disabled>
+                  <label for="checkbox-1"></label>
+                </div>
+              </div>
+            </div>
+            <div class="item two-lines divider">
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">
+                <div class="text">Texto principal</div>
+                <div class="description">Texto secundário</div>
+              </div>
+              <div class="support">
+                <div class="br-checkbox">
+                  <input id="checkbox-2" type="checkbox" aria-label="descreva o elemento">
+                  <label for="checkbox-2"></label>
+                </div>
+              </div>
+            </div>
+            <div class="item two-lines selected">
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">
+                <div class="text">Texto principal</div>
+                <div class="description">Texto secundário</div>
+              </div>
+              <div class="support">
+                <div class="br-checkbox">
+                  <input id="checkbox-3" type="checkbox" aria-label="descreva o elemento" checked>
+                  <label for="checkbox-3"></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mt-5 mt-md-0">
+          <div class="br-list">
+            <div class="header">
+              <div class="title">Items de 3 linhas com separadores</div>
+            </div>
+            <div class="item three-lines divider">
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">
+                <div class="subtitle">Subtítulo</div>
+                <div class="text">Texto Principal</div>
+                <div class="description">Texto secundário Lorem Ipsum dolor sit amet</div>
+              </div>
+              <div class="support">meta</div>
+            </div>
+            <div class="item three-lines divider">
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">
+                <div class="subtitle">Subtítulo</div>
+                <div class="text">Texto Principal</div>
+                <div class="description">Texto secundário Lorem Ipsum dolor sit amet</div>
+              </div>
+              <div class="support">meta</div>
+            </div>
+            <div class="item three-lines">
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">
+                <div class="subtitle">Subtítulo</div>
+                <div class="text">Texto Principal</div>
+                <div class="description">Texto secundário Lorem Ipsum dolor sit amet</div>
+              </div>
+              <div class="support">meta</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mt-5">
+          <div class="br-list" collapsible>
+            <div class="header">
+              <div class="title">Versão com expandir</div>
+            </div><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-running" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-down" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+            </div><a class="item" href="javascript:void(0);" link active>
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-up" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+            </div><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-burn" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-down" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+            </div><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-globe" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-down" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mt-5">
+          <div class="br-list" collapsible unique>
+            <div class="header">
+              <div class="title">Versão com expandir unicamente</div>
+            </div><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-running" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-down" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+            </div><a class="item" href="javascript:void(0);" link active>
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-up" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+            </div><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-burn" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-down" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+            </div><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-globe" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-down" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mt-5">
+          <div class="br-list" collapsible unique three-lines>
+            <div class="header">
+              <div class="title">Versão com expandir unicamente com mais de uma linha ( aceita os atributos: two-lines e three-lines )</div>
+            </div><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-running" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              <div class="support"><i class="fas fa-angle-down" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+            </div><a class="item" href="javascript:void(0);" link active>
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              <div class="support"><i class="fas fa-angle-up" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+            </div><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-burn" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              <div class="support"><i class="fas fa-angle-down" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+            </div><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-globe" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              <div class="support"><i class="fas fa-angle-down" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas Texto de três linhas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="br-list" collapsible horizontal unique>
+          <div class="header">
+            <div class="title">Versão com expandir unicamente horizontal com mais de uma linha ( padrão com duas linhas )</div>
+          </div>
+          <div class="col"><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-running" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha Texto de uma linha Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-down" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de uma linha Texto de uma linha Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha Texto de uma linha Texto de uma Texto de uma linha Texto de uma Texto de uma linha Texto de uma</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha Texto de uma linha Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha Texto de uma linha Texto de uma linha</div>
+              </div>
+            </div>
+          </div>
+          <div class="col"><a class="item" href="javascript:void(0);" link active>
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha Texto de uma linha Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-up" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha Texto de uma linha Texto de uma  Texto de uma linha Texto de uma</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+            </div>
+          </div>
+          <div class="col"><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-burn" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-down" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de uma linha Texto de uma linha Texto de uma Texto de uma linha Texto de uma</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha  Texto de uma linha Texto de uma Texto de uma linha Texto de uma Texto de uma linha Texto de uma Texto de uma linha Texto de uma</div>
+              </div>
+            </div>
+          </div>
+          <div class="col"><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-globe" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-down" aria-hidden="true"></i>
+              </div></a>
+            <div class="br-list">
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha  Texto de uma linha Texto de uma Texto de uma linha Texto de uma Texto de uma linha Texto de uma Texto de uma linha Texto de uma</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+              <div class="item">
+                <div class="content">Texto de uma linha</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Versão com densidade</p>
+      <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <div class="br-list condensed">
+            <div class="header">
+              <div class="title">Itens de 1 linha sem separadores</div>
+            </div><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-right" aria-hidden="true"></i>
+              </div></a><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-right" aria-hidden="true"></i>
+              </div></a><a class="item" href="javascript:void(0);" link>
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">Texto de uma linha</div>
+              <div class="support"><i class="fas fa-angle-right" aria-hidden="true"></i>
+              </div></a>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mt-5 mt-sm-0">
+          <div class="br-list condensed">
+            <div class="header">
+              <div class="title">Items de 3 linhas com separadores</div>
+            </div>
+            <div class="item three-lines divider">
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">
+                <div class="subtitle">Subtítulo</div>
+                <div class="text">Texto Principal</div>
+                <div class="description">Texto secundário Lorem Ipsum dolor sit amet</div>
+              </div>
+              <div class="support">meta</div>
+            </div>
+            <div class="item three-lines divider">
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">
+                <div class="subtitle">Subtítulo</div>
+                <div class="text">Texto Principal</div>
+                <div class="description">Texto secundário Lorem Ipsum dolor sit amet</div>
+              </div>
+              <div class="support">meta</div>
+            </div>
+            <div class="item three-lines">
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">
+                <div class="subtitle">Subtítulo</div>
+                <div class="text">Texto Principal</div>
+                <div class="description">Texto secundário Lorem Ipsum dolor sit amet</div>
+              </div>
+              <div class="support">meta</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mt-5 mt-sm-0">
+          <div class="br-list condensed" checkable>
+            <div class="header">
+              <div class="title">Itens de 2 linhas com controles e separadores</div>
+            </div>
+            <div class="item two-lines divider" disabled>
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">
+                <div class="text">Texto principal</div>
+                <div class="description">Texto secundário</div>
+              </div>
+              <div class="support">
+                <div class="br-checkbox">
+                  <input id="checkbox-condensed-1" type="checkbox" aria-label="descreva o elemento">
+                  <label for="checkbox-condensed-1"></label>
+                </div>
+              </div>
+            </div>
+            <div class="item two-lines divider">
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">
+                <div class="text">Texto principal</div>
+                <div class="description">Texto secundário</div>
+              </div>
+              <div class="support">
+                <div class="br-checkbox">
+                  <input id="checkbox-condensed-2" type="checkbox" aria-label="descreva o elemento">
+                  <label for="checkbox-condensed-2"></label>
+                </div>
+              </div>
+            </div>
+            <div class="item two-lines selected">
+              <div class="support"><i class="fas fa-heartbeat" aria-hidden="true"></i>
+              </div>
+              <div class="content">
+                <div class="text">Texto principal</div>
+                <div class="description">Texto secundário</div>
+              </div>
+              <div class="support">
+                <div class="br-checkbox">
+                  <input id="checkbox-condensed-3" type="checkbox" aria-label="descreva o elemento" checked>
+                  <label for="checkbox-condensed-3"></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Exemplo complexo</p>
+      <div class="br-list">
+        <div class="header">
+          <div class="title">Lista de E-mail</div>
+          <div class="actions">
+            <button class="br-button circle small" type="button" aria-label="ordenação"><i class="fas fa-sort-alpha-up" aria-hidden="true"></i>
+            </button><span class="mx-3">|</span>
+            <button class="br-button circle small" type="button" aria-label="busca"><i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+            <button class="br-button circle small" type="button" aria-label="menu secundário"><i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div><a class="item two-lines divider" href="javascript:void(0);" link>
+          <div class="support"><i class="fas fa-envelope-open fa-lg text-secondary-05" aria-hidden="true"></i>
+          </div>
+          <div class="content">
+            <div class="row align-items-center">
+              <div class="col-4 col-sm-3 col-lg-2">
+                <div class="subtitle">ALM SERPRO</div>
+              </div>
+              <div class="col-8 col-sm-9 col-lg-10">
+                <div class="subtitle">[Item de Trabalho 1827328] Tarefa sobre componentes</div>
+                <div class="description">IU da web https://alm.serpro/ccm/com/resource/itemName/com.ibm.team.workitem.WorItem/18289068 ID:18289068 Lorem ipsum dolor sit amet consectetur adipisicing elit</div>
+              </div>
+            </div>
+          </div>
+          <div class="support">04 de nov</div></a><a class="item two-lines" href="javascript:void(0);" link>
+          <div class="support"><i class="fas fa-envelope-open fa-lg text-secondary-05" aria-hidden="true"></i>
+          </div>
+          <div class="content">
+            <div class="row align-items-center">
+              <div class="col-4 col-sm-3 col-lg-2">
+                <div class="subtitle">Comunicação</div>
+              </div>
+              <div class="col-8 col-sm-9 col-lg-10">
+                <div class="subtitle">Aceitar: Primeira Leitura - 05/11/2019</div>
+                <div class="description"><i class="fas fa-paperclip" aria-hidden="true"></i> A Supgp e a Supgd informam que o Siscopweb está instável, fazendo com que algumas ações fiquem com tempo de Lorem ipsum dolor sit amet consectetur adipisicing elit
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="support">04 de nov</div></a><a class="item two-lines" href="javascript:void(0);" link>
+          <div class="support"><i class="fas fa-envelope fa-lg text-primary-default" aria-hidden="true"></i>
+          </div>
+          <div class="content">
+            <div class="row align-items-center">
+              <div class="col-4 col-sm-3 col-lg-2">
+                <div class="subtitle"><strong>Comunicação</strong></div>
+              </div>
+              <div class="col-8 col-sm-9 col-lg-10">
+                <div class="subtitle"><strong>Em Tempo - Instabilidade</strong></div>
+                <div class="description">A Supgp e a Supgd informam que o Siscopweb está instável, fazendo com que algumas ações fiquem com tempo de Lorem ipsum dolor sit amet consectetur adipisicing elit</div>
+              </div>
+            </div>
+          </div>
+          <div class="support">seg, 12:34</div></a><a class="item two-lines divider" href="javascript:void(0);" link>
+          <div class="support"><i class="fas fa-envelope-open fa-lg text-secondary-05" aria-hidden="true"></i>
+          </div>
+          <div class="content">
+            <div class="row align-items-center">
+              <div class="col-4 col-sm-3 col-lg-2">
+                <div class="subtitle">cronogramapg</div>
+              </div>
+              <div class="col-8 col-sm-9 col-lg-10">
+                <div class="subtitle"><i class="fas fa-level-up-alt" aria-hidden="true"></i> [SGP] Último dia para programar férias, licença prêmio, alterar a opção de tíquete e validar cartão de Lorem ipsum dolor sit amet consectetur adipisicing elit
+                </div>
+                <div class="description">Prezado (a), Informamos que hoje é o último dia para que os empregados realizem sua programação de férias (período de Lorem ipsum dolor sit amet consectetur adipisicing elit)</div>
+              </div>
+            </div>
+          </div>
+          <div class="support">04 de nov</div></a><a class="item two-lines" href="javascript:void(0);" link>
+          <div class="support"><i class="fas fa-calendar-check fa-lg text-primary-default" aria-hidden="true"></i>
+          </div>
+          <div class="content">
+            <div class="row align-items-center">
+              <div class="col-4 col-sm-3 col-lg-2">
+                <div class="subtitle"><strong>João Paulo Francisco Lorem ipsum</strong></div>
+              </div>
+              <div class="col-8 col-sm-9 col-lg-10">
+                <div class="subtitle"><strong>Aceitar: Reunião sobre Design System</strong></div>
+                <div class="description">Bom dia Senhor Usuário! Nossa reunião foi marcada para amanhã. Para iniciarmos a reunião, entre na sala de número Lorem ipsum dolor sit amet consectetur adipisicing</div>
+              </div>
+            </div>
+          </div>
+          <div class="support">seg. 10:12</div></a>
+      </div>
+    </div>
+    <script src="../js/dsgov.js"></script>
+  </body>
+</html>

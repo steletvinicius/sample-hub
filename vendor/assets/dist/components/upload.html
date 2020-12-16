@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Upload</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap">
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="../css/dsgov.css">
+    <!-- Fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <p class="h5">Envio de arquivo</p>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="br-upload">
+            <label class="upload-label" for="single-file"><i class="fas fa-upload" aria-hidden="true"></i><span> Selecione o(s) arquivo(s)</span>
+            </label>
+            <input class="upload-input" id="single-file" type="file">
+            <button class="br-button upload-button" type="button"><i class="fas fa-upload" aria-hidden="true"></i><span> Selecione o(s) arquivo(s)</span>
+            </button>
+            <div class="upload-list"></div>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Envio de arquivos</p>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="br-upload">
+            <label class="upload-label" for="multiple-files"><i class="fas fa-upload" aria-hidden="true"></i><span> Selecione o(s) arquivo(s)</span>
+            </label>
+            <input class="upload-input" id="multiple-files" type="file" multiple>
+            <button class="br-button upload-button" type="button"><i class="fas fa-upload" aria-hidden="true"></i><span> Selecione o(s) arquivo(s)</span>
+            </button>
+            <div class="upload-list"></div>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Upload com mensagem de feedback</p>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="br-upload">
+            <label class="upload-label" for="upload"><i class="fas fa-upload" aria-hidden="true"></i><span> Selecione o(s) arquivo(s)</span>
+            </label>
+            <input class="upload-input" id="upload" type="file">
+            <button class="br-button upload-button" type="button"><i class="fas fa-upload" aria-hidden="true"></i><span> Selecione o(s) arquivo(s)</span>
+            </button>
+            <div class="feedback text-danger"><i class="fas fa-exclamation-circle" aria-hidden="true"></i><span> Os arquivos devem ser no formato PNG, JPG, PDF e ter no máximo 1GB.</span>
+            </div>
+            <div class="upload-list"></div>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Upload desabilitado</p>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="br-upload">
+            <label class="upload-label" for="disabled"><i class="fas fa-upload" aria-hidden="true"></i><span> Selecione o(s) arquivo(s)</span>
+            </label>
+            <input class="upload-input" id="disabled" type="file" disabled>
+            <button class="br-button upload-button" type="button" disabled><i class="fas fa-upload" aria-hidden="true"></i><span> Selecione o(s) arquivo(s)</span>
+            </button>
+            <div class="feedback"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i><span> Upload desabilitado</span>
+            </div>
+            <div class="upload-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/dsgov.js"></script>
+  </body>
+</html>

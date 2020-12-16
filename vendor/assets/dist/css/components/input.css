@@ -1,0 +1,111 @@
+.br-input {
+  position: relative;
+}
+
+.br-input label {
+  display: inline-block;
+  padding-bottom: var(--spacing-scale-half);
+}
+
+.br-input input {
+  background: var(--color-secondary-01);
+  border: 1px solid #888;
+  border-radius: 6px;
+  display: block;
+  min-height: 40px;
+  padding-left: var(--spacing-scale-2x);
+  padding-right: var(--spacing-scale-5x);
+  width: 100%;
+}
+
+.br-input input:focus {
+  background: var(--status-focused-background) linear-gradient(var(--status-focused-overlay), var(--status-focused-overlay));
+}
+
+.br-input input:focus {
+  outline: none;
+}
+
+.br-input input[disabled] {
+  color: var(--color-secondary-06);
+  background-color: var(--color-secondary-03);
+  border: 1px solid var(--color-secondary-06);
+}
+
+.br-input input[disabled] ~ button.icon {
+  color: var(--color-secondary-06);
+  cursor: not-allowed;
+}
+
+.br-input input[disabled] ~ .help {
+  display: none;
+}
+
+.br-input button {
+  background-color: transparent;
+}
+
+.br-input button.icon {
+  background: transparent;
+  border: 0;
+  bottom: 0;
+  font-size: 1rem;
+  height: 40px;
+  margin: 0;
+  min-width: 0;
+  padding: 0 var(--spacing-scale-2x);
+  position: absolute;
+  right: 0;
+  width: auto;
+  top: 1.5em;
+  color: var(--color-primary-default);
+  outline: none;
+}
+
+.br-input button.icon img {
+  max-width: 24px;
+  min-width: 24px;
+  transform: translate(0, -4px);
+}
+
+.br-input button.icon:focus, .br-input button.icon:hover {
+  color: var(--color-primary-lighten-01);
+}
+
+.br-input ~ .help {
+  font-size: var(--font-size-scale-down-01);
+}
+
+.br-input[valid] input {
+  border: 2px solid var(--color-success);
+}
+
+.br-input[valid] button.icon {
+  color: var(--color-success);
+}
+
+.br-input[invalid] input {
+  border: 2px solid var(--color-danger);
+}
+
+.br-input[invalid] button.icon {
+  color: var(--color-danger);
+}
+
+.br-input[filter] {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.br-input[filter] label {
+  white-space: nowrap;
+  margin-right: var(--spacing-scale-2x);
+}
+
+.br-input[filter] input {
+  min-height: 32px;
+}
+
+
+/*# sourceMappingURL=input.css.map*/
