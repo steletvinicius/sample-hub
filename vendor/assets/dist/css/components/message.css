@@ -1,0 +1,115 @@
+.br-message {
+  display: flex;
+  margin-bottom: var(--spacing-scale-2x);
+  width: 100%;
+}
+
+.br-message .icon {
+  align-self: center;
+  padding: var(--spacing-scale-2x) 0;
+  text-align: center;
+  width: var(--icon-size-3x);
+}
+
+.br-message .icon img {
+  max-width: 32px;
+}
+
+.br-message .content {
+  align-self: center;
+  flex: 1;
+  font-size: var(--font-size-scale-up-01);
+  padding: var(--spacing-scale-2x) 0;
+}
+
+.br-message .content a:focus {
+  background: var(--status-focused-background) linear-gradient(var(--status-focused-overlay), var(--status-focused-overlay));
+}
+
+.br-message .content a:hover {
+  background: var(--status-hover-background);
+}
+
+.br-message .content *:last-child {
+  margin-bottom: 0;
+}
+
+.br-message .close {
+  align-self: start;
+  margin: var(--font-size-scale-base);
+}
+
+.br-message.is-success, .br-message.success, .br-message[success] {
+  background: rgba(var(--rgb-success), 0.09);
+}
+
+.br-message.is-success .icon, .br-message.success .icon, .br-message[success] .icon {
+  color: var(--color-success);
+}
+
+.br-message.is-success .close .br-button, .br-message.success .close .br-button, .br-message[success] .close .br-button {
+  color: var(--color-success);
+}
+
+.br-message.is-success .close .br-button:hover, .br-message.success .close .br-button:hover, .br-message[success] .close .br-button:hover {
+  background: rgba(var(--rgb-success), 0.15);
+}
+
+.br-message.is-danger, .br-message.danger, .br-message[danger] {
+  background: rgba(var(--rgb-danger), 0.09);
+}
+
+.br-message.is-danger .icon, .br-message.danger .icon, .br-message[danger] .icon {
+  color: var(--color-danger);
+}
+
+.br-message.is-danger .close .br-button, .br-message.danger .close .br-button, .br-message[danger] .close .br-button {
+  color: var(--color-danger);
+}
+
+.br-message.is-danger .close .br-button:hover, .br-message.danger .close .br-button:hover, .br-message[danger] .close .br-button:hover {
+  background: rgba(var(--rgb-danger), 0.15);
+}
+
+.br-message.is-warning, .br-message.warning, .br-message[warning] {
+  background: rgba(var(--rgb-warning), 0.09);
+}
+
+.br-message.is-warning .icon, .br-message.warning .icon, .br-message[warning] .icon {
+  color: var(--color-warning);
+}
+
+.br-message.is-warning .close .br-button, .br-message.warning .close .br-button, .br-message[warning] .close .br-button {
+  color: var(--color-warning);
+}
+
+.br-message.is-warning .close .br-button:hover, .br-message.warning .close .br-button:hover, .br-message[warning] .close .br-button:hover {
+  background: rgba(var(--rgb-warning), 0.15);
+}
+
+.br-message.is-warning .icon, .br-message.warning .icon, .br-message[warning] .icon {
+  color: var(--text-color);
+}
+
+.br-message.is-warning .close .br-button, .br-message.warning .close .br-button, .br-message[warning] .close .br-button {
+  color: var(--text-color);
+}
+
+.br-message.is-info, .br-message.info, .br-message[info] {
+  background: rgba(var(--rgb-info), 0.09);
+}
+
+.br-message.is-info .icon, .br-message.info .icon, .br-message[info] .icon {
+  color: var(--color-info);
+}
+
+.br-message.is-info .close .br-button, .br-message.info .close .br-button, .br-message[info] .close .br-button {
+  color: var(--color-info);
+}
+
+.br-message.is-info .close .br-button:hover, .br-message.info .close .br-button:hover, .br-message[info] .close .br-button:hover {
+  background: rgba(var(--rgb-info), 0.15);
+}
+
+
+/*# sourceMappingURL=message.css.map*/

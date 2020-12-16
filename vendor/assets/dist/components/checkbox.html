@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Checkbox</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap">
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="../css/dsgov.css">
+    <!-- Fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <p class="h5">Checkbox padrão</p>
+      <p class="label mb-0">Rótulo</p>
+      <p class="text-down-01">Informações adicionais</p>
+      <div class="br-checkbox">
+        <input id="checkbox-1" type="checkbox" aria-label="opção 1">
+        <label for="checkbox-1">Opção 1</label>
+      </div>
+      <div class="br-checkbox">
+        <input id="checkbox-2" type="checkbox" aria-label="opção 2" checked>
+        <label for="checkbox-2">Opção 2 selecionada</label>
+      </div>
+      <div class="br-checkbox">
+        <input id="checkbox-3" type="checkbox" aria-label="opção 3">
+        <label for="checkbox-3">Opção 3</label>
+      </div>
+      <div class="feedback mt-1"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i><span> Texto de mensagem</span>
+      </div>
+      <p class="h5 mt-5">Listagem horizontal</p>
+      <div class="br-checkbox d-inline">
+        <input id="h-checkbox-1" type="checkbox" aria-label="opção 1">
+        <label for="h-checkbox-1">Opção 1</label>
+      </div>
+      <div class="br-checkbox d-inline">
+        <input id="h-checkbox-2" type="checkbox" aria-label="opção 2">
+        <label for="h-checkbox-2">Opção 2</label>
+      </div>
+      <div class="br-checkbox d-inline">
+        <input id="h-checkbox-3" type="checkbox" aria-label="opção 3">
+        <label for="h-checkbox-3">Opção 3</label>
+      </div>
+      <p class="h5 mt-5">Estados e validação</p>
+      <div class="br-checkbox">
+        <input id="check-state-disabled" type="checkbox" aria-label="desativado" disabled>
+        <label for="check-state-disabled">desativado</label>
+      </div>
+      <div class="br-checkbox" invalid>
+        <input id="check-state-invalid" type="checkbox" aria-label="inválido">
+        <label for="check-state-invalid">Inválido</label>
+      </div>
+      <div class="br-checkbox" valid>
+        <input id="check-state-valid" type="checkbox" aria-label="válido" checked>
+        <label for="check-state-valid">Válido</label>
+      </div>
+      <div class="feedback text-danger mt-1">
+        <div class="icon"><i class="fas fa-times-circle" aria-hidden="true"></i>
+        </div>
+        <div class="content">Preenchimento Obrigatório</div>
+      </div>
+    </div>
+    <script src="../js/dsgov.js"></script>
+  </body>
+</html>

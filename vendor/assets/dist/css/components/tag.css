@@ -1,0 +1,125 @@
+.br-tag {
+  align-items: center;
+  background: var(--color-secondary-01);
+  border: 1px solid var(--color-primary-default);
+  border-radius: 16px;
+  color: var(--color-primary-default);
+  display: inline-flex;
+  font-size: var(--font-size-scale-down-01);
+  font-weight: var(--font-weight-semi-bold);
+  height: 20px;
+  justify-content: center;
+  margin: 10px;
+  padding: 0 10px;
+}
+
+.br-tag .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.br-tag img,
+.br-tag .content img {
+  max-height: 9px;
+  max-width: 12px;
+}
+
+.br-tag .content [class*='fa-'],
+.br-tag span [class*='fa-'] {
+  text-align: center;
+  color: var(--color-primary-default);
+  font-size: 100%;
+  margin-right: 10px;
+  width: 12px;
+}
+
+.br-tag:hover, .br-tag:focus {
+  background-color: var(--color-primary-pastel-01);
+  outline: none;
+}
+
+.br-tag:active, .br-tag.active {
+  background-color: var(--color-primary-default);
+  color: var(--color-secondary-01);
+}
+
+.br-tag:active .content [class*='fa-'],
+.br-tag:active span [class*='fa-'], .br-tag.active .content [class*='fa-'],
+.br-tag.active span [class*='fa-'] {
+  color: var(--color-secondary-01);
+}
+
+.br-tag:active.tag-input-close .close button, .br-tag.active.tag-input-close .close button {
+  color: var(--color-secondary-01);
+}
+
+.br-tag.disabled {
+  background-color: var(--color-primary-pastel-01);
+  opacity: 0.45;
+}
+
+.br-tag.disabled:active, .br-tag.disabled:hover, .br-tag.disabled:focus {
+  background: var(--color-primary-pastel-01);
+  color: var(--color-primary-default);
+  opacity: 0.45;
+}
+
+.br-tag.disabled:active .content [class*='fa-'],
+.br-tag.disabled:active span [class*='fa-'], .br-tag.disabled:hover .content [class*='fa-'],
+.br-tag.disabled:hover span [class*='fa-'], .br-tag.disabled:focus .content [class*='fa-'],
+.br-tag.disabled:focus span [class*='fa-'] {
+  color: var(--color-primary-default);
+}
+
+.br-tag.disabled.tag-input-close .close button {
+  color: var(--color-support-03);
+}
+
+.br-tag.tag-input-close .close button {
+  background: transparent;
+  border: 0;
+  color: var(--color-support-03);
+  outline: 0;
+  padding-left: var(--spacing-scale-baseh);
+}
+
+.br-tag-input {
+  background: var(--color-secondary-01);
+  border: 1px solid #888;
+  border-radius: 6px;
+  display: block;
+  min-height: 40px;
+  padding-left: var(--spacing-scale-2x);
+  padding-right: var(--spacing-scale-5x);
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.br-tag-input:focus {
+  background: var(--status-focused-background) linear-gradient(var(--status-focused-overlay), var(--status-focused-overlay));
+}
+
+.br-tag-input:focus {
+  outline: none;
+}
+
+.br-tag-input input {
+  flex: 1;
+}
+
+.input-tag {
+  padding: 0.9em 0.5em;
+  box-sizing: border-box;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+}
+
+
+/*# sourceMappingURL=tag.css.map*/

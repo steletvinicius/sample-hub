@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DatePicker</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap">
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="../css/dsgov.css">
+    <!-- Fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-lg-4">
+          <div class="br-datepicker" data-mode="single" data-type="text">
+            <div class="br-input">
+              <label for="simples-input">Datepicker simples</label>
+              <input id="simples-input" type="text" placeholder="dd/mm/aaaa" data-input>
+              <button class="icon" type="button" id="simples-input-btn" data-toggle><span class="sr-only">Abrir Timepicker</span><i class="fas fa-calendar-alt" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-sm-12 col-lg-4">
+          <div class="br-datepicker" data-mode="range" data-type="text">
+            <div class="br-input">
+              <label for="range-input">Datepicker com intervalo de datas</label>
+              <input id="range-input" type="text" placeholder="dd/mm/aaaa até dd/mm/aaaa" data-input>
+              <button class="icon" type="button" id="range-input-btn" data-toggle><span class="sr-only">Abrir Timepicker</span><i class="fas fa-calendar-alt" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-sm-12 col-lg-4">
+          <div class="br-datepicker" data-mode="single" data-type="time">
+            <div class="br-input">
+              <label for="timepicker-input">Timepicker</label>
+              <input id="timepicker-input" type="time" placeholder="hh:mm" data-input>
+              <button class="icon" type="button" id="timepicker-input-btn" data-toggle><span class="sr-only">Abrir Timepicker</span><i class="fas fa-clock" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-sm-12 col-lg-4">
+          <div class="br-datepicker" data-mode="single" data-type="datetime-local">
+            <div class="br-input">
+              <label for="dateandtime-input">Datepicker + Timepicker</label>
+              <input id="dateandtime-input" type="datetime-local" placeholder="dd/mm/aaaa hh:mm" data-input>
+              <button class="icon" type="button" id="dateandtime-input-btn" data-toggle><span class="sr-only">Abrir Timepicker</span><i class="fas fa-calendar-alt" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/dsgov.js"></script>
+  </body>
+</html>

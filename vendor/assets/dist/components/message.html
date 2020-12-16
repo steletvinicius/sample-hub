@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mensagem</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap">
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="../css/dsgov.css">
+    <!-- Fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <p class="h5">Tipos</p>
+      <div class="br-message" danger role="alert">
+        <div class="icon" aria-label="informações erradas"><i class="fas fa-times-circle fa-lg" aria-hidden="true"></i><span class="sr-only">Erro!</span>
+        </div>
+        <div class="content" aria-label="informações do conteúdo"><strong>Data de início do afastamento inválida.</strong>
+          <p>A data não pode ser superior à data atual.</p>
+        </div>
+        <div class="close">
+          <button class="br-button circle small" type="button" aria-label="Fechar"><i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="br-message" success role="alert">
+        <div class="icon" aria-label="informações corretas"><i class="fas fa-check-circle fa-lg" aria-hidden="true"></i><span class="sr-only">Sucesso!</span>
+        </div>
+        <div class="content" aria-label="informações do conteúdo"><strong>Sucesso.</strong><span> Seus dados foram alterados conforme preencimento do formulário.</span>
+        </div>
+        <div class="close">
+          <button class="br-button circle small" type="button" aria-label="Fechar"><i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="br-message" info role="alert">
+        <div class="icon" aria-label="mensagem de informação"><i class="fas fa-info-circle fa-lg" aria-hidden="true"></i><span class="sr-only">Informação!</span>
+        </div>
+        <div class="content" aria-label="informações do conteúdo"><strong>Informação.</strong><span> Seus dados só serão salvos após o preenchimento do primeiro campo do formulário.</span>
+        </div>
+        <div class="close">
+          <button class="br-button circle small" type="button" aria-label="Fechar"><i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="br-message" warning role="alert">
+        <div class="icon" aria-label="atenção as informações"><i class="fas fa-exclamation-triangle fa-lg" aria-hidden="true"></i><span class="sr-only">Atenção!</span>
+        </div>
+        <div class="content" aria-label="informações do conteúdo"><strong>Atenção.</strong><span> Em caso de dúvida, não compartilhe sua senha com terceiros. Ligue para a Central de atendimento.</span>
+        </div>
+        <div class="close">
+          <button class="br-button circle small" type="button" aria-label="Fechar"><i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <p class="h5 mt-5">Mensagens contextuais</p>
+      <p class="feedback text-success" role="alert"><span class="icon"><i class="fas fa-check-circle fa-lg" aria-hidden="true"></i></span>Campo correto.</p>
+      <div class="feedback text-danger" role="alert">
+        <div class="icon"><i class="fas fa-times-circle fa-lg" aria-hidden="true"></i>
+        </div>O CPF deve conter apenas dígitos.
+      </div><span class="feedback text-info" role="alert"><span class="icon"><i class="fas fa-exclamation-circle fa-lg" aria-hidden="true"></i></span>Os arquivos devem ser no formato PNJ, JPG, PDF e ter no máximo 1GB.</span>
+      <div class="feedback" role="alert">
+        <div class="icon"><i class="fas fa-exclamation-triangle fa-lg" aria-hidden="true"></i>
+        </div>A tecla CAPS-LOCK está ativada.
+      </div>
+    </div>
+    <script src="../js/dsgov.js"></script>
+  </body>
+</html>

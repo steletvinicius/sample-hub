@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Avatar</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap">
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="../css/dsgov.css">
+    <!-- Fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row justify-content-between">
+        <div class="col-auto ml-1 mt-5">
+          <p class="h5">Avatar icônico</p>
+          <div class="d-flex align-items-center">
+            <div class="br-badge" danger>
+              <div class="icon">5</div>
+              <div class="content">
+                <div class="br-avatar">
+                  <div class="image"><i class="fas fa-user" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="br-button circle small" type="button" aria-label="Abrir menu de usuário"><i class="fas fa-angle-down" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <div class="col-auto ml-1 mt-5">
+          <p class="h5">Avatar fotográfico</p>
+          <div class="d-flex align-items-center">
+            <div class="br-badge" danger>
+              <div class="icon">5</div>
+              <div class="content">
+                <div class="br-avatar">
+                  <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
+                </div>
+              </div>
+            </div>
+            <button class="br-button circle small" type="button" aria-label="Abrir menu de usuário"><i class="fas fa-angle-down" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <p class="h5 mt-5">Em telas de Chat</p>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <div class="br-card">
+            <div class="front">
+              <div class="content">
+                <div class="d-flex align-items-center">
+                  <div class="br-avatar">
+                    <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
+                  </div>
+                  <div class="flex-fill mx-3">
+                    <div class="text-primary-default text-up-01">Maria Amorim</div><span>UX Designer</span>
+                  </div>
+                  <div>
+                    <button class="br-button circle small" type="button" aria-label="Ver telefone"><i class="fas fa-phone" aria-hidden="true"></i>
+                    </button>
+                    <button class="br-button circle small" type="button" aria-label="Enviar comentário"><i class="fas fa-comment" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="br-card">
+            <div class="front">
+              <div class="content">
+                <div class="d-flex">
+                  <div class="br-avatar mt-1">
+                    <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
+                  </div>
+                  <div class="flex-fill ml-3">
+                    <div class="br-textarea">
+                      <textarea aria-label="Digite uma informação se o label estiver vazio" placeholder="Digite seu comentário" id="comments"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="footer">
+                <div class="row justify-content-end">
+                  <div class="col col-xs-12 text-right">
+                    <button class="br-button mt-2" type="button">Cancelar
+                    </button>
+                    <button class="br-button primary mt-2" type="button">Enviar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <div class="br-card">
+            <div class="front">
+              <div class="content text-center">
+                <div class="br-badge" medium success>
+                  <div class="icon"></div>
+                  <div class="content">
+                    <div class="br-avatar" medium>
+                      <div class="image"><img src="https://picsum.photos/id/823/400" alt="Avatar"></div>
+                    </div>
+                  </div>
+                </div>
+                <p class="h5 text-primary-default">Maria Amorim</p>
+                <p>UX Designer</p>
+                <hr>
+                <p><i class="fas fa-phone" aria-hidden="true"></i><span> +55 81 9999 9999</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="br-card">
+            <div class="front">
+              <div class="content">
+                <div class="text-center">
+                  <div class="br-avatar" large change>
+                    <button class="change" type="button" aria-label="Trocar a imagem"><span class="image"><i class="fas fa-user" aria-hidden="true"></i></span><span class="icon text-primary-default"><i class="fas fa-camera" aria-hidden="true"></i></span>
+                    </button>
+                  </div>
+                </div>
+                <p class="h4 text-center">Clique na imagem acima para trocar sua foto no perfil.</p>
+                <div class="feedback text-info"><i class="fas fa-info-circle" aria-hidden="true"></i><span>Os arquivos devem ser nos formatos PNG, JPG, PDF e ter no máximo 1G</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/dsgov.js"></script>
+  </body>
+</html>

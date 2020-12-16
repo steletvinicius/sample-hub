@@ -1,0 +1,175 @@
+.br-button {
+  --button-background: transparent;
+  --button-border: transparent;
+  --button-color: var(--color-primary-default);
+  --button-radius: 100em;
+  --button-font-size: var(--font-size-scale-up-01);
+  --button-font-weight: var(--font-weight-semi-bold);
+  --button-xsmall: 24px;
+  --button-small: 32px;
+  --button-medium: 40px;
+  --button-large: 48px;
+  --button-size: var(--button-medium);
+  --button-padding: 0 var(--spacing-scale-3x);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--button-background);
+  border: 1px solid var(--button-border);
+  border-radius: var(--button-radius);
+  color: var(--button-color);
+  cursor: pointer;
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  height: var(--button-size);
+  padding: var(--button-padding);
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: auto;
+}
+
+.br-button.block {
+  width: 100%;
+}
+
+@media (min-width: 575px) {
+  .br-button.block-sm {
+    width: 100%;
+  }
+  .br-button.auto-sm {
+    width: auto;
+  }
+}
+
+@media (min-width: 992px) {
+  .br-button.block-md {
+    width: 100%;
+  }
+  .br-button.auto-md {
+    width: auto;
+  }
+}
+
+@media (min-width: 1280px) {
+  .br-button.block-lg {
+    width: 100%;
+  }
+  .br-button.auto-lg {
+    width: auto;
+  }
+}
+
+@media (min-width: 1600px) {
+  .br-button.block-xl {
+    width: 100%;
+  }
+  .br-button.auto-xl {
+    width: auto;
+  }
+}
+
+.br-button.circle, .br-button[circle], .br-button.is-circle {
+  border-radius: 50%;
+  padding: 0;
+  width: var(--button-size);
+}
+
+.br-button.xsmall, .br-button[xsmall], .br-button.is-xsmall {
+  --button-size: var(--button-xsmall);
+}
+
+.br-button.small, .br-button[small], .br-button.is-small {
+  --button-size: var(--button-small);
+}
+
+.br-button.medium, .br-button[medium], .br-button.is-medium {
+  --button-size: var(--button-medium);
+}
+
+.br-button.large, .br-button[large], .br-button.is-large {
+  --button-size: var(--button-large);
+}
+
+.br-button.primary, .br-button[primary], .br-button.is-primary {
+  --button-background: var(--status-enabled-text);
+  --button-color: var(--color-secondary-01);
+}
+
+.br-button.primary.inverted, .br-button.primary.is-inverted, .br-button.primary[inverted], .br-button[primary].inverted, .br-button[primary].is-inverted, .br-button[primary][inverted], .br-button.is-primary.inverted, .br-button.is-primary.is-inverted, .br-button.is-primary[inverted] {
+  --button-background: var(--color-secondary-01);
+  --button-color: var(--status-enabled-text);
+}
+
+.br-button.secondary, .br-button[secondary], .br-button.is-secondary {
+  --button-background: var(--color-secondary-01);
+  --button-border: var(--status-enabled-text);
+}
+
+.br-button.secondary.inverted, .br-button.secondary.is-inverted, .br-button.secondary[inverted], .br-button[secondary].inverted, .br-button[secondary].is-inverted, .br-button[secondary][inverted], .br-button.is-secondary.inverted, .br-button.is-secondary.is-inverted, .br-button.is-secondary[inverted] {
+  --button-background: var(--status-enabled-text);
+  --button-border: var(--color-secondary-01);
+  --button-color: var(--color-secondary-01);
+}
+
+.br-button.inverted, .br-button.is-inverted, .br-button[inverted] {
+  --button-color: var(--color-secondary-01);
+}
+
+.br-button.danger, .br-button[danger], .br-button.is-danger {
+  --button-background: var(--color-danger);
+  --button-color: var(--color-secondary-01);
+}
+
+.br-button.success, .br-button[success], .br-button.is-success {
+  --button-background: var(--color-success);
+  --button-color: var(--color-secondary-01);
+}
+
+.br-button.warning, .br-button[warning], .br-button.is-warning {
+  --button-background: var(--color-warning);
+}
+
+.br-button.info, .br-button[info], .br-button.is-info {
+  --button-background: var(--color-info);
+  --button-color: var(--color-secondary-01);
+}
+
+.br-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.br-button:not(:disabled):not(.loading):focus {
+  --button-background: var(--color-secondary-01);
+  --button-color: var(--color-primary-default);
+  background-image: linear-gradient(rgba(var(--rgb-support-02), 0.3), rgba(var(--rgb-support-02), 0.3));
+}
+
+.br-button:not(:disabled):not(.loading):hover {
+  --button-background: var(--status-hover-background);
+  --button-color: var(--color-primary-default);
+  background-image: none;
+}
+
+.br-button:not(:disabled):not(.loading):active {
+  --button-background: var(--status-pressed-background);
+  --button-color: var(--status-pressed-text);
+}
+
+.br-button.active, .br-button.is-active, .br-button[active] {
+  --button-background: var(--status-activated-background);
+  --button-color: var(--status-activated-text);
+}
+
+.br-button.loading::after, .br-button[loading]::after, .br-button.is-loading::after {
+  border-style: solid;
+  border-color: var(--button-color) var(--button-color) transparent;
+}
+
+.br-button.loading.primary::after, .br-button.loading.danger::after, .br-button.loading.success::after, .br-button.loading.info::after, .br-button[loading].primary::after, .br-button[loading].danger::after, .br-button[loading].success::after, .br-button[loading].info::after, .br-button.is-loading.primary::after, .br-button.is-loading.danger::after, .br-button.is-loading.success::after, .br-button.is-loading.info::after {
+  border-color: var(--button-color) var(--button-color) transparent;
+}
+
+
+/*# sourceMappingURL=button.css.map*/

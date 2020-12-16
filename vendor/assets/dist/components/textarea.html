@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Textarea</title>
+    <!-- Fonte Rawline-->
+    <link rel="stylesheet" href="https://cdn.dsgovserprodesign.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <!-- Fonte Raleway-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap">
+    <!-- Design System de Governo-->
+    <link rel="stylesheet" href="../css/dsgov.css">
+    <!-- Fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <p class="h5">Textarea padrão</p>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="br-textarea">
+            <label for="textarea-id1">Digite sua mensagem aqui</label>
+            <textarea id="textarea-id1" placeholder="Exemplo de textarea simples" rows="5" cols="5"></textarea>
+          </div>
+          <p class="text-down-01 mt-1">Texto auxiliar ao preenchimento, tem a função de previnir erros.</p>
+        </div>
+      </div>
+      <p class="h5 mt-5">Validação e estados</p>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="br-textarea" valid>
+            <label for="textarea-id4">Digite sua mensagem aqui</label>
+            <textarea id="textarea-id4" placeholder="Exemplo de textarea válido" rows="5" cols="5" valid></textarea>
+          </div>
+          <div class="feedback color-success mt-1"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Campo correto</span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="br-textarea" invalid>
+            <label for="textarea-id5">Digite sua mensagem aqui</label>
+            <textarea id="textarea-id5" placeholder="Exemplo de textarea inválido" rows="5" cols="5" invalid></textarea>
+          </div>
+          <div class="feedback color-danger mt-1"><i class="fas fa-times-circle" aria-hidden="true"></i><span>Campo inválido</span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="br-textarea">
+            <label for="textarea-id7">Digite sua mensagem aqui</label>
+            <textarea id="textarea-id7" placeholder="Exemplo de textarea desabilitado" rows="5" cols="5" disabled></textarea>
+          </div>
+          <div class="feedback mt-1"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i><span>Campo Desabilitado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/dsgov.js"></script>
+  </body>
+</html>

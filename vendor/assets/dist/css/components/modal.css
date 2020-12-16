@@ -1,0 +1,105 @@
+.br-modal {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  padding: var(--spacing-scale-2x);
+}
+
+.br-modal-header {
+  margin-bottom: var(--spacing-scale-3xh);
+  position: relative;
+}
+
+.br-modal-header .close {
+  background: transparent;
+  border: 0;
+  color: var(--color-primary-default);
+  font-weight: var(--font-weight-medium);
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: calc(var(--spacing-scale-half) * -1);
+}
+
+.br-modal-title {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  font-size: var(--font-size-scale-up-01);
+  font-weight: var(--700);
+  margin: 0;
+  max-height: var(--font-size-scale-up-07);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80%;
+}
+
+.br-modal-title.is-inline {
+  -webkit-line-clamp: 1;
+  max-height: 3.5rem;
+}
+
+.br-modal-body {
+  margin: 0 0 var(--spacing-scale-5x);
+}
+
+.br-modal-footer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.br-modal .br-card {
+  border: 0;
+  font-size: var(--font-size-scale-base);
+  height: 216px;
+  margin-left: calc(var(--spacing-scale-2x) * -1);
+  margin-right: calc(var(--spacing-scale-2x) * -1);
+  overflow: auto;
+  padding: 0 var(--spacing-scale-2x);
+  resize: none;
+  width: auto;
+}
+
+.br-modal .br-card::-webkit-scrollbar {
+  width: 8px;
+}
+
+.br-modal .br-card::-webkit-scrollbar-track {
+  background: var(--color-secondary-03);
+}
+
+.br-modal .br-card::-webkit-scrollbar-thumb {
+  background: var(--color-secondary-06);
+}
+
+.br-modal .br-card:focus, .br-modal .br-card:active {
+  outline: none;
+}
+
+.br-modal .br-card:hover::-webkit-scrollbar-thumb {
+  background: var(--color-secondary-07);
+}
+
+.br-modal.is-scroll .br-card {
+  box-shadow: inset 0 -4px 3px rgba(var(--rgb-secondary-09), 0.16), inset 0 4px 3px rgba(var(--rgb-secondary-09), 0.16);
+  padding: var(--spacing-scale-2x);
+}
+
+@media (min-width: 575px) {
+  .br-modal {
+    width: auto;
+  }
+  .br-modal.is-xsmall {
+    max-width: 220px;
+  }
+  .br-modal.is-small {
+    max-width: 300px;
+  }
+  .br-modal.is-medium {
+    max-width: 500px;
+  }
+  .br-modal.is-large, .br-modal.is-scroll {
+    max-width: 640px;
+  }
+}
+
+
+/*# sourceMappingURL=modal.css.map*/
