@@ -11,7 +11,6 @@
           <h4>Aguardando coleta</h4>
           <p><%= pluralize(n_patients, "amostra", "amostras") %></p>
 
-
           <table id="tblsamplesconfirmed" class="table align-middle table table-hover" style="background-color: white; width: auto;">
             <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
               <th style="text-align: center;">ID</th>
@@ -72,7 +71,6 @@
       </div>
     </div>
 
-    <%# USAR GRID DE 1 FR %>
     <div class="d-flex flex-column" style="width: 800px;">
       <h4>Aguardando remessa</h4>
       <% n_samples = @samples.where("collected_at IS NOT ? AND quantity IS NOT ?", nil, nil).count %>
@@ -87,7 +85,6 @@
               <input type="submit" value="finalizar remessa" class="btn btn-primary" style= "margin: 0 10px 10px 0;">
             </div>
 
-            <%# USAR GRID DE 1 FR %>
             <div class="d-flex flex-start flex-wrap justify-content-center align-items-start"> 
               <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
               <% collected_samples = @samples.where("collected_at IS NOT ? AND quantity IS NOT ?", nil, nil) %>
