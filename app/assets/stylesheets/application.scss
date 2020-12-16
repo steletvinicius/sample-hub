@@ -12,7 +12,6 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
-@import "components/cardproduct";
 @import "select2/dist/css/select2";
 
 html {
@@ -22,4 +21,18 @@ html {
     margin: 0 0 100px;
     background-color: #eff2f4;
   }
+}
+.my-form-control {
+  height: calc(1.5em + 2px);
+  text-align: center;
+  
+}
+#btn-tbl {
+  padding: 5px;
+  margin: 0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  background: $primary;
+  transition: background 0.3s ease;
 }

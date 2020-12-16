@@ -5,7 +5,7 @@ const initFlatpickr = () => {
   flatpickr(".datepicker", {
     locale: Portuguese,
     altInput: true,
-    altFormat: "l, j \\de F, Y",
+    altFormat: "j/m/Y",
   });
 };
 
