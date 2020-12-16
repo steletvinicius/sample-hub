@@ -80,13 +80,12 @@ class BatchesController < ApplicationController
       else
         @batch.receiver = @user
         @batch.received_at = received_at
-        params.keys.select { |key| key.include? "receiving" }.map { |key| key.split("-")[0] }.each do |sample_id|
-          sample = Sample.find(sample_id.to_i)
-          sample.status = params["#{sample.id}-receiving"] == "true" ? "recebida" : "rejeitada"
-          sample.save
-        end
-        raise
         if @batch.save
+          params.keys.select { |key| key.include? "receiving" }.map { |key| key.split("-")[0] }.each do |sample_id|
+            sample = Sample.find(sample_id.to_i)
+            sample.status = params["#{sample.id}-receiving"] == "true" ? "recebida" : "rejeitada"
+            sample.save
+          end
           flash.notice = "Recebimento da remessa confirmado com sucesso. Obrigado!"
           redirect_to edit_batch_path(@batch) and return
         else
