@@ -2,7 +2,7 @@ class SamplesController < ApplicationController
   before_action :set_sample, only: %i[edit update]
 
   def index
-    @samples = policy_scope(Sample).order(collected_at: :asc)
+    @samples = policy_scope(Sample).order(collected_at: :asc).where(batch: nil)
   end
 
   def new

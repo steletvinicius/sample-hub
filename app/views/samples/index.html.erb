@@ -6,8 +6,8 @@
     <th style="text-align: center;">ID</th>
     <th>Nome do Paciente</th>
     <th>Tipo de Amostra</th>
-    <th>Quantidade</th>
     <th>Data da coleta</th>
+    <th>Quantidade</th>
     <th style="text-align: center;">Ação</th>
   </tr>
     <% @samples.each do |sample| %>
@@ -16,6 +16,9 @@
         <td scope="row" style="text-align: center;"><%= sample.id %></td>
         <td><%=sample.patient.first_name%> <%=sample.patient.last_name%> </td>
         <td><%=sample.category%></td>
+        <form action="<%= sample_path(sample) %>" method="post">
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <input name="_method" type="hidden" value="patch" />
         <td>
           <div class="form-group string optional sample_collected_at form-group-valid">
             <%= hidden_field_tag "sample[status]", "coletada" %>
@@ -30,6 +33,7 @@
         <td>
           <input type="submit" name="commit" value="Atualizar Sample" class="btn btn btn-primary" data-disable-with="Atualizar Sample">
         </td>
+        </form>
       <% end %>
       </tr>
     <% end %>
@@ -40,14 +44,15 @@
   <h2>Amostras prontas para envio ao laboratório:</h2>
 
   <form action="/batches" method="post">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <%= hidden_field_tag "sample[status]", "enviada" %>
     <table id="tblsamplesconfirmed" class="table table-sm table-hover" style="background-color: white;">
           <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
             <th style="text-align: center;">ID</th>
             <th>Nome do Paciente</th>
             <th>Tipo de Amostra</th>
-            <th>Quantidade</th>
             <th>Data da coleta</th>
+            <th>Quantidade</th>
             <th style="text-align: center;">Ação</th>
           </tr>
             <% @samples.each do |sample| %>
@@ -56,8 +61,8 @@
                 <td scope="row" style="text-align: center;"><%= sample.id %></td>
                 <td><%=sample.patient.first_name%> <%=sample.patient.last_name%> </td>
                 <td><%=sample.category%></td>
+                <td><%=date_mask(sample.collected_at)%></td>
                 <td><%=sample.quantity%></td>
-                <td><%=sample.collected_at%></td>
                 <td>
                   <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="checkbox_remessa" name="sample_ids[]" value="<%= sample.id %>"/>
