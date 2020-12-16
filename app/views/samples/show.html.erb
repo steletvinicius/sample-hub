@@ -1,4 +1,104 @@
-<div class="container">
+<div class="container p-2">
+  <div class="row">
+    <div class="col-6 d-flex">
+      <div>
+        <%= image_tag "logo-inca.png" %>
+      </div>
+      <div class="ml-2">
+        <h5>MINISTÉRIO DA SAÚDE</h5>
+        <h5>Instituto Nacional de Câncer</h5>
+        <h5>Centro de Transplante de Medula Óssea</h5>
+      </div>
+    </div>
+    <div class="col-2 d-flex justify-content-center align-items-center">
+      <h1>HLA</h1>
+    </div>
+  </div>
 
-  <h1><%= @sample.patient.first_name%></h1>
+  <hr class="print">
+  <div class="row">
+    <div class="col">
+      <h4>Paciente:</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+     <h5><strong>Nome:</strong> <%= @sample.patient.first_name%> <%= @sample.patient.last_name%></h5>
+     <span><strong>Identificador:</strong> <%= @sample.patient.id %></span>
+    </div>
+    <div class="col-4 d-flex flex-column">
+     <span><strong>Sexo:</strong> <%= @sample.patient.gender %> </span>
+     <span><strong>Idade:</strong> <%= calc_age(@sample.patient.born_at) %> ano(s)</span>
+    </div>
+  </div>
+
+  <hr class="print">
+  <div class="row">
+    <div class="col">
+      <h4>Material a coletar:</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4 d-flex flex-column">
+     <span><strong>Data de solicitação: </strong> <%= dateyeartime_mask(@sample.created_at)%>hs</span>
+     <span><strong>Tipo de Material: </strong> <%= @sample.category.capitalize %></span>
+     <span><strong>Tipo de Tubo: </strong>Tubo EDTA</span>
+     <span><strong>Quantidade: </strong>02</span>
+    </div>
+    <div class="col-4 d-flex flex-column">
+     <span>Tipo de Pedido: Rotina</span>
+     <span>Tipo de Paciente: <strong><%= @sample.patient.patient_type.capitalize %></strong> de medula óssea</span>
+    </div>
+  </div>
+
+  <hr class="print">
+  <div class="row">
+    <div class="col">
+      <h4>Exames:</h4>
+    </div>
+  </div>
+  <div class="row">
+    <% if @sample.patient.patient_type == "receptor" %>
+    <div class="col-4 d-flex flex-column justify-content-center">
+      <span>RECEPTOR APARENTADO Medula óssea CEMO:</span>
+    </div>
+      <div class="col-6 d-flex flex-column">
+        <span>=> FASE 1. HLA A, B(SOROL OU BIOMOL BAIXA RESOL) HLA DRB1, DQB1(BIOMOL BAIXA RESOL);</span>
+        <span>=> FASE 2. HLA DRB1, DQB1 (BIOMOL ALTA RESOL).</span>
+    </div>
+    <% elsif @sample.patient.patient_type == "donor" %>
+    <div class="col-4 d-flex flex-column justify-content-center">
+        <span>DOADOR APARENTADO Medula óssea CEMO</span>
+    </div>
+    <div class="col-6 d-flex flex-column">
+      <span>* FASE 1. HLA A, B (SOROL OU BIOMOL BAIXA RESOL);</span>
+      <span>* FASE 2. HLA DRB1, DQB1 (BIOMOL BAIXA RESOL).</span>
+    </div>
+    <% end %>
+  </div>
+
+  <hr class="print">
+  <div class="row mb-5">
+    <div class="col">
+      <h4>Responsável pela solicitação:</h4>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-6 align-items-center">
+      <hr class="print">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col d-flex flex-column justify-content-center align-items-center">
+      <h5><%= @sample.doctor.first_name %> <%= @sample.doctor.last_name %></h5>
+      <span>CRM: <%= @sample.doctor.crm%></span>
+    </div>
+  </div>
+
+
+
+  <hr class="print">
+  <button class="btn btn-primary btn-lg no-print" id="printPageButton" onClick="window.print();">Salvar</button>
 </div>
