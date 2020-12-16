@@ -222,7 +222,7 @@ patient = Patient.create(
   sus_code: Faker::Number.number(digits: 15)
 )
 
-10.times do
+38.times do
   patient = Patient.create(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -300,77 +300,197 @@ puts "...Created #{Doctor.count} doctors. DOCTORS DONE!"
 puts " "
 puts "Creating new samples DB..."
 
-250.times do
-  sample = Sample.create(
-    patient: Patient.all.sample,
-    doctor: Doctor.all.sample,
-    category: ["Sangue", "Soro", "Segmento de cordão"].sample
-  )
-  sample.observation = "Esta é a observação para a sample com id #{sample.id}"
-  sample.save!
-  # puts "Created sample with id #{sample.id} and category #{sample.category}"
-end
+sample = Sample.create(
+  patient: Patient.find(1),
+  doctor: Doctor.all.sample,
+  category: ["Sangue", "Soro", "Segmento de cordão"].sample
+)
+
+sample = Sample.create(
+  patient: Patient.find(2),
+  doctor: Doctor.all.sample,
+  category: ["Sangue", "Soro", "Segmento de cordão"].sample
+)
+
+sample = Sample.create(
+  patient: Patient.find(3),
+  doctor: Doctor.all.sample,
+  category: ["Sangue", "Soro", "Segmento de cordão"].sample
+)
+
+sample = Sample.create(
+  patient: Patient.find(4),
+  doctor: Doctor.all.sample,
+  category: ["Sangue", "Soro", "Segmento de cordão"].sample
+)
+
+#### Claúdia
+sample = Sample.create(
+  patient: Patient.find(5),
+  doctor: Doctor.all.sample,
+  collected_at: DateTime.now,
+  quantity: rand(1..2),
+  category: ["Sangue", "Soro", "Segmento de cordão"].sample
+)
+
+sample = Sample.create(
+  patient: Patient.find(6),
+  doctor: Doctor.all.sample,
+  collected_at: DateTime.now,
+  quantity: rand(1..2),
+  category: ["Sangue", "Soro", "Segmento de cordão"].sample
+)
+
+sample = Sample.create(
+  patient: Patient.find(7),
+  doctor: Doctor.all.sample,
+  collected_at: DateTime.now,
+  quantity: rand(1..2),
+  category: ["Sangue", "Soro", "Segmento de cordão"].sample
+)
+
+sample = Sample.create(
+  patient: Patient.find(8),
+  doctor: Doctor.all.sample,
+  collected_at: DateTime.now,
+  quantity: rand(1..2),
+  category: ["Sangue", "Soro", "Segmento de cordão"].sample
+)
 
 puts "...Created #{Sample.count} samples without a batch. SAMPLES DONE!"
+#### ####
 
-# INI BATCHES ONLY AFTER SAMPLES ALREADY EXIST
-puts " "
-puts "Creating batches and attaching samples..."
-# puts samples into batches but leaves at least 5 samples without a batch
-n_samples = Sample.count
+#### Batch 1 - Paciente/Amostra 9 ao 15 ####
 senders = User.where(role: 'Envio')
-until n_samples <= 50
-  # creates a new empty batch
-  date_sent = Date.today - rand(360)
-  batch = Batch.create!(sender: senders.sample, sent_at: date_sent)
-  # puts "Created empty batch [#{batch.id}], sent #{batch.sent_at} from #{batch.sender.institution} by #{batch.sender.email} | not yet received"
+date_sent = Date.today
+batch = Batch.create(sender: senders.sample, sent_at: date_sent)
 
-  # Attaches 2 to 5 samples in the batch
-  rand(2..5).times do
-    sample = Sample.find_by_batch_id(nil)
-    sample.batch = batch
-    sample.collected_at = batch.sent_at - rand(3)
-    sample.save!
-    # puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
-    n_samples -= 1
-  end
-  batch.save!
+x = 9
+loop do
+  sample = Sample.create(
+    patient: Patient.find(x),
+    doctor: Doctor.all.sample,
+    collected_at: DateTime.now,
+    quantity: rand(1..2),
+    category: ["Sangue", "Soro", "Segmento de cordão"].sample,
+    status: "enviada"
+  )
+
+  sample.batch = batch
+  sample.save!
+  puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
+  x += 1
+  break if x > 15
 end
+puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
+#### FIM - BATCH 1 ####
 
-# Set received date on all batches except 10 batches that will be in transit
-n_batches = Batch.where(received_at: nil).count
-until n_batches == 10
-  batch = Batch.find_by_received_at(nil)
-  batch.receiver = receiver
-  batch.received_at = batch.sent_at + rand(3)
-  batch.save!
-  # puts "Batch [#{batch.id}] sent at #{batch.sent_at} was received at #{batch.received_at}"
-  n_batches -= 1
+#### Batch 2 - Paciente/Amostra 16 ao 22 ####
+
+senders = User.where(role: 'Envio')
+date_sent = Date.today
+batch = Batch.create(sender: senders.sample, sent_at: date_sent)
+
+x = 16
+loop do
+  sample = Sample.create(
+    patient: Patient.find(x),
+    doctor: Doctor.all.sample,
+    collected_at: DateTime.now,
+    quantity: rand(1..2),
+    category: ["Sangue", "Soro", "Segmento de cordão"].sample,
+    status: "enviada"
+  )
+
+  sample.batch = batch
+  sample.save!
+  puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
+  x += 1
+  break if x > 22
 end
+puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
+#### FIM - BATCH 2 ####
 
-# Creates batches that have not been sent yet (pendentes)
-# because sender can edit until sent_at date is sumitted
-10.times do
-  batch = Batch.create!(sender: sender)
-  # puts "Created empty batch [#{batch.id}], sent #{batch.sent_at} from #{batch.sender.institution} by #{batch.sender.email} | not yet received"
-  # Attaches 2 samples in the batch
-  2.times do
-    sample = Sample.find_by_batch_id(nil)
-    sample.batch = batch
-    sample.save!
-    # puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
-    n_samples -= 1
-  end
-  batch.save!
+#### Batch 3 - Paciente/Amostra 23 ao 29 ####
+
+senders = User.where(role: 'Envio')
+receivers = User.where(role: "Recepção")
+date_sent = Date.today
+date_received = Date.today + 1
+batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at: date_received, receiver: receivers.sample)
+
+x = 23
+loop do
+  sample = Sample.create(
+    patient: Patient.find(x),
+    doctor: Doctor.all.sample,
+    collected_at: DateTime.now,
+    quantity: rand(1..2),
+    category: ["Sangue", "Soro", "Segmento de cordão"].sample,
+    status: "recebida"
+  )
+
+  sample.batch = batch
+  sample.save!
+  puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
+  x += 1
+  break if x > 29
 end
+puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
+#### FIM - BATCH 3 ####
 
-puts "...Created #{Batch.count} batches with #{Sample.where('batch_id IS NOT ?', nil).count} samples"
-puts "...#{Batch.where('received_at IS NOT ?', nil).count} batches were received"
-puts "...#{Batch.where('received_at IS ? AND sent_at IS NOT ?', nil, nil).count} batches were sent but are not received yet"
-puts "...#{Batch.where(sent_at: nil).count} batches were not sent yet"
-puts "...#{Sample.where(batch_id: nil).count} samples are not on a batch yet"
-puts "BATCHES DONE WITH SAMPLES!"
-# END BATCHES
+#### Batch 4 - Paciente/Amostra 30 ao 36 ####
+
+senders = User.where(role: 'Envio')
+receivers = User.where(role: "Recepção")
+date_sent = Date.today
+date_received = Date.today + 1
+batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at: date_received, receiver: receivers.sample)
+
+x = 30
+loop do
+  sample = Sample.create(
+    patient: Patient.find(x),
+    doctor: Doctor.all.sample,
+    collected_at: DateTime.now,
+    quantity: rand(1..2),
+    category: ["Sangue", "Soro", "Segmento de cordão"].sample,
+    status: "rejeitada"
+  )
+
+  sample.batch = batch
+  sample.save!
+  puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
+  x += 1
+  break if x > 36
+end
+puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
+#### FIM - BATCH 4 ####
+
+#### Batch 5 - Paciente/Amostra 37 ao 43 ####
+
+senders = User.where(role: 'Envio')
+batch = Batch.create(sender: senders.sample)
+
+x = 37
+loop do
+  sample = Sample.create(
+    patient: Patient.find(x),
+    doctor: Doctor.all.sample,
+    collected_at: DateTime.now,
+    quantity: rand(1..2),
+    category: ["Sangue", "Soro", "Segmento de cordão"].sample,
+    status: "rejeitada"
+  )
+
+  sample.batch = batch
+  sample.save!
+  puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
+  x += 1
+  break if x > 43
+end
+puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
+#### FIM - BATCH 5 ####
 
 puts " "
 puts "Creating exams..."
