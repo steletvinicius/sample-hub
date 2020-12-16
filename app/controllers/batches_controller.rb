@@ -1,5 +1,4 @@
 class BatchesController < ApplicationController
-
   def index
     @batches = policy_scope(Batch).includes(:sender, :receiver).order(sent_at: :desc)
     # sender can only view batch sent from his own institution
@@ -50,7 +49,7 @@ class BatchesController < ApplicationController
   end
 
   def update
-    set_batch()
+    set_batch
     @user = current_user
     authorize @batch
 
@@ -81,6 +80,12 @@ class BatchesController < ApplicationController
       else
         @batch.receiver = @user
         @batch.received_at = received_at
+        params.keys.select { |key| key.include? "receiving" }.map { |key| key.split("-")[0] }.each do |sample_id|
+          sample = Sample.find(sample_id.to_i)
+          sample.status = params["#{sample.id}-receiving"] == "true" ? "recebida" : "rejeitada"
+          sample.save
+        end
+        raise
         if @batch.save
           flash.notice = "Recebimento da remessa confirmado com sucesso. Obrigado!"
           redirect_to edit_batch_path(@batch) and return
@@ -110,6 +115,10 @@ class BatchesController < ApplicationController
         @batch.sender = @user
         @batch.sent_at = sent_at
         if @batch.save
+          @batch.samples.each do |samp|
+            samp.status = "enviada"
+            samp.save
+          end
           flash.notice = "Envio da remessa confirmado com sucesso. Obrigado!"
           redirect_to edit_batch_path(@batch) and return
         else
@@ -121,7 +130,7 @@ class BatchesController < ApplicationController
   end
 
   def destroy
-    set_batch()
+    set_batch
     authorize @batch
     if @batch.received_at
       redirect_to edit_batch_path(@batch), alert: "ERRO: Essa remessa já foi recebida e não pode ser alterada"
@@ -138,7 +147,6 @@ class BatchesController < ApplicationController
 
   # ----------------------------------------------------------------------------
   private
-
 
   def set_batch
     @batch = Batch.find(params[:id])

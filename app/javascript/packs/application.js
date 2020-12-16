@@ -23,9 +23,10 @@ require("channels")
 
 // External imports
 import "bootstrap";
-import { initFlatpickr } from "../plugins/flatpickr";
 
 // Internal imports:
+import { initFlatpickr } from "../plugins/flatpickr";
+import { initCheckBox } from "../plugins/init_checkbox";
 import { initSelect2 } from "../plugins/init_select2";
 import { 
   initFilterTblBatches, 
@@ -44,7 +45,8 @@ document.addEventListener('turbolinks:load', () => {
   // Call your functions here:
   initFlatpickr();
   initSelect2();
-
+  initCheckBox();
+  
   initFilterTblBatches();
   filterTblBatchesReceived();
   filterTblBatchesUnsent();
