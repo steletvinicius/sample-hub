@@ -2,11 +2,17 @@ class SamplesController < ApplicationController
   before_action :set_sample, only: %i[edit update]
 
   def index
-    @samples = policy_scope(Sample).where(batch_id: nil).order(collected_at: :asc)
+    @samples = policy_scope(Sample).where(batch_id: nil).order(updated_at: :desc)
+  end
+
+  def show
+    @sample = Sample.find(params[:id])
+    authorize @sample
   end
 
   def new
     @sample = Sample.new
+    @patient = Patient.new
     authorize @sample
     @patients = policy_scope(Patient).order(created_at: :desc)
   end
@@ -27,9 +33,19 @@ class SamplesController < ApplicationController
   end
 
   def update
+
+    if sample_params[:collected_at] || sample_params[:quantity]
+      if @sample.update(sample_params)
+        redirect_to samples_path and return
+      else
+        flash.alert = "Algo impediu a atualização da coleta!"
+        redirect_to samples_path and return
+      end
+    end
+
     if @sample.update(sample_params)
       # Criar funcao para cadastrar o exame
-      redirect_to samples_path
+      redirect_to sample_path(@sample)
 
     else
       render :edit

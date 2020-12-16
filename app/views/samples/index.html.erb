@@ -1,88 +1,138 @@
 
-<div class="container-xl my-4">
-  <h2>Amostras</h2>
-  <h4>Aguardando coleta</h4>
-  <p><%= pluralize(@samples.where("collected_at IS ? OR quantity IS ?", nil, nil).count, "amostra", "amostras") %></p>
+<div class="container-xxl" style="padding: 0 100px;">
+  <h2 class = "my-4">Amostras</h2>
+  <div class="d-flex justify-content-between my-4">
+    <div class="mr-5">
+      <div>
+        <% n_patients = @samples.where("collected_at IS ? OR quantity IS ?", nil, nil).count %>
+        <% if n_patients.zero? %>
+          <p>Nenhuma autorização de coleta pendente</p>
+        <% else %>
+          <h4>Aguardando coleta</h4>
+          <p><%= pluralize(n_patients, "amostra", "amostras") %></p>
 
-  <table id="tblsamplesconfirmed" class="table table-sm table-hover" style="background-color: white;">
-    <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
-        <th style="text-align: center;">ID</th>
-        <th>Nome do Paciente</th>
-        <th>Tipo de Amostra</th>
-        <th style="text-align: center;">Data da coleta</th>
-        <th style="text-align: center;">Quantidade</th>
-        <th style="text-align: center;">Ação</th>
-    </tr>
-    <% @samples.each do |sample| %>
-      <% if sample.collected_at == nil || sample.quantity == nil %>
-        <tr style="background-color: white;">
-          <td scope="row" style="text-align: center;"><%= sample.id %></td>
-          <td><%=sample.patient.first_name%> <%=sample.patient.last_name%> </td>
-          <td><%=sample.category%></td>
-          <form action="<%= sample_path(sample) %>" method="post">
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <input name="_method" type="hidden" value="patch" />
-            <td style="text-align: center;">
-              <div class="form-group integer optional sample_quantity">
-                <input class="form-control numeric integer optional" type="number" step="1" name="sample[quantity]" id="sample_quantity">
-              </div>
-            </td>
-            <td style="text-align: center;">
-              <div class="form-group string optional sample_collected_at form-group-valid">
-                <%= hidden_field_tag "sample[status]", "coletada" %>
-                <input class="form-control is-valid string optional datepicker flatpickr-input" type="hidden" value="Insira a data da coleta" name="sample[collected_at]" id="sample_collected_at">
-              </div>
-            </td>
-            <td style="text-align: center;">
-              <input type="submit" name="commit" value="Atualizar Sample" class="btn btn btn-primary" data-disable-with="Atualizar Sample">
-            </td>
-          </form>
-        </tr>
-      <% end %>
-    <% end %>
-  </table>
+          <table id="tblsamplesconfirmed" class="table align-middle table table-hover" style="background-color: white; width: auto;">
+            <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
+              <th style="text-align: center;">ID</th>
+              <th style="width: 400px;">Paciente</th>
+              <th style="width: 180px;">Tipo</th>
+              <th style="text-align: center; width: 200px;">Data da coleta</th>
+              <th style="text-align: center; width: 100px;">Quantidade</th>
+              <th style="text-align: center;">Ação</th>
+            </tr>
+            <% @samples.each do |sample| %>
+              <% if sample.collected_at == nil || sample.quantity == nil %>
+                <tr style="background-color: white;">
 
-  <div class="d-flex justify-content-between align-items-center mt-5 mb-2">
-    <div>
-      <h2>Aguardando remessa</h2>
-      <p><%= pluralize(@samples.where("collected_at IS NOT ? AND quantity IS NOT ?", nil, nil).count, "amostra", "amostras") %></p>
-    </div>
-  </div>
+                  <td scope="row" style="text-align: center; vertical-align: middle;"><%= sample.id %></td>
+                  <td style="vertical-align: middle;"><%=sample.patient.first_name%> <%=sample.patient.last_name%> </td>
+                  <% if sample.category == "Segmento de cordão" %>
+                    <td style="vertical-align: middle;"><%="Cordão"%></td>
+                  <% else %>
+                    <td style="vertical-align: middle;"><%=sample.category%></td>
+                  <% end %>
 
-  <form action="/batches" method="post">
-    <!-- Este botão de submit tem que ficar dentro do form, caso contrário, não funcionará -->
-    <input type="submit" value="Nova remessa" class="btn btn-primary">
-    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-    <table id="tblsamplesconfirmed" class="table table table-hover" style="background-color: white;">
-      <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
-        <th style="text-align: center;">ID</th>
-        <th>Nome do Paciente</th>
-        <th>Tipo de Amostra</th>
-        <th>Quantidade</th>
-        <th>Data da coleta</th>
-        <th style="text-align: center;">Remessa</th>
-      </tr>
-      <% @samples.each do |sample| %>
-        <% if sample.collected_at && sample.quantity %>
-          <tr style="background-color: white;">
-            <td scope="row" style="text-align: center;"><%= sample.id %></td>
-            <td><%=sample.patient.first_name%> <%=sample.patient.last_name%> </td>
-            <td><%=sample.category%></td>
-            <td><%=sample.quantity%></td>
-            <td><%=date_mask(sample.collected_at)%></td>
-            <td style="text-align: center;">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="checkbox_remessa" name="sample_ids[]" value="<%= sample.id %>"/>
-                <label for="checkbox_remessa" class="form-check-label"></label>
-              </div>
-            </td>
-          </tr>
+                  <form action="<%= sample_path(sample) %>" method="post" id="edit_sample_form">
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                    <input name="_method" type="hidden" value="patch" />
+
+                  <div class="form-group string optional sample_collected_at">
+                    <td style="text-align: center; vertical-align: middle;">
+                        <%= hidden_field_tag "sample[status]", "coletada" %>
+                        <input class="form-control my-form-control string optional datepicker flatpickr-input" 
+                              type="hidden" 
+                              value="Insira a data da coleta" 
+                              name="sample[collected_at]" 
+                              id="sample_collected_at">
+                    </td>
+                  </div>
+
+                  <td>
+                    <div class="form-group integer optional sample_quantity">
+                      <div class="form-group integer optional sample_quantity">
+                          <input class="form-control numeric integer optional" 
+                            type="number"
+                            style="text-align: center;"
+                            step="1"
+                            name="sample[quantity]"
+                            id="sample_quantity"
+                            min="0">
+                      </div>
+                    </div>
+                  </td>
+
+                    <td style="text-align: center; vertical-align: middle;">
+                      <input type="submit"
+                            name="commit"
+                            value="Submeter"
+                            id="btn-tbl"
+                            data-disable-with="Submeter">
+                    </td>
+                  </form>
+                </tr>
+              <% end %>
+            <% end %>
+          </table>
         <% end %>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column" style="width: 800px;">
+      <h4>Aguardando remessa</h4>
+      <% n_samples = @samples.where("collected_at IS NOT ? AND quantity IS NOT ?", nil, nil).count %>
+      <% if n_samples.zero? %>
+        <p>Nenhuma amostra aguardando remessa</p>
+      <% else %>
+        <p><%= pluralize(n_samples, "amostra", "amostras") %></p>
+
+        <div class="row">
+          <form action="/batches" method="post">
+            <div class="d-flex justify-content-end">
+              <input type="submit" value="finalizar remessa" class="btn btn-primary" style= "margin: 0 10px 10px 0;">
+            </div>
+
+            <div class="d-flex flex-start flex-wrap justify-content-center align-items-start"> 
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <% collected_samples = @samples.where("collected_at IS NOT ? AND quantity IS NOT ?", nil, nil) %>
+              <% collected_samples.each do |sample| %>
+
+                <div class="card-sample">
+                  <div class="card-sample-infos">
+                    <h2>Cód. <%= sample.id%></h2>
+                    <h3><%= sample.patient.first_name%> <%= sample.patient.last_name%></h3>
+                    <p>Sexo <%= sample.patient.gender == "F" ? "feminino" : "masculino" %></p>
+                    <p>Idade: <%= ((Time.zone.now - sample.patient.born_at.to_time) / 1.year.seconds).floor %></p>
+                    <p style="font-weight: bold;">
+                      <% if sample.patient.patient_type == "donor" %>
+                      <%= "DOADOR" %>
+                      <% elsif sample.patient.patient_type == "receptor" %>
+                      <%= "RECEPTOR" %>
+                      <% else %>
+                      <%= "NÃO APARENTADO" %>
+                      <% end %>
+                    </p>
+                    <br>
+                    <p>Tipo: <%= sample.category %></p>
+                    <p>Coleta: <%= date_mask(sample.collected_at) %></p>
+                    <p>Atualizado em <%= datetime_mask(sample.updated_at) %></p>
+                    <p>Quantidade: <strong><%= sample.quantity %></strong></p>
+                  </div>
+                  <div class="form-check d-flex align-items-center">
+                    <input type="checkbox" class="form-check-input" 
+                          id="checkbox_remessa" 
+                          name="sample_ids[]" 
+                          value="<%= sample.id %>"/>
+                    <label for="checkbox_remessa" class="form-check-label"
+                          style="opacity: .8; font-weight: bold;">Selecionar</label>
+                  </div>
+                </div>
+
+              <% end %>
+            </div>
+          </form>
+        </div>
       <% end %>
-    </table>
-  </form>
+    </div>
+
+  </div>
 </div>
-
-
-
-

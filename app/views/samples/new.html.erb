@@ -1,26 +1,40 @@
 <div class="container">
-  <h1 class="text-center">Criar nova amostra</h1>
-  <h1 class="text-center">Escolha seu paciente</h1>
+  <h1 class="text-center">01ª Etapa:</h1>
   <hr>
+  <h2 class="text-center"> Criação de requisição de coleta </h2>
+  <hr>
+  <div class="row justify-content-center" >
+    <div class="col">
+      <div id="patients" class="d-flex flex-column border border-primary rounded p-2">
+        <% if @patients.present? %>
+          <form id="search-patient" class="text-center" action="/samples" method="post">
 
-  <div id="patients">
-    <% if @patients.present? %>
-      <form id="search-patient" class="text-left form-inline" action="/samples" method="post">
-        <select class="select2 form-control ml-auto mr-2" placeholder="Nome..." name="patient_id">
-          <option disabled selected value> --- Pesquise / Selecione  --- </option>
-          <% @patients.each do |patient| %>
-            <option value="<%= patient.id %>">
-              <%= "#{patient.first_name} #{patient.last_name} - CPF #{patient.cpf}" %>
-            </option>
-          <% end %>
-        </select>
-        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-        <input type="submit" class="btn btn-primary mr-auto ml-2" value="Criar amostra">
-      </form>
-      <ul id="results" class="list-inline"></ul>
-    <% else %>
-      <p>Não existem pacientes cadastrados no Sample Hub</p>
-    <% end %>
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <div class="form-group">
+              <h4 class="text-center mb-3">Escolha um paciente: </h4>
+              <select class="select2 form-control" placeholder="Nome..." name="patient_id">
+                <option disabled selected value> --- Pesquise / Selecione  --- </option>
+                <% @patients.each do |patient| %>
+                  <option value="<%= patient.id %>">
+                     <%= "#{patient.first_name} #{patient.last_name} - CPF #{patient.cpf}" %>
+                  </option>
+                <% end %>
+              </select>
+            </div>
+            <div class="form-group text-right">
+              <input type="submit" class="btn btn-primary mt-2 mr-5" value="Criar amostra">
+            </div>
+          </form>
+        <% else %>
+          <p>Não existem pacientes cadastrados no Sample Hub</p>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-8">
+      <div id="new-patient" class="d-flex flex-column border border-secondary p-2">
+        <h4 class="text-center">Cadastre novo paciente: </h4>
+        <%= render "/patients/new"  %>
+      </div>
+    </div>
   </div>
-  <%= link_to "Cadastrar novo paciente", new_patient_path %>
 </div>
