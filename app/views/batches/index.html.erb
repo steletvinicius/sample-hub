@@ -62,7 +62,7 @@
             <td style="text-align: center;">
               <%# sender can edit and destroy if batch is not sent %>
               <% if sender?(current_user) && batch.sent_at.nil? %>
-                <%= link_to icon('fas','edit'), edit_batch_path(batch), :title => "editar" %>
+                <%= link_to icon('fas','edit'), edit_batch_path(batch), :title => "editar", data: { turbolinks: "false" } %>
                 <%= link_to icon('far','trash-alt'), batch_path(batch),
                             method: :delete, remote: true,
                             data: { confirm: "Retirar amostras e apagar remessa #{batch.id}?" }, 
@@ -77,7 +77,7 @@
                 <%= link_to icon('fas','eye'), edit_batch_path(batch), :title => "ver remessa", data: { turbolinks: "false" } %>
               <%# receiver SHOULD BE ABLE TO MARK AS RECEIVED if batch has been sent %>
               <% elsif receiver?(current_user) && batch.sent_at && batch.received_at.nil? %>
-                <%= link_to icon('fas','edit'), edit_batch_path(batch), :title => "editar" %>
+                <%= link_to icon('fas','edit'), edit_batch_path(batch), :title => "editar", data: { turbolinks: "false" } %>
               <% end %>
               <%# if batch was received everyone can view %>
               <% if batch.received_at %>
