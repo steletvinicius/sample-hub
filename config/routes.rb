@@ -9,8 +9,6 @@ Rails.application.routes.draw do
 
   resources :samples, only: %i[index new create edit update show]
 
-  patch 'samples/:id/collect', to: "samples#update_sample"
-
   resources :batches, only: %i[index create edit update destroy]
 
   resources :exams, only: %i[new create]

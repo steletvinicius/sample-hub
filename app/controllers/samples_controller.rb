@@ -32,22 +32,23 @@ class SamplesController < ApplicationController
     @doctors = policy_scope(Doctor).order(first_name: :asc)
   end
 
-  def update_sample
+  def update
+
+    if sample_params[:collected_at] || sample_params[:quantity]
+      if @sample.update(sample_params)
+        redirect_to samples_path and return
+      else
+        flash.alert = "Algo impediu a atualização da coleta!"
+        redirect_to samples_path and return
+      end
+    end
+
     if @sample.update(sample_params)
       # Criar funcao para cadastrar o exame
       redirect_to sample_path(@sample)
+
     else
       render :edit
-    end
-  end
-
-  def update
-    if @sample.update(sample_params)
-      # Criar funcao para cadastrar o exame
-      redirect_to samples_path
-    else
-      flash.alert = "ERRO: Tente novamente"
-      render :index
     end
   end
 
