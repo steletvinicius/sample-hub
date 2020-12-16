@@ -5,8 +5,14 @@ class SamplesController < ApplicationController
     @samples = policy_scope(Sample).where(batch_id: nil).order(collected_at: :asc)
   end
 
+  def show
+    @sample = Sample.find(params[:id])
+    authorize @sample
+  end
+
   def new
     @sample = Sample.new
+    @patient = Patient.new
     authorize @sample
     @patients = policy_scope(Patient).order(created_at: :desc)
   end
@@ -29,7 +35,7 @@ class SamplesController < ApplicationController
   def update
     if @sample.update(sample_params)
       # Criar funcao para cadastrar o exame
-      redirect_to samples_path
+      redirect_to sample_path(@sample)
 
     else
       render :edit

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :doctors, only: %i[new create edit update]
 
-  resources :samples, only: %i[index new create edit update]
+  resources :samples, only: %i[index new create edit update show]
 
   resources :batches, only: %i[index create edit update destroy]
 

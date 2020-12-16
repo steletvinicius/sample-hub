@@ -1,0 +1,35 @@
+<div class="container my-5", style="width: 460px;">
+  <%= simple_form_for @patient do |f| %>
+    <div class="form-inputs">
+      <div class="d-flex justify-content-between">
+        <%= f.input :first_name, label: "Nome" %>
+        <%= f.input :last_name, label: "Sobrenome" %>
+      </div>
+      <div class="d-flex justify-content-between">
+        <%= f.input :born_at, as: :string, label: "Data de nascimento", hint: "dd/mm/aaaa" %>
+        <%= f.label "Sexo" %>
+        <%= f.radio_button :gender, "M" %>
+        <%= label :gender_male, "M" %>
+        <%= f.radio_button :gender, "F" %>
+        <%= label :gender_female, "F" %>
+      </div>
+      <%= f.input :address, label: "Endereço" %>
+      <div class="d-flex justify-content-between">
+        <%= f.input :cpf, label: "CPF", hint: "apenas números" %>
+        <%= f.input :sus_code, label: "Cartão SUS", hint: "apenas números" %>
+      </div>
+      <div>
+        <%= f.label "Tipo de paciente" %>
+        <%= f.radio_button :patient_type, "receptor" %>
+        <%= label :patient_type_receptor, "Receptor" %>
+        <%= f.radio_button :patient_type, "donor" %>
+        <%= label :patient_type_donor, "Doador" %>
+        <%= f.radio_button :patient_type, "not_relative" %>
+        <%= label :patient_type_donor, "Não aparentado" %>
+      </div>
+    </div>
+    <div class="form-actions">
+      <%= f.submit "Cadastrar paciente", class: "btn btn-primary mb-3" %>
+    </div>
+  <% end %>
+</div>
