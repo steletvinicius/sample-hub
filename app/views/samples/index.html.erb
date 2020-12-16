@@ -6,12 +6,12 @@
 
   <table id="tblsamplesconfirmed" class="table table-sm table-hover" style="background-color: white;">
     <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
-      <th style="text-align: center;">ID</th>
-      <th>Nome do Paciente</th>
-      <th>Tipo de Amostra</th>
-      <th style="text-align: center;">Data da coleta</th>
-      <th style="text-align: center;">Quantidade</th>
-      <th style="text-align: center;">Ação</th>
+        <th style="text-align: center;">ID</th>
+        <th>Nome do Paciente</th>
+        <th>Tipo de Amostra</th>
+        <th style="text-align: center;">Data da coleta</th>
+        <th style="text-align: center;">Quantidade</th>
+        <th style="text-align: center;">Ação</th>
     </tr>
     <% @samples.each do |sample| %>
       <% if sample.collected_at == nil || sample.quantity == nil %>
@@ -19,20 +19,24 @@
           <td scope="row" style="text-align: center;"><%= sample.id %></td>
           <td><%=sample.patient.first_name%> <%=sample.patient.last_name%> </td>
           <td><%=sample.category%></td>
-          <td style="text-align: center;">
-            <div class="form-group string optional sample_collected_at form-group-valid">
-              <%= hidden_field_tag "sample[status]", "coletada" %>
-              <input class="form-control is-valid string optional datepicker flatpickr-input" type="hidden" value="Insira a data da coleta" name="sample[collected_at]" id="sample_collected_at">
-            </div>
-          </td>
-          <td style="text-align: center;">
-            <div class="form-group integer optional sample_quantity">
-              <input class="form-control numeric integer optional" type="number" step="1" name="sample[quantity]" id="sample_quantity">
-            </div>
-          </td>
-          <td style="text-align: center;">
-            <input type="submit" name="commit" value="Gravar" class="btn btn btn-primary" data-disable-with="Atualizar Sample">
-          </td>
+          <form action="<%= sample_path(sample) %>" method="post">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <input name="_method" type="hidden" value="patch" />
+            <td style="text-align: center;">
+              <div class="form-group integer optional sample_quantity">
+                <input class="form-control numeric integer optional" type="number" step="1" name="sample[quantity]" id="sample_quantity">
+              </div>
+            </td>
+            <td style="text-align: center;">
+              <div class="form-group string optional sample_collected_at form-group-valid">
+                <%= hidden_field_tag "sample[status]", "coletada" %>
+                <input class="form-control is-valid string optional datepicker flatpickr-input" type="hidden" value="Insira a data da coleta" name="sample[collected_at]" id="sample_collected_at">
+              </div>
+            </td>
+            <td style="text-align: center;">
+              <input type="submit" name="commit" value="Atualizar Sample" class="btn btn btn-primary" data-disable-with="Atualizar Sample">
+            </td>
+          </form>
         </tr>
       <% end %>
     <% end %>
@@ -43,10 +47,12 @@
       <h2>Aguardando remessa</h2>
       <p><%= pluralize(@samples.where("collected_at IS NOT ? AND quantity IS NOT ?", nil, nil).count, "amostra", "amostras") %></p>
     </div>
-    <input type="submit" value="Nova remessa" class="btn btn-primary">
   </div>
 
   <form action="/batches" method="post">
+    <!-- Este botão de submit tem que ficar dentro do form, caso contrário, não funcionará -->
+    <input type="submit" value="Nova remessa" class="btn btn-primary">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <%= hidden_field_tag "sample[status]", "enviada" %>
     <table id="tblsamplesconfirmed" class="table table table-hover" style="background-color: white;">
       <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
@@ -76,8 +82,6 @@
       <% end %>
     </table>
   </form>
-
-
 </div>
 
 
