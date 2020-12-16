@@ -16,7 +16,7 @@
               <th style="text-align: center;">ID</th>
               <th style="width: 400px;">Paciente</th>
               <th style="width: 180px;">Tipo</th>
-              <th style="text-align: center; width: 220px;">Data da coleta</th>
+              <th style="text-align: center; width: 200px;">Data da coleta</th>
               <th style="text-align: center; width: 100px;">Quantidade</th>
               <th style="text-align: center;">Ação</th>
             </tr>
@@ -34,8 +34,9 @@
 
                   <form action="<%= sample_path(sample) %>" method="post" id="edit_sample_form">
                     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-
                     <input name="_method" type="hidden" value="patch" />
+
+                  <div class="form-group string optional sample_collected_at">
                     <td style="text-align: center; vertical-align: middle;">
                         <%= hidden_field_tag "sample[status]", "coletada" %>
                         <input class="form-control my-form-control string optional datepicker flatpickr-input" 
@@ -44,16 +45,21 @@
                               name="sample[collected_at]" 
                               id="sample_collected_at">
                     </td>
+                  </div>
 
-                    <td>
-                      <input class="form-control numeric integer optional" 
+                  <td>
+                    <div class="form-group integer optional sample_quantity">
+                      <div class="form-group integer optional sample_quantity">
+                          <input class="form-control numeric integer optional" 
                             type="number"
                             style="text-align: center;"
                             step="1"
                             name="sample[quantity]"
                             id="sample_quantity"
                             min="0">
-                    </td>
+                      </div>
+                    </div>
+                  </td>
 
                     <td style="text-align: center; vertical-align: middle;">
                       <input type="submit"

@@ -32,13 +32,22 @@ class SamplesController < ApplicationController
     @doctors = policy_scope(Doctor).order(first_name: :asc)
   end
 
-  def update
+  def update_sample
     if @sample.update(sample_params)
       # Criar funcao para cadastrar o exame
       redirect_to sample_path(@sample)
-
     else
       render :edit
+    end
+  end
+
+  def update
+    if @sample.update(sample_params)
+      # Criar funcao para cadastrar o exame
+      redirect_to samples_path
+    else
+      flash.alert = "ERRO: Tente novamente"
+      render :index
     end
   end
 
