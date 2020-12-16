@@ -32,7 +32,7 @@
                     <td style="vertical-align: middle;"><%=sample.category%></td>
                   <% end %>
 
-                  <form action="<%= sample_path(sample) %>" method="post" id="edit_sample_form">
+                  <form action="<%= sample_path(sample) %>" method="post" id="edit_sample_form" data-turbolinks="false">
                     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
                     <input name="_method" type="hidden" value="patch" />
 
@@ -49,15 +49,13 @@
 
                   <td>
                     <div class="form-group integer optional sample_quantity">
-                      <div class="form-group integer optional sample_quantity">
-                          <input class="form-control numeric integer optional" 
-                            type="number"
-                            style="text-align: center;"
-                            step="1"
-                            name="sample[quantity]"
-                            id="sample_quantity"
-                            min="0">
-                      </div>
+                      <input class="form-control numeric integer optional" 
+                        type="number"
+                        style="text-align: center;"
+                        step="1"
+                        name="sample[quantity]"
+                        id="sample_quantity"
+                        min="0">
                     </div>
                   </td>
 
