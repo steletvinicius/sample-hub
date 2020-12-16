@@ -71,7 +71,7 @@ user = User.create!(
   last_name: 'Tanaka',
   email: 'cakemit@gmail.com',
   password: '123456',
-  role: 'Envio',
+  role: 'Recepção',
   institution: 'Hospital Einstein',
   cpf: '12345678901',
   admin: true
@@ -95,7 +95,7 @@ user = User.create!(
   last_name: 'Dario',
   email: 'edson.dario@gmail.com',
   password: '123456',
-  role: 'Envio',
+  role: 'Recepção',
   institution: 'Hospital Vitória',
   cpf: '34567890123',
   admin: true
