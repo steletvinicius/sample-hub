@@ -50,11 +50,20 @@ class BatchesController < ApplicationController
     @user = current_user
     authorize @batch
 
-    if params[:batch][:sample_id]
+    if params[:batch].present? && params[:batch][:sample_id].present?
       sample = Sample.find(params[:batch][:sample_id].to_i)
       sample.batch = nil
       sample.save
       redirect_to edit_batch_path(@batch) and return
+    end
+
+    if params[:rejected].present?
+      sample = Sample.find(params[:rejected].to_i)
+      sample.status = "rejeitada"
+      if sample.save
+        flash.notice = "Amostra #{sample.id} rejeitada com sucesso"
+        redirect_to edit_batch_path(@batch) and return
+      end
     end
 
     if @batch.received_at
@@ -78,9 +87,9 @@ class BatchesController < ApplicationController
         @batch.receiver = @user
         @batch.received_at = received_at
         if @batch.save
-          params.keys.select { |key| key.include? "receiving" }.map { |key| key.split("-")[0] }.each do |sample_id|
-            sample = Sample.find(sample_id.to_i)
-            sample.status = params["#{sample.id}-receiving"] == "true" ? "recebida" : "rejeitada"
+          received_samples = Sample.where(status: nil)
+          received_samples.each do |sample|
+            sample.status = "recebida"
             sample.save
           end
           flash.notice = "Recebimento da remessa confirmado com sucesso. Obrigado!"
