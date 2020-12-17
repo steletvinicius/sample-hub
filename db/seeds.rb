@@ -7,7 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 puts "Cleaning ALL databases..."
-Exam.destroy_all
+
+Exam.destroy_all if Exam.count > 0
 Sample.destroy_all
 Batch.destroy_all
 Family.destroy_all
@@ -63,8 +64,14 @@ end
 
 puts "Created #{Procedure.count} SUS procedures. PROCEDURES DONE!"
 
+## Criação de Usuários #############
+
 puts " "
 puts "Creating users..."
+puts "Creating ADMINS..."
+
+cpf = Faker::CPF.numeric
+cpf[0-2] = rand(100...999).to_s
 
 user = User.create!(
   first_name: 'Cláudia',
@@ -72,11 +79,15 @@ user = User.create!(
   email: 'cakemit@gmail.com',
   password: '123456',
   role: 'Recepção',
-  institution: 'Hospital Einstein',
-  cpf: '12345678901',
+  institution: 'Instituto Nacional de Câncer',
+  cpf: cpf,
   admin: true
 )
 puts "Created admin user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email}"
+
+
+cpf = Faker::CPF.numeric
+cpf[0-2] = rand(100...999).to_s
 
 user = User.create!(
   first_name: 'Vinicius',
@@ -84,11 +95,14 @@ user = User.create!(
   email: 'vinicius.bootcamp@gmail.com',
   password: '123456',
   role: 'Recepção',
-  institution: 'Inca',
-  cpf: '23456789012',
+  institution: 'Instituto Nacional de Câncer',
+  cpf: cpf,
   admin: true
 )
 puts "Created admin user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email}"
+
+cpf = Faker::CPF.numeric
+cpf[0-2] = rand(100...999).to_s
 
 user = User.create!(
   first_name: 'Edson',
@@ -96,11 +110,14 @@ user = User.create!(
   email: 'edson.dario@gmail.com',
   password: '123456',
   role: 'Recepção',
-  institution: 'Hospital Vitória',
-  cpf: '34567890123',
+  institution: 'Instituto Nacional de Câncer',
+  cpf: cpf,
   admin: true
 )
 puts "Created admin user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email}"
+
+cpf = Faker::CPF.numeric
+cpf[0-2] = rand(100...999).to_s
 
 user = User.create!(
   first_name: 'Luis Henrique',
@@ -108,21 +125,33 @@ user = User.create!(
   email: 'luishenriquesimoes@yahoo.com.br',
   password: '123456',
   role: 'Cadastro',
-  institution: 'Inca',
-  cpf: '45678901234',
+  institution: 'Instituto Nacional de Câncer',
+  cpf: cpf,
   admin: true
 )
 puts "Created admin user [#{user.id}] #{user.first_name} #{user.last_name} | #{user.email}"
 
+
+
+############## RECEPÇÃO NOT ADMIN ################
+cpf = Faker::CPF.numeric
+cpf[0-2] = rand(100...999).to_s
+
 receiver = User.create!(
-  first_name: 'Bruna',
+  first_name: 'Vinicius',
   last_name: 'Stelet',
-  email: 'bruna@recepcao.com',
+  email: 'vinicius@inca.gov.br',
   password: '123456',
   role: 'Recepção',
-  institution: 'Inca'
+  institution: 'Instituto Nacional de Câncer',
+  cpf: cpf,
+  admin: false
 )
 puts "Created receiver   [#{receiver.id}] #{receiver.first_name} #{receiver.last_name} | #{receiver.email}"
+
+############## ENVIO NOT ADMIN ################
+cpf = Faker::CPF.numeric
+cpf[0-2] = rand(100...999).to_s
 
 sender = User.create!(
   first_name: 'Ana',
@@ -130,147 +159,254 @@ sender = User.create!(
   email: 'ana@envio.com',
   password: '123456',
   role: 'Envio',
-  institution: 'HC1',
-  cpf: '56891'
+  institution: 'Instituto Nacional de Câncer',
+  cpf: cpf
 )
 puts "Created sender     [#{sender.id}] #{sender.first_name} #{sender.last_name} | #{sender.email}"
 
+############## CADASTRO NOT ADMIN ################
+cpf = Faker::CPF.numeric
+cpf[0-2] = rand(100...999).to_s
+
 cadastro = User.create!(
-  first_name: 'Thiago',
-  last_name: 'Cadastro',
-  email: 'thiago@cadastro.com',
+  first_name: 'Luis',
+  last_name: 'Simões',
+  email: 'luis@inca.gov.br',
   password: '123456',
   role: 'Cadastro',
-  institution: 'HC1',
-  cpf: '568912'
+  institution: 'Instituto Nacional de Câncer',
+  cpf: cpf
+)
+
+############## CADASTRO NOT ADMIN ################
+cpf = Faker::CPF.numeric
+cpf[0-2] = rand(100...999).to_s
+
+cadastro = User.create!(
+  first_name: 'Thiago',
+  last_name: 'Silva',
+  email: 'thiago@inca.gov.br',
+  password: '123456',
+  role: 'Cadastro',
+  institution: 'Instituto Nacional de Câncer',
+  cpf: cpf
+)
+puts "Created sender cadastro [#{cadastro.id}] #{cadastro.first_name} #{cadastro.last_name} | #{cadastro.email}"
+
+############# CADASTRO USUÁRIO HOSPITAL DA LAGOA ########
+cpf = Faker::CPF.numeric
+cpf[0-2] = rand(100...999).to_s
+
+cadastro = User.create!(
+  first_name: 'José',
+  last_name: 'Silva',
+  email: 'jose@hospitaldalagoa.gov.br',
+  password: '123456',
+  role: 'Envio',
+  institution: 'Hospital da Lagoa',
+  cpf: cpf
+)
+puts "Created sender cadastro [#{cadastro.id}] #{cadastro.first_name} #{cadastro.last_name} | #{cadastro.email}"
+
+############# CADASTRO USUÁRIO HOSPITAL DOS SERVIDORES ##
+cpf = Faker::CPF.numeric
+cpf[0-2] = rand(100...999).to_s
+
+cadastro = User.create!(
+  first_name: 'João',
+  last_name: 'Sousa',
+  email: 'jose@hospitaldosservidores.gov.br',
+  password: '123456',
+  role: 'Envio',
+  institution: 'Hospital dos Servidores',
+  cpf: cpf
 )
 puts "Created sender cadastro [#{cadastro.id}] #{cadastro.first_name} #{cadastro.last_name} | #{cadastro.email}"
 
 puts "...Created #{User.count} users. USERS DONE!"
 
+
 ##### BEGIN - SEED - Patients #####
 puts " "
 puts "Make patients... 'May the Force be with you.'"
 
-patient = Patient.create(
-  first_name: "Ana",
-  last_name: "Milena",
-  gender: "F",
-  patient_type: "donor",
-  born_at: Faker::Date.birthday,
-  address: "Brasília, Distrito Federal, Brasil",
-  cpf: Faker::CPF.numeric,
-  sus_code: Faker::Number.number(digits: 15)
-)
-# puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+puts "Creating 100 patients"
 
-patient = Patient.create(
-  first_name: "João",
-  last_name: "Francisco",
-  gender: "M",
-  patient_type: "receptor",
-  born_at: Faker::Date.birthday,
-  address: "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil",
-  cpf: Faker::CPF.numeric,
-  sus_code: Faker::Number.number(digits: 15)
-)
-# puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+address = [
+            "Brasília, Distrito Federal, Brasil",
+            "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil",
+            "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
+            "Catetinho, Park Way, Distrito Federal, Brasil",
+            "Avenida Dom helder Câmara, 5474 - Cachambi, Rio de Janeiro - RJ, 20771-050",
+            "Rua Adolfo Bergamini, 29 - Engenho de Dentro, Rio de Janeiro - RJ - 20730-000",
+            "Avenida Braz de pina, 276 - Penha, Rio de Janeiro - RJ, 21070-032",
+            "Avenida Pastor Martin Luther King Junior, 126 - Del Castilho - Rio de Janeiro - RJ",
+            "Avenida Vicente de Carvalho, 909 - Vicente de Carvalho, Rio de Janeiro - RJ, 21210-000"
+            ]
 
-patient = Patient.create(
-  first_name: "Marya",
-  last_name: "Jullyane",
-  gender: "F",
-  patient_type: "receptor",
-  born_at: Faker::Date.birthday,
-  address: "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil",
-  cpf: Faker::CPF.numeric,
-  sus_code: Faker::Number.number(digits: 15)
-)
-# puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
-patient = Patient.create(
-  first_name: "Junior",
-  last_name: "Olimpio",
-  gender: "M",
-  patient_type: "donor",
-  born_at: Faker::Date.birthday,
-  address: "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
-  cpf: Faker::CPF.numeric,
-  sus_code: Faker::Number.number(digits: 15)
-)
-# puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+patient_types = ["not_relative", "receptor", "donor"]
 
-patient = Patient.create(
-  first_name: "Leia",
-  last_name: "Silva",
-  gender: "F",
-  patient_type: "receptor",
-  born_at: Faker::Date.birthday,
-  address: "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
-  cpf: Faker::CPF.numeric,
-  sus_code: Faker::Number.number(digits: 15)
-)
 
-patient = Patient.create(
-  first_name: "Evandro",
-  last_name: "Souza",
-  gender: "M",
-  patient_type: "receptor",
-  born_at: Faker::Date.birthday,
-  address: "Catetinho, Park Way, Distrito Federal, Brasil",
-  cpf: Faker::CPF.numeric,
-  sus_code: Faker::Number.number(digits: 15)
-)
 
-38.times do
-  patient = Patient.create(
-    first_name: Faker::Name.first_name,
+puts "Creating  male patients"
+
+################################################
+puts "Creating 10 male receptors not relative"
+
+(1..10).each do
+  cpf = Faker::CPF.numeric
+  cpf[0-2] = rand(100...999).to_s
+
+  patient = Patient.create!(
+    first_name: Faker::Name.male_first_name,
     last_name: Faker::Name.last_name,
-    gender: ["M", "F"].sample,
-    patient_type: ["receptor", "donor", "not_relative"].sample,
+    gender: "M",
+    patient_type: patient_types[0],
     born_at: Faker::Date.birthday,
-    address: ["Catetinho, Park Way, Distrito Federal, Brasil",
-              "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
-              "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil"].sample,
-    cpf: Faker::CPF.numeric,
+    address: address.sample,
+    cpf: cpf,
     sus_code: Faker::Number.number(digits: 15)
   )
   puts "Created patient #{patient.id} #{patient.first_name}, #{patient.born_at.strftime('%d/%m/%Y')} by #{patient.last_name}"
 end
+puts "Created 10 male receptors not relative"
 
-# puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
 
-puts "...Created #{Patient.count} patients. PATIENTS DONE!"
-##### END - SEED - Patients #####
+################################################
+puts "Creating 10 FEmale receptors not relative"
+(1..10).each do
+  cpf = Faker::CPF.numeric
+  cpf[0-2] = rand(100...999).to_s
 
-##### BEGIN - SEED - Families #####
-puts " "
-puts "Joining families... 'I am your father.'"
-
-joao = Patient.find_by_first_name("João")
-
-family = Family.new
-family.receptor = joao
-family.donor = Patient.find_by_first_name("Ana")
-family.relationship = "MÃE/PAI"
-family.save!
-puts "Criou parente [#{family.id}] #{family.donor.first_name} id[#{family.donor.id}] que é #{family.relationship} de #{family.receptor.first_name} #{family.receptor.last_name} [#{family.receptor.id}]"
-
-family = Family.new
-family.receptor = joao
-family.donor = Patient.find_by_first_name("Junior")
-family.relationship = "FILHO/FILHA"
-family.save!
-puts "Criou parente [#{family.id}] #{family.donor.first_name} id[#{family.donor.id}] é #{family.relationship} de #{family.receptor.first_name} #{family.receptor.last_name} [#{family.receptor.id}]"
-
-5.times do
-  family = Family.create(
-    receptor: Patient.where(patient_type: "receptor").sample,
-    donor: Patient.where(patient_type: "donor").sample,
-    relationship: ["MÃE/PAI", "IRMÃO/IRMÃ", "FILHO/FILHA", "CÔNJUGE",
-                   "COMPANHEIRA/COMPANHEIRO", "AVÔ/AVÓ",
-                   "PRIMO/PRIMA", "TIO/TIA", "OUTRO"].sample
+  patient = Patient.create!(
+    first_name: Faker::Name.female_first_name,
+    last_name: Faker::Name.last_name,
+    gender: "F",
+    patient_type: patient_types[0],
+    born_at: Faker::Date.birthday,
+    address: address.sample,
+    cpf: cpf,
+    sus_code: Faker::Number.number(digits: 15)
   )
+  puts "Created patient #{patient.id} #{patient.first_name}, #{patient.born_at.strftime('%d/%m/%Y')} by #{patient.last_name}"
+end
+puts "Created 10 FEmale receptors not relative"
+################################################
+
+################################################
+puts "Creating 10 Male receptors relative"
+(1..10).each do
+
+  cpf = Faker::CPF.numeric
+  cpf[0-2] = rand(100...999).to_s
+
+  patient = Patient.create!(
+    first_name: Faker::Name.male_first_name,
+    last_name: Faker::Name.last_name,
+    gender: "M",
+    patient_type: patient_types[1],
+    born_at: Faker::Date.birthday,
+    address: address.sample,
+    cpf: cpf,
+    sus_code: Faker::Number.number(digits: 15)
+  )
+  puts "Created patient #{patient.id} #{patient.first_name}, #{patient.born_at.strftime('%d/%m/%Y')} by #{patient.last_name}"
+end
+puts "Created 10 male receptors relative"
+################################################
+
+################################################
+puts "Creating 10 feMale receptors relative"
+(1..10).each do
+
+  cpf = Faker::CPF.numeric
+  cpf[0-2] = rand(100...999).to_s
+
+  patient = Patient.create!(
+    first_name: Faker::Name.female_first_name,
+    last_name: Faker::Name.last_name,
+    gender: "F",
+    patient_type: patient_types[1],
+    born_at: Faker::Date.birthday,
+    address: address.sample,
+    cpf: cpf,
+    sus_code: Faker::Number.number(digits: 15)
+  )
+  puts "Created patient #{patient.id} #{patient.first_name}, #{patient.born_at.strftime('%d/%m/%Y')} by #{patient.last_name}"
+end
+puts "Created 10 feMale receptors relative"
+################################################
+
+
+
+################################################
+puts "Creating 30 Male donors"
+(1..30).each do
+
+  cpf = Faker::CPF.numeric
+  cpf[0-2] = rand(100...999).to_s
+
+  patient = Patient.create!(
+    first_name: Faker::Name.male_first_name,
+    last_name: Faker::Name.last_name,
+    gender: "M",
+    patient_type: patient_types[2],
+    born_at: Faker::Date.birthday,
+    address: address.sample,
+    cpf: cpf,
+    sus_code: Faker::Number.number(digits: 15)
+  )
+  puts "Created patient #{patient.id} #{patient.first_name}, #{patient.born_at.strftime('%d/%m/%Y')} by #{patient.last_name}"
+end
+puts "Created 30 male donors"
+################################################
+
+################################################
+puts "Creating 30 female donors"
+(1..30).each do
+
+  cpf = Faker::CPF.numeric
+  cpf[0-2] = rand(100...999).to_s
+
+  patient = Patient.create!(
+    first_name: Faker::Name.female_first_name,
+    last_name: Faker::Name.last_name,
+    gender: "F",
+    patient_type: patient_types[2],
+    born_at: Faker::Date.birthday,
+    address: address.sample,
+    cpf: cpf,
+    sus_code: Faker::Number.number(digits: 15)
+  )
+  puts "Created patient #{patient.id} #{patient.first_name}, #{patient.born_at.strftime('%d/%m/%Y')} by #{patient.last_name}"
+end
+puts "Created 30 feMale donors"
+################################################
+
+
+################################################
+puts "Creating 20 families from 20 related receptors with 03 related donors"
+all_related_receptors = Patient.where(patient_type: "receptor")
+all_donors = Patient.where(patient_type: "donor")
+
+# ##### BEGIN - SEED - Families #####
+y = 0
+
+relationships = ["MÃE/PAI", "IRMÃO/IRMÃ", "FILHO/FILHA"]
+
+(1..20).each do |x|
+  receptor = all_related_receptors[x-1]
+
+  (1..3).each do |z|
+    donor = all_donors[y]
+    family = Family.create(
+      receptor: receptor,
+      donor: donor,
+      relationship: relationships.sample
+      )
+    y += 1
+  end
 end
 
 puts "...Criou #{Family.count} parentes. FAMILIES DONE!"
@@ -290,220 +426,412 @@ doctors = [
 
 doctors.each do |doctor|
   doc = Doctor.create(doctor)
-  # puts "Created doctor #{doc.first_name} #{doc.last_name} - CRM #{doc.crm} with ID #{doc.id}"
+  puts "Created doctor #{doc.first_name} #{doc.last_name} - CRM #{doc.crm} with ID #{doc.id}"
 end
 
 puts "...Created #{Doctor.count} doctors. DOCTORS DONE!"
-##### BEGIN - Doctors - #####
+
+##### FINISH - Doctors - #####
 
 # INI SAMPLES
 puts " "
 puts "Creating new samples DB..."
 
-sample = Sample.create(
-  patient: Patient.find(1),
-  doctor: Doctor.all.sample,
-  category: ["Sangue", "Soro", "Segmento de cordão"].sample
-)
+all_patients = Patient.all
+patient_count = Patient.count
 
-sample = Sample.create(
-  patient: Patient.find(2),
-  doctor: Doctor.all.sample,
-  category: ["Sangue", "Soro", "Segmento de cordão"].sample
-)
+y = 0
 
-sample = Sample.create(
-  patient: Patient.find(3),
-  doctor: Doctor.all.sample,
-  category: ["Sangue", "Soro", "Segmento de cordão"].sample
-)
+(1..patient_count).each do |x|
+  category = ["Sangue", "Soro", "Segmento de cordão"].sample
+  doctor = Doctor.all.sample
 
-sample = Sample.create(
-  patient: Patient.find(4),
-  doctor: Doctor.all.sample,
-  category: ["Sangue", "Soro", "Segmento de cordão"].sample
-)
+    if x > 5
+    sample = Sample.create!(
+        collected_at: DateTime.now - 1,
+        quantity: rand(1..2),
+        patient: all_patients[x-1],
+        doctor: doctor,
+        category: category,
 
-#### Claúdia
-sample = Sample.create(
-  patient: Patient.find(5),
-  doctor: Doctor.all.sample,
-  collected_at: DateTime.now,
-  quantity: rand(1..2),
-  category: ["Sangue", "Soro", "Segmento de cordão"].sample
-)
+      )
+    # Amostra da tabela da view samples#index 05
+    else
+      sample = Sample.create!(
+        patient: all_patients[x-1],
+        doctor: doctor,
+        category: category,
+        status: "incompleta"
+      )
+    end
+    y += 1
+end
 
-sample = Sample.create(
-  patient: Patient.find(6),
-  doctor: Doctor.all.sample,
-  collected_at: DateTime.now,
-  quantity: rand(1..2),
-  category: ["Sangue", "Soro", "Segmento de cordão"].sample
-)
-
-sample = Sample.create(
-  patient: Patient.find(7),
-  doctor: Doctor.all.sample,
-  collected_at: DateTime.now,
-  quantity: rand(1..2),
-  category: ["Sangue", "Soro", "Segmento de cordão"].sample
-)
-
-sample = Sample.create(
-  patient: Patient.find(8),
-  doctor: Doctor.all.sample,
-  collected_at: DateTime.now,
-  quantity: rand(1..2),
-  category: ["Sangue", "Soro", "Segmento de cordão"].sample
-)
 
 puts "...Created #{Sample.count} samples without a batch. SAMPLES DONE!"
-#### ####
+### ####
 
-#### Batch 1 - Paciente/Amostra 9 ao 15 ####
-senders = User.where(role: 'Envio')
-date_sent = Date.today
-batch = Batch.create(sender: senders.sample, sent_at: date_sent)
+### 15 Amostras para os cards #######
 
-x = 9
-loop do
-  sample = Sample.create(
-    patient: Patient.find(x),
-    doctor: Doctor.all.sample,
-    collected_at: DateTime.now,
-    quantity: rand(1..2),
-    category: ["Sangue", "Soro", "Segmento de cordão"].sample,
-    status: "enviada"
-  )
 
-  sample.batch = batch
-  sample.save!
-  puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
-  x += 1
-  break if x > 15
-end
-puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
-#### FIM - BATCH 1 ####
+samples = Sample.where.not(collected_at: nil).last(80)
 
-#### Batch 2 - Paciente/Amostra 16 ao 22 ####
-
-senders = User.where(role: 'Envio')
-date_sent = Date.today
-batch = Batch.create(sender: senders.sample, sent_at: date_sent)
-
-x = 16
-loop do
-  sample = Sample.create(
-    patient: Patient.find(x),
-    doctor: Doctor.all.sample,
-    collected_at: DateTime.now,
-    quantity: rand(1..2),
-    category: ["Sangue", "Soro", "Segmento de cordão"].sample,
-    status: "enviada"
-  )
-
-  sample.batch = batch
-  sample.save!
-  puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
-  x += 1
-  break if x > 22
-end
-puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
-#### FIM - BATCH 2 ####
-
-#### Batch 3 - Paciente/Amostra 23 ao 29 ####
-
-senders = User.where(role: 'Envio')
 receivers = User.where(role: "Recepção")
-date_sent = Date.today
-date_received = Date.today + 1
-batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at: date_received, receiver: receivers.sample)
 
-x = 23
-loop do
-  sample = Sample.create(
-    patient: Patient.find(x),
-    doctor: Doctor.all.sample,
-    collected_at: DateTime.now,
-    quantity: rand(1..2),
-    category: ["Sangue", "Soro", "Segmento de cordão"].sample,
-    status: "recebida"
-  )
+samples_batch_recebido_Hospital_lagoa = samples[0..7]
 
+samples_batch_recebido_Hospital_lagoa.each do |sample|
+  senders = User.where(role: 'Envio', institution:"Hospital da Lagoa")
+  date_sent = Date.today - 3
+  date_received = Date.today
+  batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
+  sample.batch = batch
+  sample.status = "recebida"
+  sample.save!
+end
+
+samples_batch_recebido_Hospital_servidores = samples[8..15]
+samples_batch_recebido_Hospital_servidores.each do |sample|
+  senders = User.where(role: 'Envio', institution:"Hospital dos Servidores")
+  date_sent = Date.today - 4
+  date_received = Date.today - 1
+  batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
   sample.batch = batch
   sample.save!
-  puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
-  x += 1
-  break if x > 29
 end
-puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
-#### FIM - BATCH 3 ####
 
-#### Batch 4 - Paciente/Amostra 30 ao 36 ####
-
-senders = User.where(role: 'Envio')
-receivers = User.where(role: "Recepção")
-date_sent = Date.today
-date_received = Date.today + 1
-batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at: date_received, receiver: receivers.sample)
-
-x = 30
-loop do
-  sample = Sample.create(
-    patient: Patient.find(x),
-    doctor: Doctor.all.sample,
-    collected_at: DateTime.now,
-    quantity: rand(1..2),
-    category: ["Sangue", "Soro", "Segmento de cordão"].sample,
-    status: "rejeitada"
-  )
-
+samples_batch_recebido_INCA_1 = samples[16..23]
+samples_batch_recebido_INCA_1.each do |sample|
+  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
+  date_sent = Date.today - 4
+  date_received = Date.today - 1
+  batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
   sample.batch = batch
+  sample.status = "recebida"
   sample.save!
-  puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
-  x += 1
-  break if x > 36
 end
-puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
-#### FIM - BATCH 4 ####
 
-#### Batch 5 - Paciente/Amostra 37 ao 43 ####
-
-senders = User.where(role: 'Envio')
-batch = Batch.create(sender: senders.sample)
-
-x = 37
-loop do
-  sample = Sample.create(
-    patient: Patient.find(x),
-    doctor: Doctor.all.sample,
-    collected_at: DateTime.now,
-    quantity: rand(1..2),
-    category: ["Sangue", "Soro", "Segmento de cordão"].sample,
-    status: "rejeitada"
-  )
-
+samples_batch_recebido_INCA_2 = samples[24..31]
+samples_batch_recebido_INCA_2.each do |sample|
+  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
+  date_sent = Date.today - 5
+  date_received = Date.today - 2
+  batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
   sample.batch = batch
+  sample.status = "recebida"
   sample.save!
-  puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
-  x += 1
-  break if x > 43
-end
-puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
-#### FIM - BATCH 5 ####
-
-puts " "
-puts "Creating exams..."
-10.times do
-  exam = Exam.create(
-    sample: Sample.all.sample,
-    procedure: Procedure.all.sample
-  )
-  # puts "Created exam id #{exam.id} to sample #{exam.sample.id} with procedure #{exam.procedure.id}"
 end
 
-puts "...Created #{Exam.count} exams. EXAMS DONE!"
+samples_batch_recebido_INCA_3 = samples[32..39]
+samples_batch_recebido_INCA_3.each do |sample|
+  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
+  date_sent = Date.today - 6
+  date_received = Date.today - 3
+  batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
+  sample.batch = batch
+  sample.status = "recebida"
+  sample.save!
+end
 
-puts " "
-puts "FINISHED SEEDING!"
-puts " "
+samples_batch_recebido_INCA_4 = samples[40..47]
+samples_batch_recebido_INCA_4.each do |sample|
+  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
+  date_sent = Date.today - 7
+  date_received = Date.today - 4
+  batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
+  sample.batch = batch
+  sample.status = "recebida"
+  sample.save!
+end
+
+
+
+samples_batch_enviado_INCA_1 = samples[48..55]
+samples_batch_enviado_INCA_1.each do |sample|
+  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
+  date_sent = Date.today -1
+  date_received = Date.today
+  batch = Batch.create(sender: senders.sample, sent_at: date_sent)
+  sample.batch = batch
+  sample.status = "enviada"
+  sample.save!
+end
+
+samples_batch_enviado_INCA_2 = samples[56..63]
+samples_batch_enviado_INCA_2.each do |sample|
+  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
+  date_sent = Date.today -1
+  date_received = Date.today
+  batch = Batch.create(sender: senders.sample, sent_at: date_sent)
+  sample.batch = batch
+  sample.status = "enviada"
+  sample.save!
+end
+
+
+
+samples_batch_naoenviado_INCA_1 = samples[64..71]
+samples_batch_naoenviado_INCA_1.each do |sample|
+  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
+  date_sent = Date.today -1
+  batch = Batch.create(sender: senders.sample)
+  sample.batch = batch
+  sample.status = "coletada"
+  sample.save!
+end
+
+
+samples_batch_naoenviado_INCA_2 = samples[72..79]
+samples_batch_naoenviado_INCA_2.each do |sample|
+  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
+  date_sent = Date.today -1
+  batch = Batch.create(sender: senders.sample)
+  sample.batch = batch
+  sample.status = "coletada"
+  sample.save!
+end
+
+
+
+#### Batch 1 Hospital da Lagoa####
+# samples_out_of_batch
+
+# loop do
+#   sample = Sample.create(
+#     patient: Patient.find(x),
+#     doctor: Doctor.all.sample,
+#     collected_at: DateTime.now,
+#     quantity: rand(1..2),
+#     category: ["Sangue", "Soro", "Segmento de cordão"].sample,
+#     status: "enviada"
+#   )
+
+#   sample.batch = batch
+#   sample.save!
+#   puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
+#   x += 1
+#   break if x > 15
+# end
+# puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
+
+# ### FIM - BATCH 1 ####
+
+# #### Batch 2 - Paciente/Amostra 16 ao 22 ####
+
+# senders = User.where(role: 'Envio')
+# date_sent = Date.today
+# batch = Batch.create(sender: senders.sample, sent_at: date_sent)
+
+# x = 16
+# loop do
+#   sample = Sample.create(
+#     patient: Patient.find(x),
+#     doctor: Doctor.all.sample,
+#     collected_at: DateTime.now,
+#     quantity: rand(1..2),
+#     category: ["Sangue", "Soro", "Segmento de cordão"].sample,
+#     status: "enviada"
+#   )
+
+#   sample.batch = batch
+#   sample.save!
+#   puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
+#   x += 1
+#   break if x > 22
+# end
+# puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
+# #### FIM - BATCH 2 ####
+
+# #### Batch 3 - Paciente/Amostra 23 ao 29 ####
+
+# senders = User.where(role: 'Envio')
+# receivers = User.where(role: "Recepção")
+# date_sent = Date.today
+# date_received = Date.today + 1
+# batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at: date_received, receiver: receivers.sample)
+
+# x = 23
+# loop do
+#   sample = Sample.create(
+#     patient: Patient.find(x),
+#     doctor: Doctor.all.sample,
+#     collected_at: DateTime.now,
+#     quantity: rand(1..2),
+#     category: ["Sangue", "Soro", "Segmento de cordão"].sample,
+#     status: "recebida"
+#   )
+
+#   sample.batch = batch
+#   sample.save!
+#   puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
+#   x += 1
+#   break if x > 29
+# end
+# puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
+# #### FIM - BATCH 3 ####
+
+# #### Batch 4 - Paciente/Amostra 30 ao 36 ####
+
+# senders = User.where(role: 'Envio')
+# receivers = User.where(role: "Recepção")
+# date_sent = Date.today
+# date_received = Date.today + 1
+# batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at: date_received, receiver: receivers.sample)
+
+# x = 30
+# loop do
+#   sample = Sample.create(
+#     patient: Patient.find(x),
+#     doctor: Doctor.all.sample,
+#     collected_at: DateTime.now,
+#     quantity: rand(1..2),
+#     category: ["Sangue", "Soro", "Segmento de cordão"].sample,
+#     status: "rejeitada"
+#   )
+
+#   sample.batch = batch
+#   sample.save!
+#   puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
+#   x += 1
+#   break if x > 36
+# end
+# puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
+# #### FIM - BATCH 4 ####
+
+# #### Batch 5 - Paciente/Amostra 37 ao 43 ####
+
+# senders = User.where(role: 'Envio')
+# batch = Batch.create(sender: senders.sample)
+
+# x = 37
+# loop do
+#   sample = Sample.create(
+#     patient: Patient.find(x),
+#     doctor: Doctor.all.sample,
+#     collected_at: DateTime.now,
+#     quantity: rand(1..2),
+#     category: ["Sangue", "Soro", "Segmento de cordão"].sample,
+#     status: "rejeitada"
+#   )
+
+#   sample.batch = batch
+#   sample.save!
+#   puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
+#   x += 1
+#   break if x > 43
+# end
+# puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
+# #### FIM - BATCH 5 ####
+
+# puts " "
+# puts "Creating exams..."
+# 10.times do
+#   exam = Exam.create(
+#     sample: Sample.all.sample,
+#     procedure: Procedure.all.sample
+#   )
+#   # puts "Created exam id #{exam.id} to sample #{exam.sample.id} with procedure #{exam.procedure.id}"
+# end
+
+# puts "...Created #{Exam.count} exams. EXAMS DONE!"
+
+# puts " "
+# puts "FINISHED SEEDING!"
+# puts " "
+
+
+
+
+
+
+
+
+
+
+
+# patient = Patient.create(
+#   first_name: "Ana",
+#   last_name: "Milena",
+#   gender: "F",
+#   patient_type: "donor",
+#   born_at: Faker::Date.birthday,
+#   address: "Brasília, Distrito Federal, Brasil",
+#   cpf: Faker::CPF.numeric,
+#   sus_code: Faker::Number.number(digits: 15)
+# )
+# # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+
+# patient = Patient.create(
+#   first_name: "João",
+#   last_name: "Francisco",
+#   gender: "M",
+#   patient_type: "receptor",
+#   born_at: Faker::Date.birthday,
+#   address: "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil",
+#   cpf: Faker::CPF.numeric,
+#   sus_code: Faker::Number.number(digits: 15)
+# )
+# # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+
+# patient = Patient.create(
+#   first_name: "Marya",
+#   last_name: "Jullyane",
+#   gender: "F",
+#   patient_type: "receptor",
+#   born_at: Faker::Date.birthday,
+#   address: "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil",
+#   cpf: Faker::CPF.numeric,
+#   sus_code: Faker::Number.number(digits: 15)
+# )
+# # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+
+# patient = Patient.create(
+#   first_name: "Junior",
+#   last_name: "Olimpio",
+#   gender: "M",
+#   patient_type: "donor",
+#   born_at: Faker::Date.birthday,
+#   address: "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
+#   cpf: Faker::CPF.numeric,
+#   sus_code: Faker::Number.number(digits: 15)
+# )
+# # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
+
+# patient = Patient.create(
+#   first_name: "Leia",
+#   last_name: "Silva",
+#   gender: "F",
+#   patient_type: "receptor",
+#   born_at: Faker::Date.birthday,
+#   address: "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
+#   cpf: Faker::CPF.numeric,
+#   sus_code: Faker::Number.number(digits: 15)
+# )
+
+# patient = Patient.create(
+#   first_name: "Evandro",
+#   last_name: "Souza",
+#   gender: "M",
+#   patient_type: "receptor",
+#   born_at: Faker::Date.birthday,
+#   address: "Catetinho, Park Way, Distrito Federal, Brasil",
+#   cpf: Faker::CPF.numeric,
+#   sus_code: Faker::Number.number(digits: 15)
+# )
+
+
+
+
+# 38.times do
+#   patient = Patient.create(
+#     first_name: Faker::Name.first_name,
+#     last_name: Faker::Name.last_name,
+#     gender: ["M", "F"].sample,
+#     patient_type: ["receptor", "donor", "not_relative"].sample,
+#     born_at: Faker::Date.birthday,
+#     address: ["Catetinho, Park Way, Distrito Federal, Brasil",
+#               "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
+#               "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil"].sample,
+#     cpf: Faker::CPF.numeric,
+#     sus_code: Faker::Number.number(digits: 15)
+#   )
