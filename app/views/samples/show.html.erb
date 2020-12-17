@@ -1,6 +1,6 @@
 <div class="container p-2">
-  <div class="row">
-    <div class="col-6 d-flex">
+  <div class="row mt-5">
+    <div class="col-8 d-flex">
       <div>
         <%= image_tag "logo-inca.png" %>
       </div>
@@ -26,7 +26,7 @@
      <h5><strong>Nome:</strong> <%= @sample.patient.first_name%> <%= @sample.patient.last_name%></h5>
      <span><strong>Identificador:</strong> <%= @sample.patient.id %></span>
     </div>
-    <div class="col-4 d-flex flex-column">
+    <div class="col-8 d-flex flex-column">
      <span><strong>Sexo:</strong> <%= @sample.patient.gender %> </span>
      <span><strong>Idade:</strong> <%= calc_age(@sample.patient.born_at) %> ano(s)</span>
     </div>
@@ -45,12 +45,14 @@
      <span><strong>Tipo de Tubo: </strong>Tubo EDTA</span>
      <span><strong>Quantidade: </strong>02</span>
     </div>
-    <div class="col-4 d-flex flex-column">
+    <div class="col-8 d-flex flex-column">
      <span>Tipo de Pedido: Rotina</span>
      <% if @sample.patient.patient_type == "receptor" %>
      <span>Tipo de Paciente: <strong>RECEPTOR</strong> de medula óssea</span>
+     <% elsif @sample.patient.patient_type == "donor" %>
+     <span>Tipo de Paciente: <strong>DOADOR</strong> aparentado de medula óssea</span>
      <% else %>
-     <span>Tipo de Paciente: <strong>DOADOR</strong> de medula óssea</span>
+     <span>Tipo de Paciente: <strong>RECEPTOR</strong> de medula óssea</span>
      <% end %>
     </div>
   </div>
@@ -63,21 +65,29 @@
   </div>
   <div class="row">
     <% if @sample.patient.patient_type == "receptor" %>
-    <div class="col-4 d-flex flex-column justify-content-center">
-      <span>RECEPTOR APARENTADO Medula óssea CEMO:</span>
-    </div>
-      <div class="col-6 d-flex flex-column">
-        <span>=> FASE 1. HLA A, B(SOROL OU BIOMOL BAIXA RESOL) HLA DRB1, DQB1(BIOMOL BAIXA RESOL);</span>
-        <span>=> FASE 2. HLA DRB1, DQB1 (BIOMOL ALTA RESOL).</span>
-    </div>
+      <div class="col-4 d-flex flex-column justify-content-center">
+        <span>RECEPTOR APARENTADO Medula óssea CEMO:</span>
+      </div>
+        <div class="col-8 d-flex flex-column">
+          <span>=> FASE 1. HLA A, B(SOROL OU BIOMOL BAIXA RESOL) HLA DRB1, DQB1(BIOMOL BAIXA RESOL);</span>
+          <span>=> FASE 2. HLA DRB1, DQB1 (BIOMOL ALTA RESOL).</span>
+      </div>
     <% elsif @sample.patient.patient_type == "donor" %>
-    <div class="col-4 d-flex flex-column justify-content-center">
-        <span>DOADOR APARENTADO Medula óssea CEMO</span>
-    </div>
-    <div class="col-6 d-flex flex-column">
-      <span>* FASE 1. HLA A, B (SOROL OU BIOMOL BAIXA RESOL);</span>
-      <span>* FASE 2. HLA DRB1, DQB1 (BIOMOL BAIXA RESOL).</span>
-    </div>
+      <div class="col-4 d-flex flex-column justify-content-center">
+          <span>DOADOR APARENTADO Medula óssea CEMO</span>
+      </div>
+      <div class="col-8 d-flex flex-column">
+        <span>* FASE 1. HLA A, B (SOROL OU BIOMOL BAIXA RESOL);</span>
+        <span>* FASE 2. HLA DRB1, DQB1 (BIOMOL BAIXA RESOL).</span>
+      </div>
+    <% else %>
+      <div class="col-4 d-flex flex-column justify-content-center">
+          <span>RECEPTOR NÃO APARENTADO Medula óssea CEMO</span>
+      </div>
+      <div class="col-8 d-flex flex-column">
+        <span>* FASE 1. HLA A, B (SOROL OU BIOMOL BAIXA RESOL) HLA DRB1, DQB1 (BIOMOL BAIXA RESOL);</span>
+        <span>* FASE 2. HLA DRB1, DQB1 (BIOMOL ALTA RESOL).</span>
+      </div>
     <% end %>
   </div>
 
@@ -104,7 +114,7 @@
   <div class="text-right">
     <button class="btn btn-primary btn-lg no-print" id="printPageButton" onClick="window.print();">Imprimir Formulário</button>
     <%= link_to "Ver Amostras", samples_path,
-            class: "btn btn-outline-primary mx-2 mt-2",
+            class: "btn btn-outline-primary mx-2 mt-2 no-print",
             style:"border-radius: 50px; font-weight: bold;"%>
   </div>
 </div>
