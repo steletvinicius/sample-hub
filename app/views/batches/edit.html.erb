@@ -31,20 +31,19 @@
     <%# else, receiver can edit received date, but only after batch is sent %>
     <% elsif @batch.sent_at && (receiver?(current_user) || current_user.admin?) %>
       <div class="d-flex align-items-end justify-content-start my-3">
-      <%= simple_form_for(@batch) do |f| %>
-        <%= f.input :received_at, label: "Data do recebimento",
-          as: :string, input_html: { class: "datepicker", required: true },
-          error: 'Por favor selecione uma data'  %>
-        <%= f.button :submit, "confirmar", class: "btn btn-primary mb-4" %>
+        <%= simple_form_for(@batch) do |f| %>
+          <%= f.input :received_at, label: "Data do recebimento",
+                      as: :string, input_html: { class: "datepicker", required: true },
+                      error: 'Por favor selecione uma data'  %>
+          <%= f.button :submit, "confirmar", class: "btn btn-primary mb-4" %>
+        <% end %>
       </div>
     <% end %>
     <%# END RECEIVER OPTIONS %>
   </div>
   <%# END BATCH EDIT SECTION %>
-
-
-  <%# INI SAMPLES TABLE %>
   <hr>
+  <%# INI SAMPLES TABLE %>
   <div class="d-flex justify-content-between align-items-end">
     <h4>Amostras</h4>
     <i class="mb-2 mr-1"><em>Total <%= pluralize(@samples.count, 'amostra', plural: 'amostras') %></em></i>
@@ -113,5 +112,4 @@
     </table>
   </table>
   <%# END SAMPLES TABLE %>
-    <% end %>
 </div>
