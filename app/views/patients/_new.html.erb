@@ -21,11 +21,11 @@
       <div>
         <%= f.label "Tipo de paciente" %>
         <%= f.radio_button :patient_type, "receptor" %>
-        <%= label :patient_type_receptor, "Receptor" %>
+        <%= label :patient_type_receptor, "Receptor aparentado" %>
+        <%= f.radio_button :patient_type, "not_relative" %>
+        <%= label :patient_type_donor, "Receptor não aparentado" %>
         <%= f.radio_button :patient_type, "donor" %>
         <%= label :patient_type_donor, "Doador" %>
-        <%= f.radio_button :patient_type, "not_relative" %>
-        <%= label :patient_type_donor, "Não aparentado" %>
       </div>
     </div>
     <div class="form-actions">
