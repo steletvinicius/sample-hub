@@ -1,8 +1,10 @@
 <% provide(:title, 'Remessas') %>
 <div class="container-xxl my-4" style="padding: 0 100px;">
 
-<div class="container my-4">
-  <h2>Remessas</h2>
+<div class="container my-5">
+  <div class="d-flex justify-content-center">
+    <h2>REMESSAS</h2>
+  </div>
 
   <div class="my-2 d-flex justify-content-end">
     <% if sender?(current_user) %>
@@ -17,7 +19,6 @@
     <div>
       <%# INI FILTER TABS %>
       <div class="d-flex align-items-center justify-content-between">
-        <i id="counter">Total: <%= pluralize(@batches.count, 'remessa', plural: 'remessas') %></i>
         <ul class="nav nav-pills">
           <li>
             <button class="nav-link btn btn-secondary selected" 
@@ -32,6 +33,7 @@
                     id="filterReceived">Recebidas</button>
           </li>
         </ul>
+        <i id="counter">Total: <%= pluralize(@batches.count, 'remessa', plural: 'remessas') %></i>
       </div>
       <%# END FILTER TABS %>
 
