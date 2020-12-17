@@ -24,7 +24,7 @@ class SamplesController < ApplicationController
     if @sample.save
       redirect_to edit_sample_path(@sample)
     else
-      redirect_to new_patient_path
+      redirect_to new_sample_path
     end
   end
 

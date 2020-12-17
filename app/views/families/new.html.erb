@@ -1,36 +1,54 @@
-<h1>Escolha o receptor:</h1>
+<div class="container-xxl my-5" style="padding: 0 100px;">
+  <h2 class="text-center text-uppercase">Cadastro de relação familiar</h2>
+  <hr>
+  <div class="row justify-content-center" >
+    <div class="col">
+      <div id="relationship" class="d-flex flex-column border border-light rounded p-2 background-editable h-100 shadow">
+        <% if @patients.present? %>
+          <form id="search-patient" class="text-left" action="/families" method="post">
 
-<div id="relationship" class="container">
-    <% if @patients.present? %>
-      <form id="search-patient" class="text-left" action="/families" method="post">
-        <div>
-        <select class="select2 form-control ml-auto mr-2 mt-3" placeholder="Nome..." name="family[receptor_id]">
-          <% @patients.each do |patient| %>
-            <option value="<%= patient.id %>">
-              <%= "#{patient.first_name} #{patient.last_name} - CPF #{patient.cpf}" %>
-            </option>
-          <% end %>
-        </select>
-        </div>
-        <div class="ml-auto mr-2 mt-3">
-        <h1>Dados do Doador</h1>
-        <%= "#{@patient.first_name} #{@patient.last_name} - CPF #{@patient.cpf}" %>
-        </div>
-        <div >
-        <select name="family[relationship]" id="relationship" class="form-control ml-auto mr-2 mt-3">
-        <% ["MÃE", "PAI", "IRMÃO/IRMÃ", "FILHO/FILHA", "CÔNJUGE", "COMPANHEIRA/COMPANHEIRO", "AVÔ/AVÓ", "PRIMO/PRIMA", "TIO/TIA", "OUTRO"].each do |relation| %>
-            <option value="<%= relation %>">
-              <%= relation %>
-            </option>
-          <% end %>
-        </select>
-        </div>
-        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-        <%= hidden_field_tag "family[donor_id]", @patient.id %>
-        <input type="submit" class="btn btn-primary mr-auto ml-2 mt-3" value="Cadastrar parentesco">
-      </form>
-      <ul id="results" class="list-inline"></ul>
-    <% else %>
-      <p>Não existem receptores cadastrados no Sample Hub</p>
-    <% end %>
+            <div class="form-group col-12">
+              <h4 class="text-center my-3">Busque um receptor cadastrado</h4>
+              <select class="select2 form-control" placeholder="Nome..." name="family[receptor_id]" required="true">
+                <option disabled selected value> --- Pesquise / Selecione  --- </option>
+                <% @patients.each do |patient| %>
+                  <option value="<%= patient.id %>">
+                     <%= "#{patient.first_name} #{patient.last_name} - CPF #{patient.cpf}" %>
+                  </option>
+                <% end %>
+              </select>
+            </div>
+        <% else %>
+          <p>Não existem receptores cadastrados no Sample Hub</p>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-8">
+      <div id="new-patient" class="d-flex flex-column border border-light rounded p-2 background-editable shadow">
+            <div class="col-12">
+              <div class="row">
+                <div class="form-group col">
+                  <h4 class="text-center my-3">Selecione o grau de parentesco do seu doador</h4>
+                  <select class="select2 form-control" placeholder="Nome..." name="family[relationship]" required="true">
+                    <option disabled selected value> --- Pesquise / Selecione  --- </option>
+                      <% ["MÃE/PAI", "IRMÃO/IRMÃ", "FILHO/FILHA", "CÔNJUGE", "COMPANHEIRA/COMPANHEIRO", "AVÔ/AVÓ", "PRIMO/PRIMA", "TIO/TIA", "OUTRO"].each do |relation| %>
+                      <option value="<%= relation %>">
+                        <%= relation %>
+                      </option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <%= hidden_field_tag "family[donor_id]", @patient.id %>
+              <div class="text-left">
+                <input type="submit" class="btn btn-primary mb-2 mr-5" value="Cadastrar parentesco">
+              </div>
+            </div>
+          </form>
+        <hr>
+        <%= render "/patients/muted_patient"  %>
+      </div>
+    </div>
   </div>
+</div>

@@ -27,12 +27,12 @@
         <div class="col-2">
           <%= f.label "Sexo" %>
           <br>
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-start">
             <div>
             <%= f.radio_button :gender, "M" %>
             <%= label :gender_male, "M" %>
             </div>
-            <div>
+            <div class="ml-2">
             <%= f.radio_button :gender, "F" %>
             <%= label :gender_female, "F" %>
             </div>

@@ -1,15 +1,15 @@
-<div class="container-xxl my-4" style="padding: 0 100px;">
+<div class="container-xxl my-5" style="padding: 0 100px;">
   <h2 class="text-center text-uppercase">Cadastro de paciente</h2>
   <hr>
   <div class="row justify-content-center" >
     <div class="col">
-      <div id="patients" class="d-flex flex-column border border-secondary rounded p-2 background-editable h-100">
+      <div id="patients" class="d-flex flex-column border border-light rounded p-2 background-editable h-100 shadow">
         <% if @patients.present? %>
           <form id="search-patient" class="text-center" action="/samples" method="post">
 
             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
             <div class="form-group">
-              <h4 class="text-center mb-3 ">Busque um paciente cadastrado</h4>
+              <h4 class="text-center my-3">Busque um paciente cadastrado</h4>
               <select class="select2 form-control" placeholder="Nome..." name="patient_id">
                 <option disabled selected value> --- Pesquise / Selecione  --- </option>
                 <% @patients.each do |patient| %>
@@ -29,8 +29,8 @@
       </div>
     </div>
     <div class="col-8">
-      <div id="new-patient" class="d-flex flex-column border border-secondary rounded p-2 background-editable">
-        <h4 class="text-center">Cadastre novo paciente</h4>
+      <div id="new-patient" class="d-flex flex-column border border-light rounded p-2 background-editable shadow">
+        <h4 class="text-center mt-3">Cadastre novo paciente</h4>
         <%= render "/patients/new"  %>
       </div>
     </div>

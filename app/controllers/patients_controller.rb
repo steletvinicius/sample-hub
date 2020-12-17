@@ -28,7 +28,8 @@ class PatientsController < ApplicationController
         redirect_to new_family_path(patient: @patient)
       end
     else
-      render :new
+      @patients = policy_scope(Patient).order(created_at: :desc)
+      render 'samples/new'
     end
   end
 
