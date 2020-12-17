@@ -1,27 +1,37 @@
+<% provide(:title, 'Amostras') %>
 
 <div class="container-xxl" style="padding: 0 100px;">
   <h2 class = "my-4">Amostras</h2>
-  <div class="d-flex justify-content-between my-4">
-    <div class="mr-5">
+  <div class="d-flex justify-content-start my-4">
+
+    <%# INI TABLE SECTION %>
+    <div class="mr-5" style="max-width: 840px;">
       <div>
         <% n_patients = @samples.where("collected_at IS ? OR quantity IS ?", nil, nil).count %>
         <% if n_patients.zero? %>
+        <div style="min-width: 840px;">
           <p>Nenhuma autorização de coleta pendente</p>
+        </div>
         <% else %>
           <h4>Aguardando coleta</h4>
           <p><%= pluralize(n_patients, "amostra", "amostras") %></p>
 
+          <%# INI TABLE %>
           <table id="tblsamplesconfirmed" class="table align-middle table table-hover" style="background-color: white; width: auto;">
+            <%# INI HEADER %>
             <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
               <th style="text-align: center;">ID</th>
               <th style="width: 400px;">Paciente</th>
               <th style="width: 180px;">Tipo</th>
               <th style="text-align: center; width: 200px;">Data da coleta</th>
               <th style="text-align: center; width: 100px;">Quantidade</th>
-              <th style="text-align: center;">Ação</th>
+              <th style="text-align: center;"></th>
             </tr>
+            <%# END HEADER %>
+
             <% @samples.each do |sample| %>
               <% if sample.collected_at == nil || sample.quantity == nil %>
+                <%# INI TABLE BODY %>
                 <tr style="background-color: white;">
 
                   <td scope="row" style="text-align: center; vertical-align: middle;"><%= sample.id %></td>
@@ -32,32 +42,32 @@
                     <td style="vertical-align: middle;"><%=sample.category%></td>
                   <% end %>
 
-                  <form action="<%= sample_path(sample) %>" method="post" id="edit_sample_form" data-turbolinks="false">
+                  <form action="<%= sample_path(sample) %>" method="post" id="edit_sample_form_<%= sample.id %>" data-turbolinks="false">
                     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
                     <input name="_method" type="hidden" value="patch" />
 
                   <div class="form-group string optional sample_collected_at">
                     <td style="text-align: center; vertical-align: middle;">
-                        <%= hidden_field_tag "sample[status]", "coletada" %>
+                        <%= hidden_field_tag "sample[status]", "coletada", id: "sample_status_#{sample.id}" %>
                         <input class="form-control my-form-control string optional datepicker flatpickr-input" 
                               type="hidden" 
                               value="Insira a data da coleta" 
                               name="sample[collected_at]" 
-                              id="sample_collected_at">
+                              id="sample_collected_at_<%= sample.id %>">
                     </td>
                   </div>
 
-                  <td>
-                    <div class="form-group integer optional sample_quantity">
+                  <div class="form-group integer optional sample_quantity">
+                    <td>
                       <input class="form-control numeric integer optional" 
                         type="number"
                         style="text-align: center;"
                         step="1"
                         name="sample[quantity]"
-                        id="sample_quantity"
+                        id="sample_quantity_<%= sample.id %>"
                         min="0">
-                    </div>
-                  </td>
+                    </td>
+                  </div>
 
                     <td style="text-align: center; vertical-align: middle;">
                       <input type="submit"
@@ -68,29 +78,45 @@
                     </td>
                   </form>
                 </tr>
+                <%# END TABLE BODY %>
               <% end %>
             <% end %>
           </table>
+          <%# END TABLE %>
         <% end %>
       </div>
     </div>
+    <%# END TABLE SECTION %>
 
-    <div class="d-flex flex-column" style="width: 800px;">
+    <%# INI CARDS SECTION %>
+    <div class="d-flex flex-column">
       <h4>Aguardando remessa</h4>
       <% n_samples = @samples.where("collected_at IS NOT ? AND quantity IS NOT ?", nil, nil).count %>
       <% if n_samples.zero? %>
         <p>Nenhuma amostra aguardando remessa</p>
+        <div style="width: 50px; height: 50px;"></div>
+        <div style="background-color: rgba(53, 53, 53, 0.1); min-width: 464px; border-radius: 8px; max-width: 690px; min-height: 291px;"></div>
       <% else %>
         <p><%= pluralize(n_samples, "amostra", "amostras") %></p>
 
         <div class="row">
           <form action="/batches" method="post">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
             <div class="d-flex justify-content-end">
-              <input type="submit" value="finalizar remessa" class="btn btn-primary" style= "margin: 0 10px 10px 0;">
+              <div class="btn btn-secondary" style= "margin: 0 10px 10px 0;" id="checkbox_selector">
+                selecionar tudo
+              </div>
+
+              <input type="submit" value="criar remessa" 
+                      class="btn btn-primary" 
+                      style= "margin: 0 10px 10px 0;">
             </div>
 
-            <div class="d-flex flex-start flex-wrap justify-content-center align-items-start"> 
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <%# INI CARDS CONTAINER %>
+            <div class="d-flex flex-start flex-wrap align-items-start" 
+                  style="background-color: rgba(53, 53, 53, 0.1); min-width: 464px; border-radius: 8px; max-width: 690px;">
+
               <% collected_samples = @samples.where("collected_at IS NOT ? AND quantity IS NOT ?", nil, nil) %>
               <% collected_samples.each do |sample| %>
 
@@ -115,22 +141,23 @@
                     <p>Atualizado em <%= datetime_mask(sample.updated_at) %></p>
                     <p>Quantidade: <strong><%= sample.quantity %></strong></p>
                   </div>
+
                   <div class="form-check d-flex align-items-center">
                     <input type="checkbox" class="form-check-input" 
-                          id="checkbox_remessa" 
-                          name="sample_ids[]" 
-                          value="<%= sample.id %>"/>
-                    <label for="checkbox_remessa" class="form-check-label"
-                          style="opacity: .8; font-weight: bold;">Selecionar</label>
+                          id="checkbox_remessa_<%= sample.id %>"
+                          name="sample_ids[]"
+                          value="<%= sample.id %>"/> 
+                    <span style="opacity: .8; font-weight: bold;">Selecionar</span>
                   </div>
                 </div>
-
               <% end %>
+
             </div>
+            <%# END CARDS CONTAINER %>
           </form>
         </div>
       <% end %>
     </div>
-
+    <%# END CARDS SECTION %>
   </div>
 </div>

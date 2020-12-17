@@ -1,8 +1,15 @@
 class BatchPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      # sender can only view batch sent from his own institution (controller handles this)
-      scope.all
+      # sender can only view batch sent from his own institution
+      if user.role == 'Recepção' || user.admin?
+        scope.all.includes(:sender, :receiver).order(sent_at: :desc)
+      elsif user.role == 'Envio' || user.role == 'Cadastro'
+        users = User.where(institution: user.institution)
+        scope.all.where(sender_id: users.ids).includes(:sender, :receiver).order(sent_at: :desc)
+      else
+        []
+      end
     end
   end
 
