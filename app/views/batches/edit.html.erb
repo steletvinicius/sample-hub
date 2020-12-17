@@ -1,6 +1,6 @@
 <div class="container my-5">
   <div class="d-flex justify-content-center">
-    <h2>REMESSA <%= @batch.sender.institution %>-<%= @batch.id %>/<%= Date.today.year %></h2>
+    <h2>REMESSA <%= @batch.sender.institution %> - <%= @batch.id %>/<%= Date.today.year %></h2>
   </div>
   <h4>Situação: <%= @status %></h4>
 
