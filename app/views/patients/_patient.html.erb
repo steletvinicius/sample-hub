@@ -1,32 +1,111 @@
-<h1>
-<%= patient.first_name  %> <%= patient.last_name  %>
-</h1>
-<% if patient.patient_type == "donor" %>
-  <h2>Possível doador para o paciente:</h2>
-  <ul>
-    <% patient.donors.each do |family| %>
-      <li>
-        <%= "#{family.receptor.first_name} #{family.receptor.last_name}" %>
-      </li>
+<div class="d-flex justify-content-around my-4">
+  <%# INI TABLE SECTION %>
+  <div class="mr-5" style="max-width: 840px;">
+    <h4>Amostras do paciente</h4>
+    <div>
+      <% n_samples = patient.samples.count %>
+      <% if n_samples.zero? %>
+      <div style="min-width: 840px;">
+        <p>Nenhuma amostra até o momento</p>
+      </div>
+      <% else %>
+        <p><%= pluralize(n_samples, "amostra", "amostras") %></p>
+
+        <%# INI TABLE %>
+        <table id="tblsamplesconfirmed" class="table align-middle table table-hover" style="background-color: white; width: auto;">
+          <%# INI HEADER %>
+          <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
+            <th style="text-align: center; width: 100px;">ID</th>
+            <th style="width: 200px;">Tipo</th>
+            <th style="text-align: center; width: 200px;">Data da coleta</th>
+            <th style="text-align: center; width: 200px;">Quantidade</th>
+            <th style="width: 200px;">Status</th>
+          </tr>
+          <%# END HEADER %>
+
+          <% patient.samples.each do |sample| %>
+              <%# INI TABLE BODY %>
+              <tr style="background-color: white;">
+
+                <td scope="row" style="text-align: center; vertical-align: middle;"><%= sample.id %></td>
+                <% if sample.category == "Segmento de cordão" %>
+                  <td style="vertical-align: middle;"><%="Cordão"%></td>
+                <% else %>
+                  <td style="vertical-align: middle;"><%=sample.category%></td>
+                <% end %>
+
+                <div class="form-group string optional sample_collected_at">
+                  <td style="text-align: center; vertical-align: middle;">
+                      <%= date_mask(sample.collected_at) %>
+                  </td>
+                </div>
+
+                <div class="form-group integer optional sample_quantity">
+                  <td>
+                    <%= sample.quantity %>
+                  </td>
+                </div>
+                <td style="vertical-align: middle;"><%=sample.status %> </td>
+              </tr>
+              <%# END TABLE BODY %>
+          <% end %>
+        </table>
+        <%# END TABLE %>
+      <% end %>
+    </div>
+  </div>
+  <%# END TABLE SECTION %>
+
+  <%# INI CARDS SECTION %>
+  <div class="d-flex flex-column">
+    <% parentesco = patient.patient_type %>
+    <% if parentesco == "not_relative" %>
+      <h4>Paciente não aparentado</h4>
+      <div style="width: 50px; height: 50px;"></div>
+      <div style="background-color: rgba(53, 53, 53, 0.1); min-width: 464px; border-radius: 8px; max-width: 690px; min-height: 291px;"></div>
+    <% elsif parentesco == "donor" %>
+      <h4>Possível doador para:</h4>
+      <div class="row">
+          <%# INI CARDS CONTAINER %>
+          <div class="d-flex flex-start flex-wrap align-items-start" 
+                style="background-color: rgba(53, 53, 53, 0.1); min-width: 464px; border-radius: 8px; max-width: 690px;">
+            <% patient.donors.each do |family| %>
+              <div class="card-sample">
+                <div class="card-sample-infos">
+                  <h2>Paciente nro. <%= family.receptor.id %></h2>
+                  <h3><%= family.receptor.first_name%> <%= family.receptor.last_name%></h3>
+                  <p>Sexo <%= family.receptor.gender == "F" ? "feminino" : "masculino" %></p>
+                  <p>Idade: <%= ((Time.zone.now - family.receptor.born_at.to_time) / 1.year.seconds).floor %></p>
+                  <br>
+                  <p>Atualizado em <%= datetime_mask(family.receptor.updated_at) %></p>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <%# END CARDS CONTAINER %>
+      </div>
+    <% elsif parentesco == "receptor" %>
+      <h4>Receptor com possíveis doadores:</h4>
+      <div class="row">
+          <%# INI CARDS CONTAINER %>
+          <div class="d-flex flex-start flex-wrap align-items-start" 
+                style="background-color: rgba(53, 53, 53, 0.1); min-width: 464px; border-radius: 8px; max-width: 690px;">
+            <% patient.receptor.each do |family| %>
+              <div class="card-sample">
+                <div class="card-sample-infos">
+                  <h2>Paciente nro. <%= family.donor.id %></h2>
+                  <h3><%= family.donor.first_name%> <%= family.donor.last_name%></h3>
+                  <p>Sexo <%= family.donor.gender == "F" ? "feminino" : "masculino" %></p>
+                  <p>Idade: <%= ((Time.zone.now - family.donor.born_at.to_time) / 1.year.seconds).floor %></p>
+                  <br>
+                  <p>Atualizado em <%= datetime_mask(family.donor.updated_at) %></p>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <%# END CARDS CONTAINER %>
+      </div>
     <% end %>
-  </ul>
-<% elsif patient.patient_type == "receptor" %>
-  <h2>Receptor com os possíveis doadores:</h2>
-  <ul>
-    <% patient.receptor.each do |family| %>
-      <li>
-        <%= "#{family.donor.first_name} #{family.donor.last_name}" %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <h2>Paciente não aparentado</h2>
-<% end %>
-<h1>Amostras referentes a esse paciente:</h1>
-  <% patient.samples.each do |sample| %>
-  <li>
-    <% sample.collected_at ? date = "coletados no dia #{date_mask(sample.collected_at)}" : date = "encaminhados para coleta" %>
-    <%= "#{sample.quantity} tubos de #{sample.category} #{date} - status: #{sample.status}" %>
-  </li>
-  <% end %>
-<ul></ul>
+  </div>
+  <%# END CARDS SECTION %>
+</div>

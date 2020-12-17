@@ -115,6 +115,7 @@
     <button class="btn btn-primary btn-lg no-print" id="printPageButton" onClick="window.print();">Imprimir Formulário</button>
     <%= link_to "Ver Amostras", samples_path,
             class: "btn btn-outline-primary mx-2 mt-2 no-print",
-            style:"border-radius: 50px; font-weight: bold;"%>
+            style:"border-radius: 50px; font-weight: bold;",
+            data: { turbolinks: "false" } %>
   </div>
 </div>
