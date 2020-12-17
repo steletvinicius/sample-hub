@@ -1,4 +1,4 @@
-<div class="container my-4">
+<div class="container my-5">
   <div class="d-flex justify-content-center">
     <h2>REMESSA <%= @batch.sender.institution %>-<%= @batch.id %>/<%= Date.today.year %></h2>
   </div>
@@ -9,7 +9,8 @@
     <%# INI SENDER OPTIONS %>
     <% if @batch.sent_at %> <%# if batch is sent render the sent date %>
       <p>Enviada em <%= date_mask(@batch.sent_at) %></p>
-    <% elsif sender?(current_user) || current_user.admin? %> <%# sender can edit sent date if batch has not been sent yet %>
+    <%# else, sender can submit the sent date %>
+    <% elsif sender?(current_user) || current_user.admin? %>
       <div class="d-flex align-items-end justify-content-between my-3">
         <div>
           <%= simple_form_for(@batch) do |f| %>
@@ -22,19 +23,21 @@
         <%= link_to 'adicionar amostras', samples_path, class: "btn btn-primary ml-3" %>
       </div>
     <% end %>
-
     <%# END SENDER OPTIONS  %>
+
     <%# INI RECEIVER OPTIONS %>
     <% if @batch.received_at %> <%# if batch is received, render the date %>
       <p>Recebida em <%= date_mask(@batch.received_at) %></p>
-    <% end %>
-    <%= simple_form_for(@batch) do |f| %>
-      <% if (receiver?(current_user) && @batch.sent_at) || current_user.admin? %> <%# receiver can edit received date after batch is sent %>
+    <%# else, receiver can edit received date, but only after batch is sent %>
+    <% elsif @batch.sent_at && (receiver?(current_user) || current_user.admin?) %>
+      <div class="d-flex align-items-end justify-content-start my-3">
+      <%= simple_form_for(@batch) do |f| %>
         <%= f.input :received_at, label: "Data do recebimento",
           as: :string, input_html: { class: "datepicker", required: true },
           error: 'Por favor selecione uma data'  %>
-        <%= f.button :submit, "confirmar recebimento", class: "btn btn-primary mb-4" %>
-      <% end %>
+        <%= f.button :submit, "confirmar", class: "btn btn-primary mb-4" %>
+      </div>
+    <% end %>
     <%# END RECEIVER OPTIONS %>
   </div>
   <%# END BATCH EDIT SECTION %>
@@ -44,7 +47,7 @@
   <hr>
   <div class="d-flex justify-content-between align-items-end">
     <h4>Amostras</h4>
-    <span class="mb-2 mr-1"><%= pluralize(@samples.count, 'amostra', plural: 'amostras') %></span>
+    <i class="mb-2 mr-1"><em>Total <%= pluralize(@samples.count, 'amostra', plural: 'amostras') %></em></i>
   </div>
   <table class="caption-top">
     <table class="table table-hover align-bottom">
@@ -95,10 +98,10 @@
               <% end %>
             </td>
             <% if receiver?(current_user) || current_user.admin? %>
-              <td>
+              <td  style="text-align: center;">
                 <input type="checkbox" class="chb-1" name="<%= sample.id %>-receiving" value="true" checked="true">
               </td>
-              <td>
+              <td  style="text-align: center;">
                 <input type="checkbox" class="chb-2" name="<%= sample.id %>-receiving" value="false">
               </td>
             <% end %>
