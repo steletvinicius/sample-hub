@@ -66,6 +66,14 @@ class BatchesController < ApplicationController
       end
     end
 
+    if params[:accepted].present?
+      sample = Sample.find(params[:accepted].to_i)
+      sample.status = "recebida"
+      if sample.save
+        redirect_to edit_batch_path(@batch) and return
+      end
+    end
+
     if @batch.received_at
       flash.alert = "ERRO: Essa remessa já foi recebida e não pode ser alterada"
       redirect_to edit_batch_path(@batch) and return
@@ -87,8 +95,8 @@ class BatchesController < ApplicationController
         @batch.receiver = @user
         @batch.received_at = received_at
         if @batch.save
-          received_samples = Sample.where(status: nil)
-          received_samples.each do |sample|
+          sent_samples = @batch.samples.where(status: "enviada")
+          sent_samples.each do |sample|
             sample.status = "recebida"
             sample.save
           end
