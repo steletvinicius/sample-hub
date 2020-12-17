@@ -3,7 +3,6 @@ const pluralizeJS = (count, singular, plural) =>
 `${count} ${count <= 1 ? singular : plural}`;
 
 
-// => BATCHES
 const initFilterTblBatches = () => {
     // Loop through all rows, and hide those that don't match criteria
     const table = document.getElementById("tblBatches");

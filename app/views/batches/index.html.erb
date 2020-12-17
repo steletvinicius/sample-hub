@@ -1,8 +1,9 @@
-<div class="container my-4">
+<% provide(:title, 'Remessas') %>
 
+<div class="container my-4">
   <h2>Remessas</h2>
 
-  <div class="my-2">
+  <div class="my-2 d-flex justify-content-end">
     <% if sender?(current_user) %>
       <%= link_to 'Criar nova remessa', samples_path, class: "btn btn-primary" %>
     <% end %>

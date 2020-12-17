@@ -1,15 +1,6 @@
 class BatchesController < ApplicationController
   def index
-    @batches = policy_scope(Batch).includes(:sender, :receiver).order(sent_at: :desc)
-    # sender can only view batch sent from his own institution
-    if current_user.role == 'Recepção' || current_user.admin?
-      @batches
-    elsif current_user.role == 'Envio' || current_user.role == 'Cadastro'
-      users = User.where(institution: current_user.institution)
-      @batches = Batch.select { |batch| users.include?(batch.sender) }
-    else
-      @batches = []
-    end
+    @batches = policy_scope(Batch)
     respond_to do |format|
       format.html
       format.json { render json: { batches: @batches } }
@@ -20,18 +11,24 @@ class BatchesController < ApplicationController
     @batch = Batch.new
     @user = current_user
     authorize @batch
-
     @batch.sender = @user
 
-    if @batch.save
-      params[:sample_ids].each do |sample_id|
-        sample = Sample.find(sample_id.to_i)
-        sample.batch = @batch
-        sample.save
+    if params[:sample_ids]
+      if @batch.save
+        params[:sample_ids].each do |sample_id|
+          sample = Sample.find(sample_id.to_i)
+          sample.batch = @batch
+          sample.save
+        end
+        flash.notice = "Remessa criada com sucesso!"
+        redirect_to edit_batch_path(@batch)
+      else
+        flash.alert = "ERRO: Você não tem autorização para criar uma remessa"
+        redirect_to samples_path and return
       end
-      redirect_to edit_batch_path(@batch)
     else
-      render samples_path
+      flash.alert = "ERRO: Uma remessa precisa conter pelo menos 1 amostra"
+      redirect_to samples_path
     end
   end
 
