@@ -30,7 +30,7 @@
                   <label>Médico responsável:</label>
                   <br>
                   <select class="select2 form-control text-center" placeholder="Nome..." name="sample[doctor_id]">
-                    <option disabled selected value> -------- Pesquise/Selecione - Doutor --------</option>
+                    <option disabled selected value> ---- Pesquise/Selecione - Doutor ----</option>
                     <% @doctors.each do |doctor| %>
                       <option value="<%= doctor.id %>">
                         <%= "#{doctor.first_name} #{doctor.last_name} - CRM #{doctor.crm}" %>
@@ -73,7 +73,6 @@
                   <label>Data da coleta:</label>
                   <input class="form-control my-form-control string optional datepicker flatpickr-input"
                                   type="hidden"
-                                  value="Insira a data da coleta"
                                   name="sample[collected_at]"
                                   id="sample_collected_at">
                 </div>

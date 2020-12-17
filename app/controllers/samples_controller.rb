@@ -33,22 +33,24 @@ class SamplesController < ApplicationController
   end
 
   def update
+    # raise
+    if sample_params[:collected_at] == ""
 
-    if sample_params[:collected_at] || sample_params[:quantity]
+      if @sample.update(sample_params)
+        # Criar funcao para cadastrar o exame
+        redirect_to sample_path(@sample) and return
+      else
+        flash.alert = "ERRO: Algo impediu a atualização da coleta!"
+        render :edit
+      end
+
+    elsif sample_params[:collected_at] && sample_params[:quantity]
       if @sample.update(sample_params)
         redirect_to samples_path and return
       else
-        flash.alert = "Algo impediu a atualização da coleta!"
+        flash.alert = "ERRO: Informe Data de Coleta e Quantidade!"
         redirect_to samples_path and return
       end
-    end
-
-    if @sample.update(sample_params)
-      # Criar funcao para cadastrar o exame
-      redirect_to sample_path(@sample)
-
-    else
-      render :edit
     end
   end
 

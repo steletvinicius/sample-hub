@@ -25,7 +25,7 @@ html {
 .my-form-control {
   height: calc(1.5em + 2px);
   text-align: center;
-  
+
 }
 #btn-tbl {
   padding: 5px;
@@ -39,7 +39,16 @@ html {
 
 .background-editable {
   background-color: rgba($color: #FFFFFF, $alpha: 0.5);
+}
 
 a {
   text-decoration: none;
+}
+
+@media print{
+  .no-print, .no-print *
+  {
+    display: none !important;
+  }
+
 }
