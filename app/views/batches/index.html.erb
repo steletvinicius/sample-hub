@@ -70,7 +70,8 @@
                 <%= link_to icon('far','trash-alt'), batch_path(batch),
                             method: :delete, remote: true,
                             data: { confirm: "Retirar amostras e apagar remessa #{batch.id}?" }, 
-                            :title => "apagar" %>
+                            :title => "apagar",
+                            style: "color: #b41728;" %>
               <%# sender can view if batch is sent %>
               <% elsif sender?(current_user) && batch.received_at.nil? %>
                 <%= link_to icon('fas','eye'), edit_batch_path(batch), :title => "ver remessa", data: { turbolinks: "false" }  %>
