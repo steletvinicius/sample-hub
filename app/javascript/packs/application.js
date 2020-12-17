@@ -34,12 +34,7 @@ import {
   filterTblBatchesUnsent, 
   filterTblBatchesSent 
 } from "../components/table_batches"
-
-import {
-  initFilterTblSamples,
-  filterTblSamplesCollected,
-  filterTblSamplesUncollected 
-} from "../components/table_samples"
+import { selectAll } from "../components/select_all"
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here:
@@ -52,9 +47,7 @@ document.addEventListener('turbolinks:load', () => {
   filterTblBatchesUnsent();
   filterTblBatchesSent();
 
-  initFilterTblSamples();
-  filterTblSamplesCollected();
-  filterTblSamplesUncollected();
+  selectAll();
 });
 
 // require('select2_simple_form');
