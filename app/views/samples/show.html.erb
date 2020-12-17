@@ -96,9 +96,11 @@
       <span>CRM: <%= @sample.doctor.crm%></span>
     </div>
   </div>
-
-
-
   <hr class="print">
-  <button class="btn btn-primary btn-lg no-print" id="printPageButton" onClick="window.print();">Salvar</button>
+  <div class="text-right">
+    <button class="btn btn-primary btn-lg no-print" id="printPageButton" onClick="window.print();">Imprimir Formulário</button>
+    <%= link_to "Ver Amostras", samples_path,
+            class: "btn btn-outline-primary mx-2 mt-2",
+            style:"border-radius: 50px; font-weight: bold;"%>
+  </div>
 </div>
