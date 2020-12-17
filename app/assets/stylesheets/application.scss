@@ -36,3 +36,7 @@ html {
   background: $primary;
   transition: background 0.3s ease;
 }
+
+.background-editable {
+  background-color: rgba($color: #FFFFFF, $alpha: 0.5);
+}
