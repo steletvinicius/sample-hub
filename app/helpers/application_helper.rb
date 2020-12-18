@@ -16,11 +16,11 @@ module ApplicationHelper
   # ONLY WORKS ON VIEWS - NOT FOR CONTROLLERS / PUNDIT POLICIES
   # checks if user role is sender or receiver to help customize views for each role
   def sender?(user)
-    user.role == 'Envio' || user.role == 'Cadastro'
+    user.role == 'Envio' || user.role == 'Cadastro' || user.admin
   end
 
   def receiver?(user)
-    user.role == 'Recepção'
+    user.role == 'Recepção' || user.admin
   end
 
   # customizes title of each view

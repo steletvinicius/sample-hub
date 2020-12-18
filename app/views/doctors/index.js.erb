@@ -1,0 +1,4 @@
+var container = document.getElementById("resultsDoctor")
+
+container.innerHTML = "";
+container.insertAdjacentHTML("beforeend", "<%= j render 'shared/form_doctor', doctor: Doctor.find(params[doctor_id]) %>");

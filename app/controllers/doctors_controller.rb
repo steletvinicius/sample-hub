@@ -1,6 +1,10 @@
 class DoctorsController < ApplicationController
   before_action :set_doctor, only: %i[edit update]
 
+  def index
+    @doctors = policy_scope(Doctor).order(first_name: :asc)
+  end
+
   def new
     @doctor = Doctor.new
     authorize @doctor
