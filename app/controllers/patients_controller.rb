@@ -2,7 +2,7 @@ class PatientsController < ApplicationController
   before_action :set_patient, only: %i[show]
 
   def index
-    @patients = policy_scope(Patient).order(created_at: :desc)
+    @patients = policy_scope(Patient).order(first_name: :asc)
     @patient = Patient.find(params["selectPatient"]) if params["selectPatient"].present?
   end
 

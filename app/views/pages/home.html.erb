@@ -10,4 +10,47 @@
 </div>
 
 <div class="container">
+  <% if user_signed_in? %>
+    <% if sender?(current_user) %>
+      <ul class="list-unstyled mt-5">
+        <div class="cards">
+          <li class="">
+            <%= link_to "Nova Amostra", new_sample_path,
+              class: "card-category",
+              style:"background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/assets/pipeta.jpg')" %>
+          </li>
+          <li class="">
+            <%= link_to "Amostras", samples_path,
+              class: "card-category",
+              style:"background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/assets/tubo.jpg')",
+              data: { turbolinks: "false" } %>
+          </li>
+          <li class="">
+            <%= link_to "Remessas", batches_path,
+              class: "card-category",
+              style:"background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/assets/tubozoom.jpg')",
+              data: { turbolinks: "false" } %>
+          </li>
+          <li class="">
+            <%= link_to "Pacientes", patients_path,
+              class: "card-category",
+              style:"background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/assets/pessoa.jpg')" %>
+          </li>
+        </div>
+      </ul>
+    <% else %>
+      <div>
+        <%= link_to "Remessas", batches_path,
+            class: "card-category mt-5 mx-auto",
+            style:"background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/assets/tubozoom.jpg'); width: 328px",
+            data: { turbolinks: "false" } %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="">
+      <%= link_to 'Login', new_user_session_path, 
+          class: "card-category mt-5 mx-auto",
+          style: "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/assets/logo-inca.png'); width: 328px" %>
+    </div>
+  <% end %>
 </div>

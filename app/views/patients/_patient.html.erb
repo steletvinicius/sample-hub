@@ -60,11 +60,13 @@
   <div class="d-flex flex-column">
     <% parentesco = patient.patient_type %>
     <% if parentesco == "not_relative" %>
-      <h4>Paciente não aparentado</h4>
+      <h4>Tipo: <strong>Receptor</strong></h4>
+      <p>Paciente não aparentado</p>
       <div style="width: 50px; height: 50px;"></div>
-      <div style="background-color: rgba(53, 53, 53, 0.1); min-width: 464px; border-radius: 8px; max-width: 690px; min-height: 291px;"></div>
+      <div style="background-color: rgba(53, 53, 53, 0.0); min-width: 464px; border-radius: 8px; max-width: 690px; min-height: 291px;"></div>
     <% elsif parentesco == "donor" %>
-      <h4>Possível doador para:</h4>
+      <h4>Tipo: <strong>Doador</strong></h4>
+      <p>Possíveis receptores: <%= patient.donors.count %></p>
       <div class="row">
           <%# INI CARDS CONTAINER %>
           <div class="d-flex flex-start flex-wrap align-items-start" 
@@ -76,6 +78,7 @@
                   <h3><%= family.receptor.first_name%> <%= family.receptor.last_name%></h3>
                   <p>Sexo <%= family.receptor.gender == "F" ? "feminino" : "masculino" %></p>
                   <p>Idade: <%= ((Time.zone.now - family.receptor.born_at.to_time) / 1.year.seconds).floor %></p>
+                  <p>Parentesco: <%= family.relationship %></p>
                   <br>
                   <p>Atualizado em <%= datetime_mask(family.receptor.updated_at) %></p>
                 </div>
@@ -85,7 +88,8 @@
           <%# END CARDS CONTAINER %>
       </div>
     <% elsif parentesco == "receptor" %>
-      <h4>Receptor com possíveis doadores:</h4>
+      <h4>Tipo: <strong>Receptor</strong></h4>
+      <p>Possíveis doadores: <%= patient.receptor.count %></p>
       <div class="row">
           <%# INI CARDS CONTAINER %>
           <div class="d-flex flex-start flex-wrap align-items-start" 
@@ -97,6 +101,7 @@
                   <h3><%= family.donor.first_name%> <%= family.donor.last_name%></h3>
                   <p>Sexo <%= family.donor.gender == "F" ? "feminino" : "masculino" %></p>
                   <p>Idade: <%= ((Time.zone.now - family.donor.born_at.to_time) / 1.year.seconds).floor %></p>
+                  <p>Parentesco: <%= family.relationship %></p>
                   <br>
                   <p>Atualizado em <%= datetime_mask(family.donor.updated_at) %></p>
                 </div>
