@@ -453,7 +453,7 @@ y = 0
         patient: all_patients[x-1],
         doctor: doctor,
         category: category,
-
+        status: "incompleta"
       )
     # Amostra da tabela da view samples#index 05
     else
@@ -479,66 +479,70 @@ samples = Sample.where.not(collected_at: nil).last(80)
 receivers = User.where(role: "Recepção")
 
 samples_batch_recebido_Hospital_lagoa = samples[0..7]
-
+senders = User.where(role: 'Envio', institution:"Hospital da Lagoa")
+date_sent = Date.today - 3
+date_received = Date.today
+batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
 samples_batch_recebido_Hospital_lagoa.each do |sample|
-  senders = User.where(role: 'Envio', institution:"Hospital da Lagoa")
-  date_sent = Date.today - 3
-  date_received = Date.today
-  batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
   sample.batch = batch
   sample.status = "recebida"
   sample.save!
 end
 
+
 samples_batch_recebido_Hospital_servidores = samples[8..15]
+senders = User.where(role: 'Envio', institution:"Hospital dos Servidores")
+date_sent = Date.today - 4
+date_received = Date.today - 1
+batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
+
 samples_batch_recebido_Hospital_servidores.each do |sample|
-  senders = User.where(role: 'Envio', institution:"Hospital dos Servidores")
-  date_sent = Date.today - 4
-  date_received = Date.today - 1
-  batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
   sample.batch = batch
+  sample.status = "recebida"
   sample.save!
 end
 
+
 samples_batch_recebido_INCA_1 = samples[16..23]
+senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
+date_sent = Date.today - 4
+date_received = Date.today - 1
+batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
+
 samples_batch_recebido_INCA_1.each do |sample|
-  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
-  date_sent = Date.today - 4
-  date_received = Date.today - 1
-  batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
   sample.batch = batch
   sample.status = "recebida"
   sample.save!
 end
 
 samples_batch_recebido_INCA_2 = samples[24..31]
+date_sent = Date.today - 5
+date_received = Date.today - 2
+batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
+
 samples_batch_recebido_INCA_2.each do |sample|
-  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
-  date_sent = Date.today - 5
-  date_received = Date.today - 2
-  batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
   sample.batch = batch
   sample.status = "recebida"
   sample.save!
 end
 
 samples_batch_recebido_INCA_3 = samples[32..39]
+date_sent = Date.today - 6
+date_received = Date.today - 3
+batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
+
 samples_batch_recebido_INCA_3.each do |sample|
-  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
-  date_sent = Date.today - 6
-  date_received = Date.today - 3
-  batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
   sample.batch = batch
   sample.status = "recebida"
   sample.save!
 end
 
 samples_batch_recebido_INCA_4 = samples[40..47]
+date_sent = Date.today - 7
+date_received = Date.today - 4
+batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
+
 samples_batch_recebido_INCA_4.each do |sample|
-  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
-  date_sent = Date.today - 7
-  date_received = Date.today - 4
-  batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
   sample.batch = batch
   sample.status = "recebida"
   sample.save!
@@ -547,22 +551,22 @@ end
 
 
 samples_batch_enviado_INCA_1 = samples[48..55]
+date_sent = Date.today -1
+date_received = Date.today
+batch = Batch.create(sender: senders.sample, sent_at: date_sent)
+
 samples_batch_enviado_INCA_1.each do |sample|
-  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
-  date_sent = Date.today -1
-  date_received = Date.today
-  batch = Batch.create(sender: senders.sample, sent_at: date_sent)
   sample.batch = batch
   sample.status = "enviada"
   sample.save!
 end
 
 samples_batch_enviado_INCA_2 = samples[56..63]
+date_sent = Date.today -1
+date_received = Date.today
+batch = Batch.create(sender: senders.sample, sent_at: date_sent)
+
 samples_batch_enviado_INCA_2.each do |sample|
-  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
-  date_sent = Date.today -1
-  date_received = Date.today
-  batch = Batch.create(sender: senders.sample, sent_at: date_sent)
   sample.batch = batch
   sample.status = "enviada"
   sample.save!
@@ -571,10 +575,10 @@ end
 
 
 samples_batch_naoenviado_INCA_1 = samples[64..71]
+date_sent = Date.today -1
+batch = Batch.create(sender: senders.sample)
+
 samples_batch_naoenviado_INCA_1.each do |sample|
-  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
-  date_sent = Date.today -1
-  batch = Batch.create(sender: senders.sample)
   sample.batch = batch
   sample.status = "coletada"
   sample.save!
@@ -582,10 +586,9 @@ end
 
 
 samples_batch_naoenviado_INCA_2 = samples[72..79]
+date_sent = Date.today -1
+batch = Batch.create(sender: senders.sample)
 samples_batch_naoenviado_INCA_2.each do |sample|
-  senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
-  date_sent = Date.today -1
-  batch = Batch.create(sender: senders.sample)
   sample.batch = batch
   sample.status = "coletada"
   sample.save!
@@ -593,245 +596,6 @@ end
 
 
 
-#### Batch 1 Hospital da Lagoa####
-# samples_out_of_batch
 
-# loop do
-#   sample = Sample.create(
-#     patient: Patient.find(x),
-#     doctor: Doctor.all.sample,
-#     collected_at: DateTime.now,
-#     quantity: rand(1..2),
-#     category: ["Sangue", "Soro", "Segmento de cordão"].sample,
-#     status: "enviada"
-#   )
+puts "Que exagero!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 
-#   sample.batch = batch
-#   sample.save!
-#   puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
-#   x += 1
-#   break if x > 15
-# end
-# puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
-
-# ### FIM - BATCH 1 ####
-
-# #### Batch 2 - Paciente/Amostra 16 ao 22 ####
-
-# senders = User.where(role: 'Envio')
-# date_sent = Date.today
-# batch = Batch.create(sender: senders.sample, sent_at: date_sent)
-
-# x = 16
-# loop do
-#   sample = Sample.create(
-#     patient: Patient.find(x),
-#     doctor: Doctor.all.sample,
-#     collected_at: DateTime.now,
-#     quantity: rand(1..2),
-#     category: ["Sangue", "Soro", "Segmento de cordão"].sample,
-#     status: "enviada"
-#   )
-
-#   sample.batch = batch
-#   sample.save!
-#   puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
-#   x += 1
-#   break if x > 22
-# end
-# puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
-# #### FIM - BATCH 2 ####
-
-# #### Batch 3 - Paciente/Amostra 23 ao 29 ####
-
-# senders = User.where(role: 'Envio')
-# receivers = User.where(role: "Recepção")
-# date_sent = Date.today
-# date_received = Date.today + 1
-# batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at: date_received, receiver: receivers.sample)
-
-# x = 23
-# loop do
-#   sample = Sample.create(
-#     patient: Patient.find(x),
-#     doctor: Doctor.all.sample,
-#     collected_at: DateTime.now,
-#     quantity: rand(1..2),
-#     category: ["Sangue", "Soro", "Segmento de cordão"].sample,
-#     status: "recebida"
-#   )
-
-#   sample.batch = batch
-#   sample.save!
-#   puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
-#   x += 1
-#   break if x > 29
-# end
-# puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
-# #### FIM - BATCH 3 ####
-
-# #### Batch 4 - Paciente/Amostra 30 ao 36 ####
-
-# senders = User.where(role: 'Envio')
-# receivers = User.where(role: "Recepção")
-# date_sent = Date.today
-# date_received = Date.today + 1
-# batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at: date_received, receiver: receivers.sample)
-
-# x = 30
-# loop do
-#   sample = Sample.create(
-#     patient: Patient.find(x),
-#     doctor: Doctor.all.sample,
-#     collected_at: DateTime.now,
-#     quantity: rand(1..2),
-#     category: ["Sangue", "Soro", "Segmento de cordão"].sample,
-#     status: "rejeitada"
-#   )
-
-#   sample.batch = batch
-#   sample.save!
-#   puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
-#   x += 1
-#   break if x > 36
-# end
-# puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
-# #### FIM - BATCH 4 ####
-
-# #### Batch 5 - Paciente/Amostra 37 ao 43 ####
-
-# senders = User.where(role: 'Envio')
-# batch = Batch.create(sender: senders.sample)
-
-# x = 37
-# loop do
-#   sample = Sample.create(
-#     patient: Patient.find(x),
-#     doctor: Doctor.all.sample,
-#     collected_at: DateTime.now,
-#     quantity: rand(1..2),
-#     category: ["Sangue", "Soro", "Segmento de cordão"].sample,
-#     status: "rejeitada"
-#   )
-
-#   sample.batch = batch
-#   sample.save!
-#   puts "Put sample [#{sample.id}] collected on #{sample.collected_at} into batch [#{sample.batch.id}]"
-#   x += 1
-#   break if x > 43
-# end
-# puts "...Created #{Sample.count} samples a batch [#{sample.batch.id}]. SAMPLES DONE!"
-# #### FIM - BATCH 5 ####
-
-# puts " "
-# puts "Creating exams..."
-# 10.times do
-#   exam = Exam.create(
-#     sample: Sample.all.sample,
-#     procedure: Procedure.all.sample
-#   )
-#   # puts "Created exam id #{exam.id} to sample #{exam.sample.id} with procedure #{exam.procedure.id}"
-# end
-
-# puts "...Created #{Exam.count} exams. EXAMS DONE!"
-
-# puts " "
-# puts "FINISHED SEEDING!"
-# puts " "
-
-
-
-
-
-
-
-
-
-
-
-# patient = Patient.create(
-#   first_name: "Ana",
-#   last_name: "Milena",
-#   gender: "F",
-#   patient_type: "donor",
-#   born_at: Faker::Date.birthday,
-#   address: "Brasília, Distrito Federal, Brasil",
-#   cpf: Faker::CPF.numeric,
-#   sus_code: Faker::Number.number(digits: 15)
-# )
-# # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
-
-# patient = Patient.create(
-#   first_name: "João",
-#   last_name: "Francisco",
-#   gender: "M",
-#   patient_type: "receptor",
-#   born_at: Faker::Date.birthday,
-#   address: "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil",
-#   cpf: Faker::CPF.numeric,
-#   sus_code: Faker::Number.number(digits: 15)
-# )
-# # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
-
-# patient = Patient.create(
-#   first_name: "Marya",
-#   last_name: "Jullyane",
-#   gender: "F",
-#   patient_type: "receptor",
-#   born_at: Faker::Date.birthday,
-#   address: "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil",
-#   cpf: Faker::CPF.numeric,
-#   sus_code: Faker::Number.number(digits: 15)
-# )
-# # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
-
-# patient = Patient.create(
-#   first_name: "Junior",
-#   last_name: "Olimpio",
-#   gender: "M",
-#   patient_type: "donor",
-#   born_at: Faker::Date.birthday,
-#   address: "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
-#   cpf: Faker::CPF.numeric,
-#   sus_code: Faker::Number.number(digits: 15)
-# )
-# # puts "Created patient [#{patient.id}] #{patient.first_name} by #{patient.last_name}"
-
-# patient = Patient.create(
-#   first_name: "Leia",
-#   last_name: "Silva",
-#   gender: "F",
-#   patient_type: "receptor",
-#   born_at: Faker::Date.birthday,
-#   address: "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
-#   cpf: Faker::CPF.numeric,
-#   sus_code: Faker::Number.number(digits: 15)
-# )
-
-# patient = Patient.create(
-#   first_name: "Evandro",
-#   last_name: "Souza",
-#   gender: "M",
-#   patient_type: "receptor",
-#   born_at: Faker::Date.birthday,
-#   address: "Catetinho, Park Way, Distrito Federal, Brasil",
-#   cpf: Faker::CPF.numeric,
-#   sus_code: Faker::Number.number(digits: 15)
-# )
-
-
-
-
-# 38.times do
-#   patient = Patient.create(
-#     first_name: Faker::Name.first_name,
-#     last_name: Faker::Name.last_name,
-#     gender: ["M", "F"].sample,
-#     patient_type: ["receptor", "donor", "not_relative"].sample,
-#     born_at: Faker::Date.birthday,
-#     address: ["Catetinho, Park Way, Distrito Federal, Brasil",
-#               "SCN Quadra 2, Brasília, Distrito Federal, Brasil",
-#               "Parque da Cidade Dona Sarah Kubitschek, Brasília, Distrito Federal, Brasil"].sample,
-#     cpf: Faker::CPF.numeric,
-#     sus_code: Faker::Number.number(digits: 15)
-#   )
