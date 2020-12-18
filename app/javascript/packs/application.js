@@ -35,13 +35,14 @@ import {
   filterTblBatchesSent 
 } from "../components/table_batches"
 import { selectAll } from "../components/select_all"
+import { initAutocomplete } from "../plugins/init_autocomplete"
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here:
   initFlatpickr();
   initSelect2();
   initCheckBox();
-  
+  initAutocomplete();
   initFilterTblBatches();
   filterTblBatchesReceived();
   filterTblBatchesUnsent();

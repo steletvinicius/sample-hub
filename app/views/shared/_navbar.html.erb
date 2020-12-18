@@ -23,11 +23,6 @@
               style:"border-radius: 50px; font-weight: bold;",
               data: { turbolinks: "false" } %>
           </li>
-          <li class="nav-item">
-            <%= link_to "Pacientes", patients_path,
-              class: "btn btn-outline-primary mx-2 mt-2",
-              style:"border-radius: 50px; font-weight: bold;" %>
-          </li>
         <% end %>
         <li class="nav-item">
           <%= link_to "Remessas", batches_path,
@@ -35,6 +30,13 @@
             style:"border-radius: 50px; font-weight: bold;",
             data: { turbolinks: "false" } %>
         </li>
+        <% if sender?(current_user) %>
+          <li class="nav-item">
+            <%= link_to "Pacientes", patients_path,
+              class: "btn btn-outline-primary mx-2 mt-2",
+              style:"border-radius: 50px; font-weight: bold;" %>
+          </li>
+        <% end %>
         <li class="nav-item dropdown">
           <div class="hello-user  dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <span style="font-size: 13px">Olá, <%= current_user.first_name %><br></span>

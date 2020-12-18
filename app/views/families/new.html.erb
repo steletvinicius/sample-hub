@@ -7,8 +7,8 @@
         <% if @patients.present? %>
           <form id="search-patient" class="text-left" action="/families" method="post">
 
-            <div class="form-group col-12">
-              <h4 class="text-center my-3">Busque um receptor cadastrado</h4>
+            <div class="text-center form-group col-12">
+              <h4 class="my-3">Busque um receptor cadastrado</h4>
               <select class="select2 form-control" placeholder="Nome..." name="family[receptor_id]" required="true">
                 <option disabled selected value> --- Pesquise / Selecione  --- </option>
                 <% @patients.each do |patient| %>
@@ -27,23 +27,27 @@
       <div id="new-patient" class="d-flex flex-column border border-light rounded p-2 background-editable shadow">
             <div class="col-12">
               <div class="row">
-                <div class="form-group col">
-                  <h4 class="text-center my-3">Selecione o grau de parentesco do seu doador</h4>
-                  <select class="select2 form-control" placeholder="Nome..." name="family[relationship]" required="true">
-                    <option disabled selected value> --- Pesquise / Selecione  --- </option>
-                      <% ["MÃE/PAI", "IRMÃO/IRMÃ", "FILHO/FILHA", "CÔNJUGE", "COMPANHEIRA/COMPANHEIRO", "AVÔ/AVÓ", "PRIMO/PRIMA", "TIO/TIA", "OUTRO"].each do |relation| %>
-                      <option value="<%= relation %>">
-                        <%= relation %>
-                      </option>
-                    <% end %>
-                  </select>
+                <div class="text-center form-group col">
+                  <h4 class="my-3">Selecione o grau de parentesco do seu doador</h4>
+                  <div class="d-flex justify-content-center">
+                    <div class="mr-3">
+                      <select class="select2 form-control" placeholder="Nome..." name="family[relationship]" required="true">
+                        <option disabled selected value> --- Pesquise / Selecione  --- </option>
+                          <% ["MÃE/PAI", "IRMÃO/IRMÃ", "FILHO/FILHA", "CÔNJUGE", "COMPANHEIRA/COMPANHEIRO", "AVÔ/AVÓ", "PRIMO/PRIMA", "TIO/TIA", "OUTRO"].sort.each do |relation| %>
+                          <option value="<%= relation %>">
+                            <%= relation %>
+                          </option>
+                        <% end %>
+                      </select>
+                    </div>
+                    <div class="ml-3">
+                      <input type="submit" class="btn btn-primary mb-2 mr-5" value="Cadastrar parentesco">
+                    </div>
+                  </div>
                 </div>
               </div>
               <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
               <%= hidden_field_tag "family[donor_id]", @patient.id %>
-              <div class="text-left">
-                <input type="submit" class="btn btn-primary mb-2 mr-5" value="Cadastrar parentesco">
-              </div>
             </div>
           </form>
         <hr>
