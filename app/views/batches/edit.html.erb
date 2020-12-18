@@ -3,7 +3,7 @@
     <h2>REMESSA <%= @batch.sender.institution %> - <%= @batch.id %>/<%= Date.today.year %></h2>
   </div>
   <div class="d-flex justify-content-end">
-    <span class="btn btn-outline-primary" style="font-size: 20px; font-weight: bold;">
+    <span class="btn btn-secondary" style="font-size: 20px; font-weight: bold;">
       Situação: <%= @status %>
     </span>
   </div>
@@ -14,7 +14,7 @@
       <p>Enviada em <%= date_mask(@batch.sent_at) %></p>
     <%# else, sender can submit the sent date %>
     <% elsif sender?(current_user) || current_user.admin? %>
-      <div class="d-flex align-items-end justify-content-between my-3">
+      <div class="d-flex align-items-end justify-content-between mt-3">
         <div>
           <%= simple_form_for(@batch) do |f| %>
             <%= f.input :sent_at, label: "Data do envio", 
@@ -31,14 +31,14 @@
     <%# INI RECEIVER OPTIONS %>
     <% if @batch.received_at %> <%# if batch is received, render the date %>
       <p>Recebida em <%= date_mask(@batch.received_at) %></p>
-    <%# else, receiver can edit received date, but only after batch is sent %>
+    <%# else, if batch is sent receiver can edit received date %>
     <% elsif @batch.sent_at && (receiver?(current_user) || current_user.admin?) %>
-      <div class="d-flex align-items-end justify-content-start my-3">
+      <div class="d-flex align-items-end justify-content-start mt-3">
         <%= simple_form_for(@batch) do |f| %>
           <%= f.input :received_at, label: "Data do recebimento",
                       as: :string, input_html: { class: "datepicker", required: true },
                       error: 'Por favor selecione uma data'  %>
-          <%= f.button :submit, "confirmar", class: "btn btn-primary mb-4" %>
+          <%= f.button :submit, "confirmar", class: "btn btn-primary" %>
         <% end %>
       </div>
     <% end %>
@@ -49,9 +49,9 @@
   <%# INI ACCEPTED SAMPLES TABLE %>
   <div class="d-flex justify-content-between align-items-end">
     <h4>Amostras</h4>
-    <% sent_samples = @samples.where("status = ? OR status = ?", "enviada", "recebida") %>
+    <% samples = @samples.where.not(status: "rejeitada") %>
     <i class="mb-2 mr-1">
-      <em>Total <%= pluralize(sent_samples.count, 'amostra', plural: 'amostras') %></em>
+      <em>Total <%= pluralize(samples.count, 'amostra', plural: 'amostras') %></em>
     </i>
   </div>
   <table>
@@ -68,7 +68,7 @@
         </tr>
       </thead>
       <tbody style="background-color: white;">
-        <% sent_samples.each do |sample| %>
+        <% samples.each do |sample| %>
           <tr>
             <th scope="row"><%= sample.id %></th>
             <td><%= "#{sample.patient.first_name} #{sample.patient.last_name}" %></td>
@@ -88,7 +88,7 @@
 
             <%# INI ACTION LINKS %>
             <td style="text-align: center;">
-              <% if sender?(current_user) && @batch.sent_at.nil? && @batch.received_at.nil? || current_user.admin? %>
+              <% if (sender?(current_user) || current_user.admin?) && @batch.sent_at.nil? && @batch.received_at.nil? %>
                 <%= link_to icon('fas','edit'), edit_sample_path(sample), :title => "editar amostra" %>
                 <%= link_to icon('fas','minus-circle'), batch_path(batch: { sample_id: sample.id }),
                             method: :put, :title => "remover da remessa", remote: true %>
@@ -96,7 +96,7 @@
                 <%= link_to icon('far','eye'), edit_sample_path(sample), :title => "ver amostra" %>
               <% end %>
 
-              <% if receiver?(current_user) && @batch.received_at.nil? || current_user.admin? %>
+              <% if (receiver?(current_user) || current_user.admin?) && @batch.sent_at && @batch.received_at.nil? %>
                   <%= link_to  icon('far','trash-alt'), batch_path(@batch, rejected: sample),
                                 method: :patch,
                                 data: { confirm: "Rejeitar amostra #{sample.id} ?" },
