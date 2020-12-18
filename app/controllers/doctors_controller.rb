@@ -1,42 +1,56 @@
 class DoctorsController < ApplicationController
-  before_action :set_doctor, only: %i[edit update]
-
   def index
     @doctors = policy_scope(Doctor).order(first_name: :asc)
+    if params[:id]
+      @doctor_set = Doctor.find(params[:id])
+      authorize @doctor_set
+    end
+    @doctor_new = Doctor.new
+    authorize @doctor_new
   end
 
   def new
-    @doctor = Doctor.new
-    authorize @doctor
+    @doctors = policy_scope(Doctor).order(first_name: :asc)
+    if params[:id]
+      @doctor_set = Doctor.find(params[:id])
+      authorize @doctor_set
+    end
+    @doctor_new = Doctor.new
+    authorize @doctor_new
   end
 
   def create
-    @doctor = Doctor.new(doctor_params)
-    authorize @doctor
-    if @doctor.save
+    @doctor_new = Doctor.new(doctor_params)
+    authorize @doctor_new
+    if @doctor_new.save
       # precisa trocar esse path para samples ou alguma outra coisa
-      redirect_to root_path
+      redirect_to doctors_path
     else
-      render :new
+      render :index
     end
   end
 
-  def edit; end
+  def edit
+    @doctors = policy_scope(Doctor).order(first_name: :asc)
+    if params[:id]
+      @doctor_set = Doctor.find(params[:id])
+      authorize @doctor_set
+    end
+    @doctor_new = Doctor.new
+    authorize @doctor_new
+  end
 
   def update
+    @doctor_set = Doctor.find(params[:id])
+    authorize @doctor_set
     if @doctor.update(doctor_params)
-      redirect_to root_path
+      redirect_to doctors_path
     else
-      render :edit
+      render :index
     end
   end
 
   private
-
-  def set_doctor
-    @doctor = Doctor.find(params[:id])
-    authorize @doctor
-  end
 
   def doctor_params
     params.require(:doctor).permit(:first_name, :last_name, :crm)
