@@ -1,11 +1,14 @@
 <div class="footer">
   <div class="footer-links">
-    <%= link_to "Sample Hub", root_path %>
+    <%= link_to "Sobre o Sample Hub", root_path %>
     <a href="https://www.inca.gov.br/">Inca</a>
   </div>
   <div class="footer-copyright">
-    <span>
-    Facilite sua vida e evite retrabalho. Uma iniciativa do Instituto Nacional de Câncer.
+    <span style="font-size: 0.8rem; opacity: 0.5;">
+      <em>Facilite sua vida e evite retrabalho. Uma iniciativa do Instituto Nacional de Câncer.</em>
     </span>
+    <%= link_to 'https://www.gov.br/pt-br' do %>
+      <%= image_tag "logo-gov.png", style: "width: 90px; margin-left: 10px;" %>
+    <% end %>
   </div>
 </div>
