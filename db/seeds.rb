@@ -155,7 +155,7 @@ cpf[0-2] = rand(100...999).to_s
 
 sender = User.create!(
   first_name: 'Ana',
-  last_name: 'Secretária',
+  last_name: 'Pontes',
   email: 'ana@envio.com',
   password: '123456',
   role: 'Envio',
@@ -198,9 +198,9 @@ cpf = Faker::CPF.numeric
 cpf[0-2] = rand(100...999).to_s
 
 cadastro = User.create!(
-  first_name: 'José',
-  last_name: 'Silva',
-  email: 'jose@hospitaldalagoa.gov.br',
+  first_name: 'Henrique',
+  last_name: "Craveiro",
+  email: 'henrique@hospitaldalagoa.gov.br',
   password: '123456',
   role: 'Envio',
   institution: 'Hospital da Lagoa',
@@ -213,9 +213,9 @@ cpf = Faker::CPF.numeric
 cpf[0-2] = rand(100...999).to_s
 
 cadastro = User.create!(
-  first_name: 'João',
-  last_name: 'Sousa',
-  email: 'jose@hospitaldosservidores.gov.br',
+  first_name: 'Alberto',
+  last_name: 'Oliveira',
+  email: 'albert@hospitaldosservidores.gov.br',
   password: '123456',
   role: 'Envio',
   institution: 'Hospital dos Servidores',
@@ -461,7 +461,7 @@ y = 0
         patient: all_patients[x-1],
         doctor: doctor,
         category: category,
-        status: "incompleta"
+        status: "criada"
       )
     end
     y += 1
@@ -476,9 +476,16 @@ puts "...Created #{Sample.count} samples without a batch. SAMPLES DONE!"
 
 samples = Sample.where.not(collected_at: nil).last(80)
 
+
+### 15 Amostras para os cards #######
+
+
+### Amostras para os batches #######
 receivers = User.where(role: "Recepção")
 
-samples_batch_recebido_Hospital_lagoa = samples[0..7]
+### Batch com 6 amostras #######
+# samples_batch_recebido_Hospital_lagoa = samples[0..7]
+samples_batch_recebido_Hospital_lagoa = samples[0..5]
 senders = User.where(role: 'Envio', institution:"Hospital da Lagoa")
 date_sent = Date.today - 3
 date_received = Date.today
@@ -490,7 +497,8 @@ samples_batch_recebido_Hospital_lagoa.each do |sample|
 end
 
 
-samples_batch_recebido_Hospital_servidores = samples[8..15]
+### Batch com 5 amostras #######
+samples_batch_recebido_Hospital_servidores = samples[8..12]
 senders = User.where(role: 'Envio', institution:"Hospital dos Servidores")
 date_sent = Date.today - 4
 date_received = Date.today - 1
@@ -502,8 +510,8 @@ samples_batch_recebido_Hospital_servidores.each do |sample|
   sample.save!
 end
 
-
-samples_batch_recebido_INCA_1 = samples[16..23]
+### Batch com 4 amostras #######
+samples_batch_recebido_INCA_1 = samples[16..19]
 senders = User.where(role: 'Envio', institution:"Instituto Nacional de Câncer")
 date_sent = Date.today - 4
 date_received = Date.today - 1
@@ -515,6 +523,8 @@ samples_batch_recebido_INCA_1.each do |sample|
   sample.save!
 end
 
+
+### Batch com 8 amostras #######
 samples_batch_recebido_INCA_2 = samples[24..31]
 date_sent = Date.today - 5
 date_received = Date.today - 2
@@ -526,7 +536,10 @@ samples_batch_recebido_INCA_2.each do |sample|
   sample.save!
 end
 
-samples_batch_recebido_INCA_3 = samples[32..39]
+
+
+### Batch com 3 amostras #######
+samples_batch_recebido_INCA_3 = samples[32..34]
 date_sent = Date.today - 6
 date_received = Date.today - 3
 batch = Batch.create(sender: senders.sample, sent_at: date_sent, received_at:date_received, receiver: receivers.sample)
@@ -537,6 +550,7 @@ samples_batch_recebido_INCA_3.each do |sample|
   sample.save!
 end
 
+### Batch com 8 amostras #######
 samples_batch_recebido_INCA_4 = samples[40..47]
 date_sent = Date.today - 7
 date_received = Date.today - 4
@@ -548,9 +562,8 @@ samples_batch_recebido_INCA_4.each do |sample|
   sample.save!
 end
 
-
-
-samples_batch_enviado_INCA_1 = samples[48..55]
+### Batch com 2 amostras #######
+samples_batch_enviado_INCA_1 = samples[48..49]
 date_sent = Date.today -1
 date_received = Date.today
 batch = Batch.create(sender: senders.sample, sent_at: date_sent)
@@ -561,7 +574,9 @@ samples_batch_enviado_INCA_1.each do |sample|
   sample.save!
 end
 
-samples_batch_enviado_INCA_2 = samples[56..63]
+
+### Batch com 4 amostras #######
+samples_batch_enviado_INCA_2 = samples[56..59]
 date_sent = Date.today -1
 date_received = Date.today
 batch = Batch.create(sender: senders.sample, sent_at: date_sent)
@@ -573,8 +588,8 @@ samples_batch_enviado_INCA_2.each do |sample|
 end
 
 
-
-samples_batch_naoenviado_INCA_1 = samples[64..71]
+### Batch com 7 amostras #######
+samples_batch_naoenviado_INCA_1 = samples[64..70]
 date_sent = Date.today -1
 batch = Batch.create(sender: senders.sample)
 
@@ -585,7 +600,8 @@ samples_batch_naoenviado_INCA_1.each do |sample|
 end
 
 
-samples_batch_naoenviado_INCA_2 = samples[72..79]
+### Batch com 6 amostras #######
+samples_batch_naoenviado_INCA_2 = samples[72..77]
 date_sent = Date.today -1
 batch = Batch.create(sender: senders.sample)
 samples_batch_naoenviado_INCA_2.each do |sample|
@@ -593,7 +609,6 @@ samples_batch_naoenviado_INCA_2.each do |sample|
   sample.status = "coletada"
   sample.save!
 end
-
 
 
 
