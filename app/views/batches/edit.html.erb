@@ -49,7 +49,7 @@
   <%# INI ACCEPTED SAMPLES TABLE %>
   <div class="d-flex justify-content-between align-items-end">
     <h4>Amostras</h4>
-    <% samples = @samples.where.not(status: "rejeitada") %>
+    <% samples = @samples.where.not(status: "rejeitada").order(:id) %>
     <i class="mb-2 mr-1">
       <em>Total <%= pluralize(samples.count, 'amostra', plural: 'amostras') %></em>
     </i>
@@ -69,7 +69,7 @@
       </thead>
       <tbody style="background-color: white;">
         <% samples.each do |sample| %>
-          <tr>
+          <tr id="sample-<%= sample.id %>">
             <th scope="row"><%= sample.id %></th>
             <td><%= "#{sample.patient.first_name} #{sample.patient.last_name}" %></td>
 
@@ -114,7 +114,7 @@
   <%# END ACCEPTED SAMPLES TABLE %>
 
   <%# INI REJECTED SAMPLES TABLE %>
-  <% rejected_samples = @samples.where(status: 'rejeitada') %>
+  <% rejected_samples = @samples.where(status: 'rejeitada').order(:id) %>
   <% if rejected_samples.count > 0 %>
 
     <div class="d-flex justify-content-between align-items-end">
@@ -138,7 +138,7 @@
         </thead>
         <tbody style="background-color: white;">
           <% rejected_samples.each do |sample| %>
-            <tr>
+            <tr  id="sample-<%= sample.id %>">
               <th scope="row"><%= sample.id %></th>
               <td><%= "#{sample.patient.first_name} #{sample.patient.last_name}" %></td>
 
