@@ -1,4 +1,5 @@
 class BatchesController < ApplicationController
+  # GET /batches              batches_path
   def index
     @batches = policy_scope(Batch)
     respond_to do |format|
@@ -7,12 +8,14 @@ class BatchesController < ApplicationController
     end
   end
 
+  # POST /batches             batches_path
   def create
     @batch = Batch.new
     @user = current_user
     authorize @batch
     @batch.sender = @user
 
+    # receives array of samples and sets batch_id on each sample
     if params[:sample_ids]
       if @batch.save
         params[:sample_ids].each do |sample_id|
@@ -32,6 +35,7 @@ class BatchesController < ApplicationController
     end
   end
 
+  # GET /batches/:id/edit     edit_batch_path
   def edit
     set_batch
     authorize @batch
@@ -45,40 +49,45 @@ class BatchesController < ApplicationController
     end
   end
 
+  # PATCH+PUT /batches/:id    batch_path
   def update
     set_batch
     @user = current_user
     authorize @batch
 
-    if params[:batch].present? && params[:batch][:sample_id].present?
-      sample = Sample.find(params[:batch][:sample_id].to_i)
-      sample.batch = nil
-      sample.save
-      redirect_to edit_batch_path(@batch) and return
-    end
-
-    if params[:rejected].present?
-      sample = Sample.find(params[:rejected].to_i)
-      sample.status = "rejeitada"
-      if sample.save
-        flash.notice = "Amostra #{sample.id} rejeitada com sucesso"
-        redirect_to edit_batch_path(@batch) and return
-      end
-    end
-
-    if params[:accepted].present?
-      sample = Sample.find(params[:accepted].to_i)
-      sample.status = "recebida"
-      if sample.save
-        redirect_to edit_batch_path(@batch) and return
-      end
-    end
-
+    # Prevents any update if the batch has been marked as received
     if @batch.received_at
       flash.alert = "ERRO: Essa remessa já foi recebida e não pode ser alterada"
       redirect_to edit_batch_path(@batch) and return
     end
 
+    # Removes 1 sample from the batch before it is sent to the lab
+    if params[:batch].present? && params[:batch][:sample_id].present?
+      sample = Sample.find(params[:batch][:sample_id].to_i)
+      sample.batch = nil
+      sample.save
+      redirect_to edit_batch_path(@batch, anchor: "sample-#{sample.id}") and return
+    end
+
+    # Rejects 1 sample on the batch after it was sent and before it is received
+    if params[:rejected].present?
+      sample = Sample.find(params[:rejected].to_i)
+      sample.status = "rejeitada"
+      if sample.save
+        redirect_to edit_batch_path(@batch, anchor: "sample-#{sample.id}") and return
+      end
+    end
+
+    # Accepts 1 sample on the batch after it was sent and before it is received
+    if params[:accepted].present?
+      sample = Sample.find(params[:accepted].to_i)
+      sample.status = "enviada"
+      if sample.save
+        redirect_to edit_batch_path(@batch, anchor: "sample-#{sample.id}") and return
+      end
+    end
+
+    # Updates RECEIVED_AT and updates final status of the samples on the batch
     if batch_params.has_key?(:received_at)
       received_at = batch_params[:received_at].to_datetime
 
@@ -109,6 +118,7 @@ class BatchesController < ApplicationController
       end
     end
 
+    # Updates SENT_AT and updates status of the samples as sent
     if batch_params.has_key?(:sent_at)
       sent_at = batch_params[:sent_at].to_datetime
 
@@ -124,13 +134,14 @@ class BatchesController < ApplicationController
       elsif Sample.where("batch_id = ? AND collected_at = ?", @batch, nil).count > 0
         flash.alert = "ERRO: Essa remessa contém amostras sem data de coleta"
         redirect_to edit_batch_path(@batch) and return
+      # INSERIR MENSAGEM DE ERRO PARA SAMPLE SEM QUANTIDADE DE TUBOS
       else
         @batch.sender = @user
         @batch.sent_at = sent_at
         if @batch.save
-          @batch.samples.each do |samp|
-            samp.status = "enviada"
-            samp.save
+          @batch.samples.each do |sample|
+            sample.status = "enviada"
+            sample.save
           end
           flash.notice = "Envio da remessa confirmado com sucesso. Obrigado!"
           redirect_to edit_batch_path(@batch) and return
@@ -142,6 +153,7 @@ class BatchesController < ApplicationController
     end
   end
 
+  # DELETE /batches/:id       batch_path
   def destroy
     set_batch
     authorize @batch
