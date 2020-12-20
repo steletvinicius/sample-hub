@@ -1,15 +1,17 @@
 class SamplesController < ApplicationController
-  before_action :set_sample, only: %i[edit update]
+  before_action :set_sample, only: %i[show edit update]
 
+  # GET /samples              samples_path
   def index
     @samples = policy_scope(Sample).where(batch_id: nil).order(updated_at: :desc)
   end
 
+  # GET /samples/:id          sample_path
   def show
-    @sample = Sample.find(params[:id])
     authorize @sample
   end
 
+  # GET /samples/new          new_sample_path
   def new
     @sample = Sample.new
     @patient = Patient.new
@@ -17,6 +19,7 @@ class SamplesController < ApplicationController
     @patients = policy_scope(Patient).order(created_at: :desc)
   end
 
+  # POST /samples             samples_path
   def create
     @sample = Sample.new
     @sample.patient = Patient.find(params[:patient_id].to_i) if params[:patient_id]
@@ -28,16 +31,17 @@ class SamplesController < ApplicationController
     end
   end
 
+  # GET /samples/:id/edit     edit_sample_path
   def edit
     @doctors = policy_scope(Doctor).order(first_name: :asc)
   end
 
+  # PATCH+PUT /samples/:id    sample_path
   def update
-    # raise
+    # Criar funcao para cadastrar o exame na amostra?
+    # updates COLLECTED_AT and QUANTITY from SAMPLES INDEX VIEW
     if sample_params[:collected_at] == ""
-
       if @sample.update(sample_params)
-        # Criar funcao para cadastrar o exame
         redirect_to sample_path(@sample) and return
       else
         flash.alert = "ERRO: Algo impediu a atualização da coleta!"
@@ -52,12 +56,26 @@ class SamplesController < ApplicationController
         redirect_to samples_path and return
       end
     end
+
+    # updates STATUS from BATCH EDIT VIEW
+    # updates REJECTION_COMMENT from BATCH EDIT VIEW
+    unless @sample.batch_id.nil?
+      @batch = Batch.find(@sample.batch_id)
+
+      if @sample.update(sample_params)
+        redirect_to edit_batch_path(@batch)
+      else
+        flash.alert = "Não foi possível atualizar essas informações"
+        redirect_to edit_batch_path(@batch)
+      end
+    end
   end
 
+  # ----------------------------------------------------------------------------
   private
 
   def sample_params
-    params.require(:sample).permit(:patient_id, :doctor_id, :collected_at, :category, :quantity, :observation, :status)
+    params.require(:sample).permit(:patient_id, :doctor_id, :collected_at, :category, :quantity, :observation, :status, :rejection_comment)
   end
 
   def set_sample

@@ -1,4 +1,5 @@
 class BatchesController < ApplicationController
+  before_action :set_batch, only: [:edit, :update, :destroy]
   # GET /batches              batches_path
   def index
     @batches = policy_scope(Batch)
@@ -37,7 +38,6 @@ class BatchesController < ApplicationController
 
   # GET /batches/:id/edit     edit_batch_path
   def edit
-    set_batch
     authorize @batch
     @samples = Sample.where(batch: @batch)
     if @batch.received_at
@@ -51,12 +51,11 @@ class BatchesController < ApplicationController
 
   # PATCH+PUT /batches/:id    batch_path
   def update
-    set_batch
     @user = current_user
     authorize @batch
 
     # Prevents any update if the batch has been marked as received
-    if @batch.received_at
+    unless @batch.received_at.nil?
       flash.alert = "ERRO: Essa remessa já foi recebida e não pode ser alterada"
       redirect_to edit_batch_path(@batch) and return
     end
@@ -66,7 +65,7 @@ class BatchesController < ApplicationController
       sample = Sample.find(params[:batch][:sample_id].to_i)
       sample.batch = nil
       sample.save
-      redirect_to edit_batch_path(@batch, anchor: "sample-#{sample.id}") and return
+      redirect_to edit_batch_path(@batch) and return
     end
 
     # Rejects 1 sample on the batch after it was sent and before it is received
@@ -74,16 +73,17 @@ class BatchesController < ApplicationController
       sample = Sample.find(params[:rejected].to_i)
       sample.status = "rejeitada"
       if sample.save
-        redirect_to edit_batch_path(@batch, anchor: "sample-#{sample.id}") and return
+        redirect_to edit_batch_path(@batch) and return
       end
     end
 
-    # Accepts 1 sample on the batch after it was sent and before it is received
+    # Erases rejection of a sample on the batch after it was sent and before it is received
     if params[:accepted].present?
       sample = Sample.find(params[:accepted].to_i)
       sample.status = "enviada"
+      sample.rejection_comment = nil
       if sample.save
-        redirect_to edit_batch_path(@batch, anchor: "sample-#{sample.id}") and return
+        redirect_to edit_batch_path(@batch) and return
       end
     end
 
@@ -155,7 +155,6 @@ class BatchesController < ApplicationController
 
   # DELETE /batches/:id       batch_path
   def destroy
-    set_batch
     authorize @batch
     if @batch.received_at
       redirect_to edit_batch_path(@batch), alert: "ERRO: Essa remessa já foi recebida e não pode ser alterada"
