@@ -1,6 +1,6 @@
-<div class="container my-5">
+<div class="container-xxl my-5" style="padding: 0 80px;">
   <div class="d-flex justify-content-center">
-    <h2>REMESSA <%= @batch.sender.institution %> - <%= @batch.id %>/<%= Date.today.year %></h2>
+    <h2>REMESSA <%= @batch.sender.institution %> (<%= @batch.id %>/<%= Date.today.year %>)</h2>
   </div>
   <div class="d-flex justify-content-end">
     <span class="btn btn-secondary" style="font-size: 20px; font-weight: bold;">
@@ -13,7 +13,7 @@
     <% if @batch.sent_at %> <%# if batch is sent render the sent date %>
       <p>Enviada em <%= date_mask(@batch.sent_at) %></p>
     <%# else, sender can submit the sent date %>
-    <% elsif sender?(current_user) || current_user.admin? %>
+    <% elsif sender?(current_user) %>
       <div class="d-flex align-items-end justify-content-between mt-3">
         <div>
           <%= simple_form_for(@batch) do |f| %>
@@ -32,7 +32,7 @@
     <% if @batch.received_at %> <%# if batch is received, render the date %>
       <p>Recebida em <%= date_mask(@batch.received_at) %></p>
     <%# else, if batch is sent receiver can edit received date %>
-    <% elsif @batch.sent_at && (receiver?(current_user) || current_user.admin?) %>
+    <% elsif @batch.sent_at && receiver?(current_user) %>
       <div class="d-flex align-items-end justify-content-start mt-3">
         <%= simple_form_for(@batch) do |f| %>
           <%= f.input :received_at, label: "Data do recebimento",
@@ -46,140 +46,169 @@
   </div>
   <%# END BATCH EDIT SECTION %>
   <hr>
-  <%# INI ACCEPTED SAMPLES TABLE %>
-  <div class="d-flex justify-content-between align-items-end">
-    <h4>Amostras</h4>
-    <% samples = @samples.where.not(status: "rejeitada").order(:id) %>
-    <i class="mb-2 mr-1">
-      <em>Total <%= pluralize(samples.count, 'amostra', plural: 'amostras') %></em>
-    </i>
-  </div>
-  <table>
-    <table class="table table-hover align-bottom">
-      <thead  style="background-color: gray; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Nome</th>
-          <th scope="col">Tipo de Paciente</th>
-          <th scope="col">Tipo de Amostra</th>
-          <th scope="col" style="text-align: center;">Coletada em</th>
-          <th scope="col" style="text-align: center;">Quantidade</th>
-          <th scope="col" style="text-align: center;">Ações</th>
-        </tr>
-      </thead>
-      <tbody style="background-color: white;">
-        <% samples.each do |sample| %>
-          <tr id="sample-<%= sample.id %>">
-            <th scope="row"><%= sample.id %></th>
-            <td><%= "#{sample.patient.first_name} #{sample.patient.last_name}" %></td>
 
-            <%# TIPO DE PACIENTE %>
-            <% if Family.where(receptor: sample.patient).count > 0 %>
-              <td>Receptor</td>
-            <% elsif Family.where(donor: sample.patient).count > 0 %>
-              <td>Doador</td>
-            <% else %>
-              <td>Não aparentado</td>
-            <% end %>
-
-            <td><%= "#{sample.category}" %></td>
-            <td style="text-align: center;"><%= date_mask(sample.collected_at) %></td>
-            <td style="text-align: center;"><%= "#{sample.quantity}" %></td>
-
-            <%# INI ACTION LINKS %>
-            <td style="text-align: center;">
-              <% if (sender?(current_user) || current_user.admin?) && @batch.sent_at.nil? && @batch.received_at.nil? %>
-                <%= link_to icon('fas','edit'), edit_sample_path(sample), :title => "editar amostra" %>
-                <%= link_to icon('fas','minus-circle'), batch_path(batch: { sample_id: sample.id }),
-                            method: :put, :title => "remover da remessa", remote: true %>
-              <% else %>
-                <%= link_to icon('far','eye'), edit_sample_path(sample), :title => "ver amostra" %>
-              <% end %>
-
-              <% if (receiver?(current_user) || current_user.admin?) && @batch.sent_at && @batch.received_at.nil? %>
-                  <%= link_to  icon('far','trash-alt'), batch_path(@batch, rejected: sample),
-                                method: :patch,
-                                data: { confirm: "Rejeitar amostra #{sample.id} ?" },
-                                :title => "rejeitar",
-                                style: "color: #b41728;"%>
-              </td>
-            <% end %>
-            <%# END ACTION LINKS %>
-
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </table>
-  <%# END ACCEPTED SAMPLES TABLE %>
-
-  <%# INI REJECTED SAMPLES TABLE %>
-  <% rejected_samples = @samples.where(status: 'rejeitada').order(:id) %>
-  <% if rejected_samples.count > 0 %>
-
-    <div class="d-flex justify-content-between align-items-end">
-      <h4>Amostras Rejeitadas</h4>
-      <i class="mb-2 mr-1">
-        <em>Total <%= pluralize(rejected_samples.count, 'amostra', plural: 'amostras') %></em>
-      </i>
-    </div>
-    <table>
-      <table class="table table-hover align-bottom">
-        <thead  style="background-color: gray; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Tipo de Paciente</th>
-            <th scope="col">Tipo de Amostra</th>
-            <th scope="col" style="text-align: center;">Coletada em</th>
-            <th scope="col" style="text-align: center;">Quantidade</th>
-            <th scope="col" style="text-align: center;">Ações</th>
-          </tr>
-        </thead>
-        <tbody style="background-color: white;">
-          <% rejected_samples.each do |sample| %>
-            <tr  id="sample-<%= sample.id %>">
-              <th scope="row"><%= sample.id %></th>
-              <td><%= "#{sample.patient.first_name} #{sample.patient.last_name}" %></td>
-
-              <%# TIPO DE PACIENTE %>
-              <% if Family.where(receptor: sample.patient).count > 0 %>
-                <td>Receptor</td>
-              <% elsif Family.where(donor: sample.patient).count > 0 %>
-                <td>Doador</td>
-              <% else %>
-                <td>Não aparentado</td>
-              <% end %>
-
-              <td><%= "#{sample.category}" %></td>
-              <td style="text-align: center;"><%= date_mask(sample.collected_at) %></td>
-              <td style="text-align: center;"><%= "#{sample.quantity}" %></td>
-
-              <%# INI ACTION LINKS %>
-              <td style="text-align: center;">
-                <% if sender?(current_user) && @batch.sent_at.nil? && @batch.received_at.nil? || current_user.admin? %>
-                  <%= link_to icon('fas','edit'), edit_sample_path(sample), :title => "editar amostra" %>
-                  <%= link_to icon('fas','minus-circle'), batch_path(batch: { sample_id: sample.id }),
-                              method: :put, :title => "remover da remessa", remote: true %>
-                <% else %>
-                  <%= link_to icon('far','eye'), edit_sample_path(sample), :title => "ver amostra" %>
-                <% end %>
-
-                <% if receiver?(current_user) && @batch.received_at.nil? || current_user.admin? %>
-                    <%= link_to  icon('fas','edit'), batch_path(@batch, accepted: sample),
-                                  method: :patch,
-                                  :title => "aceitar",
-                                style: "color: #61C9A8;"%>
-                </td>
-              <% end %>
-              <%# END ACTION LINKS %>
-
+  <div class="d-flex justify-content-around">
+    <%# INI ACCEPTED SAMPLES TABLE %>
+    <div>
+      <div class="d-flex justify-content-between align-items-end">
+        <h4>Amostras</h4>
+        <% samples = @samples.where.not(status: "rejeitada").order(:id) %>
+        <i class="mb-2 mr-1">
+          <em>Total <%= pluralize(samples.count, 'amostra', plural: 'amostras') %></em>
+        </i>
+      </div>
+      <table>
+        <table class="table table-hover align-bottom">
+          <thead  style="background-color: gray; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
+            <tr>
+              <th scope="col" style="text-align: center;">ID</th>
+              <th scope="col">Paciente</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Coleta</th>
+              <th scope="col" style="text-align: center;">Data da coleta</th>
+              <th scope="col" style="text-align: center;">Qtde</th>
+              <th scope="col" style="text-align: center;">Ações</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </table>
-  <% end %>
-  <%# END REJECTED SAMPLES TABLE %>
+          </thead>
+          <tbody style="background-color: white;">
+            <% samples.each do |sample| %>
+              <tr id="sample-<%= sample.id %>">
+                <th style="vertical-align: middle;" scope="row"><%= sample.id %></th>
+                <td style="vertical-align: middle;"><%= "#{sample.patient.first_name} #{sample.patient.last_name}" %></td>
+                <%# patient_type %>
+                <td style="vertical-align: middle;">
+                  <% if Family.where(receptor: sample.patient).count > 0 %>
+                    Receptor
+                  <% elsif Family.where(donor: sample.patient).count > 0 %>
+                    Doador
+                  <% else %>
+                    Não aparentado
+                  <% end %>
+                </td>
+                <td style="vertical-align: middle;"><%= "#{sample_category_mask(sample.category)}" %></td>
+                <td style="text-align: center; vertical-align: middle;"><%= date_mask(sample.collected_at) %></td>
+                <td style="text-align: center; vertical-align: middle;"><%= "#{sample.quantity}" %></td>
 
+                <%# INI ACTION LINKS %>
+                <td style="text-align: center; vertical-align: middle;">
+                  <% if sender?(current_user) && @batch.sent_at.nil? && @batch.received_at.nil? %>
+                    <%= link_to icon('fas','edit'), edit_sample_path(sample), :title => "editar amostra" %>
+                    <%= link_to icon('fas','minus-circle'), batch_path(batch: { sample_id: sample.id }),
+                                method: :put, :title => "remover da remessa", remote: true %>
+                  <% else %>
+                    <%= link_to icon('far','eye'), edit_sample_path(sample), :title => "ver amostra" %>
+                  <% end %>
+
+                  <% if receiver?(current_user) && @batch.sent_at && @batch.received_at.nil? %>
+                      <%= link_to  icon('far','trash-alt'), batch_path(@batch, rejected: sample),
+                                    method: :patch,
+                                    data: { confirm: "Rejeitar amostra #{sample.id} ?" },
+                                    :title => "rejeitar",
+                                    style: "color: #b41728;"%>
+                  </td>
+                <% end %>
+                <%# END ACTION LINKS %>
+
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </table>
+    </div>
+    <%# END ACCEPTED SAMPLES TABLE %>
+
+    <%# INI REJECTED SAMPLES SECTION %>
+    <div class="ml-3">
+      <% rejected_samples = @samples.where(status: 'rejeitada').order(:id) %>
+      <% if rejected_samples.count > 0 %>
+        <%# INI SECTION HEADER %>
+        <div class="d-flex justify-content-between align-items-end">
+          <h4>Rejeitadas</h4>
+          <i class="mb-2 mr-1">
+            <em>Total <%= pluralize(rejected_samples.count, 'amostra', plural: 'amostras') %></em>
+          </i>
+        </div>
+        <%# END SECTION HEADER %>
+
+        <%# INI CARDS SECTION %>
+        <div class = "card-container">
+          <% rejected_samples.each do |sample| %>
+          <div class="card" style="border-radius: 8px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" id="sample-<%= sample.id %>">
+            <h2 class="card-header">Cód. <%= sample.id %></h2>
+            <%# INI SAMPLE INFOS %>
+            <div class="card-body">
+              <h3 class="card-title"">
+                <%="#{sample.patient.first_name} #{sample.patient.last_name}" %>
+              </h3>
+              <%# TIPO DE PACIENTE %>
+              <h4 class="card-subtitle">
+                <% if Family.where(receptor: sample.patient).count > 0 %>
+                  Receptor
+                <% elsif Family.where(donor: sample.patient).count > 0 %>
+                  Doador
+                <% else %>
+                  Não aparentado
+                <% end %>
+              </h4>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <span class="card-text">Tipo: 
+                    <%= "#{sample_category_mask(sample.category)}" %>
+                  </span><br>
+                  <span class="card-text">
+                    Coleta: <%= date_mask(sample.collected_at) %>
+                  </span><br>
+                  <span class="card-text">
+                    Quantidade: <%= "#{sample.quantity}" %>
+                  </span>
+                </li>
+              </ul>
+              <%# INI COMMENT %>
+              <div>
+              <% if receiver?(current_user) %>
+                <%= simple_form_for sample, options = { method: :patch, class: "card-text" } do |f| %>
+                  <%= f.input :rejection_comment,
+                              as: :text,
+                              label: "Motivo da rejeição:",
+                              label_html: { style: 'font-size: 14px' } %>
+                  <%= f.submit "gravar", class: "btn btn-primary" %>
+                <% end %>
+              <% elsif sender?(current_user) %>
+                <span class="card-text">Motivo da rejeição:</span>
+                <textarea 
+                  class="form-control" 
+                  style="background-color: #e9ecef; opacity: 1;"><%= sample.rejection_comment %></textarea>
+              <% end %>
+              </div>
+              <%# END COMMENT %>
+            </div>
+            <%# END SAMPLE INFOS %>
+            <%# INI ACTION LINKS %>
+            <div class="card-footer d-flex justify-content-center">
+              <% if sender?(current_user) && @batch.sent_at.nil? && @batch.received_at.nil? %>
+                <%= link_to icon('fas','edit'), edit_sample_path(sample), 
+                            :title => "editar amostra" %>
+                <%= link_to icon('fas','minus-circle'), batch_path(batch: { sample_id: sample.id }),
+                            method: :put, 
+                            :title => "remover da remessa", 
+                            remote: true %>
+              <% else %>
+                <%= link_to icon('far','eye'), edit_sample_path(sample), 
+                            :title => "ver amostra" %>
+              <% end %>
+              <% if receiver?(current_user) && @batch.received_at.nil? %>
+                <%= link_to icon('fas','edit'), batch_path(@batch, accepted: sample),
+                            method: :patch,
+                            :title => "aceitar",
+                            style: "color: #61C9A8;"%>
+              <% end %>
+            </div>
+            <%# END ACTION LINKS %>
+          </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <%# END REJECTED SAMPLES TABLE %>
+  </div>
 </div>

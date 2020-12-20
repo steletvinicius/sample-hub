@@ -116,7 +116,7 @@
             </div>
 
             <%# INI CARDS CONTAINER %>
-            <div class="d-flex flex-start flex-wrap align-items-start" 
+            <div class="d-flex flex-wrap align-items-start" 
                   style="background-color: rgba(53, 53, 53, 0.1); min-width: 464px; border-radius: 8px; max-width: 690px;">
 
               <% collected_samples = @samples.where("collected_at IS NOT ? AND quantity IS NOT ?", nil, nil) %>
@@ -127,7 +127,7 @@
                     <h2>Cód. <%= sample.id%></h2>
                     <h3><%= sample.patient.first_name%> <%= sample.patient.last_name%></h3>
                     <p>Sexo <%= sample.patient.gender == "F" ? "feminino" : "masculino" %></p>
-                    <p>Idade: <%= ((Time.zone.now - sample.patient.born_at.to_time) / 1.year.seconds).floor %></p>
+                    <p>Idade: <%= calc_age(sample.patient.born_at) %></p>
                     <p style="font-weight: bold;">
                       <% if sample.patient.patient_type == "donor" %>
                       <%= "DOADOR" %>
