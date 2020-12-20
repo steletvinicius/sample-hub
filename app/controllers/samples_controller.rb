@@ -61,6 +61,7 @@ class SamplesController < ApplicationController
     # updates REJECTION_COMMENT from BATCH EDIT VIEW
     unless @sample.batch_id.nil?
       @batch = Batch.find(@sample.batch_id)
+      
 
       if @sample.update(sample_params)
         redirect_to edit_batch_path(@batch)

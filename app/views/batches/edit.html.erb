@@ -175,9 +175,9 @@
                 <% end %>
               <% elsif sender?(current_user) %>
                 <span class="card-text">Motivo da rejeição:</span>
-                <textarea class="form-control" style="background-color: #e9ecef; opacity: 1;">
-                  <%= sample.rejection_comment %>
-                </textarea>
+                <textarea 
+                  class="form-control" 
+                  style="background-color: #e9ecef; opacity: 1;"><%= sample.rejection_comment %></textarea>
               <% end %>
               </div>
               <%# END COMMENT %>
