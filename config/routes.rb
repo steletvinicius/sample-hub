@@ -19,4 +19,9 @@ Rails.application.routes.draw do
   resources :procedures, only: %i[index create new edit delete]
 
   resources :families, only: %i[new create]
+
+  resources :chatrooms, only: :show do
+    resources :messages, only: :create
+  end
+
 end

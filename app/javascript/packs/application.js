@@ -28,14 +28,15 @@ import "bootstrap";
 import { initFlatpickr } from "../plugins/flatpickr";
 import { initCheckBox } from "../plugins/init_checkbox";
 import { initSelect2 } from "../plugins/init_select2";
-import { 
-  initFilterTblBatches, 
-  filterTblBatchesReceived, 
-  filterTblBatchesUnsent, 
-  filterTblBatchesSent 
+import {
+  initFilterTblBatches,
+  filterTblBatchesReceived,
+  filterTblBatchesUnsent,
+  filterTblBatchesSent
 } from "../components/table_batches"
 import { selectAll } from "../components/select_all"
 import { initAutocomplete } from "../plugins/init_autocomplete"
+import { initChatroomCable } from "../channels/chatroom_channel"
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here:
@@ -47,8 +48,8 @@ document.addEventListener('turbolinks:load', () => {
   filterTblBatchesReceived();
   filterTblBatchesUnsent();
   filterTblBatchesSent();
-
   selectAll();
+  initChatroomCable();
 });
 
 // require('select2_simple_form');
