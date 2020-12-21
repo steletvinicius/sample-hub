@@ -24,9 +24,9 @@
             <tr style="background-color: #999999; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); color: white;">
               <th style="text-align: center;">ID</th>
               <th style="width: 400px;">Paciente</th>
-              <th style="width: 180px;">Tipo</th>
-              <th style="text-align: center; width: 200px;">Data da coleta</th>
-              <th style="text-align: center; width: 100px;">Quantidade</th>
+              <th>Coleta</th>
+              <th style="text-align: center; width: 220px;">Coletado em</th>
+              <th style="text-align: center; width: 100px;">Qtde</th>
               <th style="text-align: center;"></th>
             </tr>
             <%# END HEADER %>
@@ -97,7 +97,7 @@
       <% if n_samples.zero? %>
         <p>Nenhuma amostra aguardando remessa</p>
         <div style="width: 50px; height: 50px;"></div>
-        <div style="background-color: rgba(53, 53, 53, 0.1); min-width: 464px; border-radius: 8px; max-width: 690px; min-height: 291px;"></div>
+        <div class="card-container"></div>
       <% else %>
         <p><%= pluralize(n_samples, "amostra", "amostras") %></p>
 
@@ -116,42 +116,46 @@
             </div>
 
             <%# INI CARDS CONTAINER %>
-            <div class="d-flex flex-wrap align-items-start" 
-                  style="background-color: rgba(53, 53, 53, 0.1); min-width: 464px; border-radius: 8px; max-width: 690px;">
+            <div class="card-container">
 
               <% collected_samples = @samples.where("collected_at IS NOT ? AND quantity IS NOT ?", nil, nil) %>
               <% collected_samples.each do |sample| %>
 
-                <div class="card-sample">
-                  <div class="card-sample-infos">
-                    <h2>Cód. <%= sample.id%></h2>
-                    <h3><%= sample.patient.first_name%> <%= sample.patient.last_name%></h3>
-                    <p>Sexo <%= sample.patient.gender == "F" ? "feminino" : "masculino" %></p>
-                    <p>Idade: <%= calc_age(sample.patient.born_at) %></p>
-                    <p style="font-weight: bold;">
-                      <% if sample.patient.patient_type == "donor" %>
-                      <%= "DOADOR" %>
-                      <% elsif sample.patient.patient_type == "receptor" %>
-                      <%= "RECEPTOR" %>
+                <div class="card">
+                  <h2 class="card-header">Cód. <%= sample.id%></h2>
+                  <div class="card-body">
+                    <h3 class="card-title"><%= sample.patient.first_name%> <%= sample.patient.last_name%></h3>
+                    <h4 class="card-subtitle">
+                      <% if Family.where(receptor: sample.patient).count > 0 %>
+                        RECEPTOR
+                      <% elsif Family.where(donor: sample.patient).count > 0 %>
+                        DOADOR
                       <% else %>
-                      <%= "NÃO APARENTADO" %>
+                        NÃO APARENTADO
                       <% end %>
-                    </p>
+                    </h4>
+                    <span class="card-text">Sexo: <%= sample.patient.gender == "F" ? "feminino" : "masculino" %></span><br>
+                    <span class="card-text">Idade: <%= calc_age(sample.patient.born_at) %></span><br>
                     <br>
-                    <p>Tipo: <%= sample.category %></p>
-                    <p>Coleta: <%= date_mask(sample.collected_at) %></p>
-                    <p>Atualizado em <%= datetime_mask(sample.updated_at) %></p>
-                    <p>Quantidade: <strong><%= sample.quantity %></strong></p>
+                    <span class="card-text">Coleta: <%= "#{sample_category_mask(sample.category)}" %></span><br>
+                    <span class="card-text">Data: <%= date_mask(sample.collected_at) %></span><br>
+                    <span class="card-text">Quantidade: <strong><%= sample.quantity %></strong></span>
                   </div>
-
-                  <div class="form-check d-flex align-items-center">
-                    <input type="checkbox" class="form-check-input" 
-                          id="checkbox_remessa_<%= sample.id %>"
-                          name="sample_ids[]"
-                          value="<%= sample.id %>"/> 
-                    <span style="opacity: .8; font-weight: bold;">Selecionar</span>
+                  <div class="card-footer d-flex justify-content-center">
+                    <div class="form-check">
+                      <input type="checkbox"
+                            class="form-check-input"
+                            id="checkbox_remessa_<%= sample.id %>"
+                            name="sample_ids[]"
+                            value="<%= sample.id %>"/>
+                      <label for="checkbox_remessa_<%= sample.id %>" 
+                            style="opacity: .8; margin-bottom: 0; margin-left: 0.25rem;">
+                            Selecionar
+                      </label>
+                    </div>
                   </div>
                 </div>
+
               <% end %>
 
             </div>
