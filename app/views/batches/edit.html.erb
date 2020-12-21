@@ -133,7 +133,7 @@
         <%# INI CARDS SECTION %>
         <div class = "card-container">
           <% rejected_samples.each do |sample| %>
-          <div class="card" style="border-radius: 8px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" id="sample-<%= sample.id %>">
+          <div class="card" id="sample-<%= sample.id %>">
             <h2 class="card-header">Cód. <%= sample.id %></h2>
             <%# INI SAMPLE INFOS %>
             <div class="card-body">

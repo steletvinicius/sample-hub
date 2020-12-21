@@ -7,8 +7,13 @@
   justify-items: stretch;
   grid-gap: 20px 10px;
   padding: 10px;
+  min-width: 464px; 
+  min-height: 291px;
 }
 .card {
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  min-width: 12rem;
   h2 {
     font-size: 16px;
     font-weight: bold;
