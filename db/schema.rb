@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 2020_12_21_192416) do
   end
 
   create_table "procedures", force: :cascade do |t|
-    t.string "cd_exame"
-    t.string "cd_sus"
+    t.string "cd_sus_procedure"
+    t.string "procedure_title"
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
