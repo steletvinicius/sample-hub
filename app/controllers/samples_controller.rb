@@ -23,6 +23,7 @@ class SamplesController < ApplicationController
   def create
     @sample = Sample.new
     @sample.patient = Patient.find(params[:patient_id].to_i) if params[:patient_id]
+    set_exam
     authorize @sample
     if @sample.save
       redirect_to edit_sample_path(@sample)
@@ -61,7 +62,7 @@ class SamplesController < ApplicationController
     # updates REJECTION_COMMENT from BATCH EDIT VIEW
     unless @sample.batch_id.nil?
       @batch = Batch.find(@sample.batch_id)
-      
+
 
       if @sample.update(sample_params)
         redirect_to edit_batch_path(@batch)
@@ -84,6 +85,45 @@ class SamplesController < ApplicationController
     authorize @sample
   end
 
+  # Lógica de registro na tabela exams
   def set_exam
+    if @sample.patient.patient_type == 'donor'
+      set_exam_donor
+    else
+      set_exam_receptor
+    end
   end
+
+  def set_exam_receptor
+    # Criar 2 registros de exames na tabela exams
+    Procedure.where(cd_sus_procedure:"05.01.02.001-2").or(
+      Procedure.where(cd_sus_procedure:"05.01.02.002-0")).find_each do |procedure|
+      @exam = Exam.new
+      @exam.sample = @sample
+      @exam.procedure = procedure
+      @exam.save
+    end
+  end
+
+  def set_exam_donor
+    # Criar 2 registros de exames na tabela exams
+    Procedure.where(cd_sus_procedure:"05.01.01.002-5").or(
+      Procedure.where(cd_sus_procedure:"05.01.01.003-3")).find_each do |procedure|
+      @exam = Exam.new
+      @exam.sample = @sample
+      @exam.procedure = procedure
+      @exam.save
+    end
+  end
+
+  def set_exam_not_relative
+    # Criar 3 registros de exames na tabela exams com os procedures 6 - 7
+    (6..7).each do |x|
+      @exam = Exam.new
+      @exam.sample = @sample
+      @exam.procedure = Procedure.find(x)
+      @exam.save
+    end
+  end
+
 end

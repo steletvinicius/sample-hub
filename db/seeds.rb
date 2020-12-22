@@ -22,44 +22,67 @@ puts "SEEDING STARTED!"
 puts " "
 puts "Populating procedures table with standard sus procedures..."
 
-cd_exames = [
-  "03_DMCF1",
-  "04_DMCF2",
-  "05_DMCF3",
-  "01_RMCF1",
-  "02_RMCF2",
-  "06_RMRF1",
-  "07_RMRF2"
+cd_sus_procedures = [
+  "05.01.02.001-2",
+  "05.01.02.002-0",
+  "05.01.01.002-5",
+  "05.01.01.003-3",
+  "05.01.01.004-1"
 ]
-cd_sus = [
-  "0501010025",
-  "0501010033",
-  "0501010041",
-  "0501020012",
-  "0501020020",
-  "0501020012",
-  "0501020020"
+
+procedure_titles = [
+  "IDENTIFICACAO DE RECEPTOR DE CELULAS-TRONCO HEMATOPOETICAS 1A FASE",
+  "IDENTIFICACAO DE RECEPTOR DE CELULAS-TRONCO HEMATOPOETICAS 2A FASE",
+  "IDENTIFICACAO DE DOADOR APARENTADO DE CELULAS-TRONCO HEMATOPOETICAS 1A FASE (POR DOADOR TIPADO)",
+  "IDENTIFICACAO DE DOADOR APARENTADO DE CELULAS-TRONCO HEMATOPOETICAS 2A FASE (POR DOADOR TIPADO)",
+  "IDENTIFICACAO DE DOADOR APARENTADO DE CELULAS-TRONCO HEMATOPOETICAS 3A FASE (POR DOADOR TIPADO)"
 ]
 
 descriptions = [
-  "DOA APARENT MO CEMO FASE 1. HLA A, B (SOROL OU BIOMOL BAIXA RESOL)",
-  "DOA APARENT MO CEMO FASE 2. HLA DRB1, DQB1 (BIOMOL BAIXA RESOL)",
-  "DOA APARENT MO CEMO FASE 3. HLA DRB1, DQB1 (BIOMOL ALTA RESOL)",
-  "REC APARENT MO CEMO FASE 1. HLA A, B(SOROL OU BIOMOL BAIXA RESOL) HLA DRB1, DQB1(BIOMOL BAIXA RESOL)",
-  "REC APARENT MO CEMO FASE 2. HLA DRB1, DQB1 (BIOMOL ALTA RESOL)",
-  "REC NAO APARENT MO REREME FASE 1. HLA A, B (SOROL OU BIOMOL BAIXA RESOL) HLA DRB1, DQB1 (BIOMOL BAIXA RESOL)",
-  "REC NAO APARENT MO REREME FASE 2. HLA DRB1, DQB1 (BIOMOL ALTA RESOL)"
+  "CONSISTE NA TIPIFICACAO DE HLA-A, B - CLASSE I, POR SOROLOGIA OU POR TESTE MOLECULAR COM TECNICAS DE BAIXA RESOLUCAO
+  POR DNA E DA TIPIFICACAO DE HLA -DR, DQ - CLASSE II POR TESTE MOLECULAR COM TECNICAS DE BAIXA RESOLUCAO POR DNA. NA
+  PRIMEIRA FASE DA IDENTIFICACAO DO RECEPTOR DEVEM SER REALIZADOS ESSES DOIS EXAMES PREVISTOS",
+  "CONSISTE NA TIPIFICACAO DE HLA-DR, DQ - CLASSE II POR TESTE MOLECULAR COM TECNICAS DE ALTA RESOLUCAO POR DNA. O
+  EXAME PREVISTO NA SEGUNDA FASE DEVERA SER REALIZADO SOMENTE NAQUELES RECEPTORES QUE JA TENHAM TIDO DOADOR INICIALMENTE
+  COMPATIVEL, IDENTIFICADO POR TESTES DE CLASSE I E CLASSE II DE BAIXA RESOLUCAO",
+  "CONSISTE NA TIPIFICACAO DE HLA-A, B - CLASSE I, POR SOROLOGIA OU POR TESTE MOLECULAR COM TECNICAS DE BAIXA RESOLUCAO
+  POR DNA. ESSE EXAME DEVERA SER FEITO APENAS EM APARENTADOS DE PRIMEIRO GRAU, AUTORIZADOS EM GRUPO DE ATE 05 PESSOAS,
+  REPETIDOS ATE A IDENTIFICACAO DO DOADOR NESTA FASE",
+  "CONSISTE NA TIPIFICACAO HLA-DR, DQ - CLASSE II POR TESTE MOLECULAR COM TECNICAS DE BAIXA RESOLUCAO POR DNA. O
+  EXAME PREVISTO NA SEGUNDA FASE DEVERA SER REALIZADO NAQUELES DOADORES QUE JA TENHAM SIDO CONSIDERADOS COMPATIVEIS
+  NA PRIMEIRA FASE",
+  "CONSISTE NA TIPIFICACAO HLA-DR, DQ - CLASSE II POR TESTE MOLECULAR COM TESTE DE ALTA RESOLUCAO POR DNA. O EXAME
+  PREVISTO NA TERCEIRA FASE DEVERA SER REALIZADO QUANDO NECESSARIO EM APENAS UM UNICO DOADOR IDENTIFICADO QUE
+  TENHA SIDO CONSIDERADO O MAIS COMPATIVEL NA SEGUNDA FASE"
 ]
+
+resolutions = ["baixa", "media", "alta"]
+
+hla_loci = [
+  "HLA-A",
+  "HLA-B",
+  "HLA-C",
+  "HLA-DRB1",
+  "HLA-DQB1",
+  "HLA-DPB1",
+  "HLA-DRB3",
+  "HLA-DRB4",
+  "HLA-DRB5",
+  "HLA-DQA1",
+  "HLA-DPA1"
+]
+
+
 x = 0
 loop do
-  Procedure.create!(
-    cd_exame: cd_exames[x],
-    cd_sus: cd_sus[x],
+  procedure = Procedure.create!(
+    cd_sus_procedure: cd_sus_procedures[x],
+    procedure_title: procedure_titles[x],
     description: descriptions[x]
   )
-  # puts "Procedure #{cd_exames[x]} created."
+  puts "Procedure #{procedure.procedure_title} created."
   x += 1
-  break unless x < cd_exames.length
+  break unless x < cd_sus_procedures.length
 end
 
 puts "Created #{Procedure.count} SUS procedures. PROCEDURES DONE!"
@@ -611,6 +634,70 @@ samples_batch_naoenviado_INCA_2.each do |sample|
 end
 
 
+######### Registro na tabela exams ##########
+
+procedures_receptor = Procedure.where(cd_sus_procedure:"05.01.02.001-2").or(Procedure.where(cd_sus_procedure:"05.01.02.002-0"))
+
+p procedures_receptor
+
+procedures_donor = Procedure.where(cd_sus_procedure:"05.01.01.002-5").or(Procedure.where(cd_sus_procedure:"05.01.01.003-3"))
+
+p procedures_donor
+
+cd_sus_procedures = [
+  "05.01.02.001-2",
+  "05.01.02.002-0",
+  "05.01.01.002-5",
+  "05.01.01.003-3",
+  "05.01.01.004-1"
+]
+
+
+def set_exam
+  Sample.all.each do |sample|
+    if sample.patient.patient_type == 'donor'
+        set_exam_donor(sample)
+    else
+      set_exam_receptor(sample)
+    end
+  end
+end
+
+def set_exam_receptor(sample)
+  # Criar 2 registros de exames na tabela
+  Procedure.where(cd_sus_procedure:"05.01.02.001-2").or(Procedure.where(cd_sus_procedure:"05.01.02.002-0")).find_each do |procedure|
+  # procedures_receptor.each do |procedure|
+    exam = Exam.new
+    exam.sample = sample
+    exam.procedure = procedure
+    exam.save!
+    puts "Exam #{exam.id} - #{exam.procedure.cd_sus_procedure} for #{sample.patient.patient_type} sample #{sample.id} CREATED"
+  end
+end
+
+def set_exam_donor(sample)
+# Criar 3 registros de exames na tabela exams
+Procedure.where(cd_sus_procedure:"05.01.01.002-5").or(Procedure.where(cd_sus_procedure:"05.01.01.003-3")).find_each do |procedure|
+  # procedures_donor.each do |procedure|
+    exam = Exam.new
+    exam.sample = sample
+    exam.procedure = procedure
+    exam.save!
+    puts "Exam #{exam.id} - #{exam.procedure.cd_sus_procedure} for #{sample.patient.patient_type} sample #{sample.id} CREATED"
+  end
+end
+
+puts "Atribuindo exames às amostras criadas"
+
+set_exam
+
+puts "Created #{Exam.count} exams"
+
+
+## Creating Chatroom ################
+chatroom = Chatroom.create!(name: "work")
+
+puts "Created chatroom #{chatroom.name}."
 
 puts "Que exagero!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 
