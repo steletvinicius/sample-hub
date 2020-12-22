@@ -664,7 +664,7 @@ def set_exam
 end
 
 def set_exam_receptor(sample)
-  # Criar 2 registros de exames na tabela exams com os procedures 1 - 2
+  # Criar 2 registros de exames na tabela
   Procedure.where(cd_sus_procedure:"05.01.02.001-2").or(Procedure.where(cd_sus_procedure:"05.01.02.002-0")).find_each do |procedure|
   # procedures_receptor.each do |procedure|
     exam = Exam.new
@@ -676,7 +676,7 @@ def set_exam_receptor(sample)
 end
 
 def set_exam_donor(sample)
-# Criar 3 registros de exames na tabela exams com os procedures 3 - 4
+# Criar 3 registros de exames na tabela exams
 Procedure.where(cd_sus_procedure:"05.01.01.002-5").or(Procedure.where(cd_sus_procedure:"05.01.01.003-3")).find_each do |procedure|
   # procedures_donor.each do |procedure|
     exam = Exam.new

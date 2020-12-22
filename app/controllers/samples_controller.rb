@@ -87,32 +87,31 @@ class SamplesController < ApplicationController
 
   # Lógica de registro na tabela exams
   def set_exam
-    case @sample.patient.patient_type
-    when 'receptor'
-      set_exam_receptor
-    when 'donor'
+    if @sample.patient.patient_type == 'donor'
       set_exam_donor
-    when 'not_relative'
-      set_exam_not_relative
+    else
+      set_exam_receptor
     end
   end
 
   def set_exam_receptor
-    # Criar 2 registros de exames na tabela exams com os procedures 1 - 2
-    (1..2).each do |x|
+    # Criar 2 registros de exames na tabela exams
+    Procedure.where(cd_sus_procedure:"05.01.02.001-2").or(
+      Procedure.where(cd_sus_procedure:"05.01.02.002-0")).find_each do |procedure|
       @exam = Exam.new
       @exam.sample = @sample
-      @exam.procedure = Procedure.find(x)
+      @exam.procedure = procedure
       @exam.save
     end
   end
 
   def set_exam_donor
-    # Criar 3 registros de exames na tabela exams com os procedures 3 - 4
-    (3..4).each do |x|
+    # Criar 2 registros de exames na tabela exams
+    Procedure.where(cd_sus_procedure:"05.01.01.002-5").or(
+      Procedure.where(cd_sus_procedure:"05.01.01.003-3")).find_each do |procedure|
       @exam = Exam.new
       @exam.sample = @sample
-      @exam.procedure = Procedure.find(x)
+      @exam.procedure = procedure
       @exam.save
     end
   end
